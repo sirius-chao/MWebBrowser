@@ -1,5 +1,7 @@
 ﻿using CefSharp.Wpf;
 using System.Windows.Controls;
+using Cys_Controls.Code;
+using MWebBrowser.UserControls;
 
 namespace MWebBrowser
 {
@@ -12,6 +14,7 @@ namespace MWebBrowser
         public MWebBrowserUc()
         {
             InitializeComponent();
+            InitCommand();
             CefWebBrowser = new ChromiumWebBrowser();
             //CefWebBrowser.IsBrowserInitializedChanged += MWebBrowser_IsBrowserInitializedChanged;
         }
@@ -19,8 +22,22 @@ namespace MWebBrowser
         public void Load(string url)
         {
             //CefWebBrowser.Load(url);
+
+           
         }
 
+        private void InitCommand()
+        {
+            TabParent.TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
+        }
+
+        private void TabItemAdd(object obj)
+        {
+            TabItem item = new TabItem {Header = "新标签页", Content = new WebItemUc()};
+            TabParent.Items.Add(item);
+            TabParent.SelectedItem = item;
+            TabParent.SetHeaderPanelWidth();
+        }
 
         //private void MWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         //{

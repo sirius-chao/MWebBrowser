@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButton.NavigationBase">
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="40"/>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButton.NavigationCollection" BasedOn="{StaticResource ToggleButton.NavigationBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="5">
+                        <Grid>
+                            <Image x:Name="PART_Image" Source="{DynamicResource DrawingImage.Collection}" Width="20" Height="20"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsMouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
+                        </Trigger>
+                        <!--<Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PART_Image" Property="Source" Value="{DynamicResource DrawingImage.FillCollection}"  />
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

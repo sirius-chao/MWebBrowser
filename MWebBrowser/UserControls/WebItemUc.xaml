@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="MWebBrowser.UserControls.WebItemUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:web="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+             xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button Style="{DynamicResource Button.NavigationBack}"/>
+                    <Button Style="{DynamicResource Button.NavigationForward}"/>
+                    <Button Style="{DynamicResource Button.NavigationRefresh}"/>
+                </StackPanel>
+                <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址"/>
+                <Grid Grid.Column="2" MinWidth="150">
+                    
+                </Grid>
+            </Grid>
+            <web:ChromiumWebBrowser Grid.Row="1" Name="CefWebBrowser"  />
+        </Grid>
+    </Grid>
+</UserControl>

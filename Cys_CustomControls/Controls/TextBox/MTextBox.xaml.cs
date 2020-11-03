@@ -68,15 +68,15 @@ namespace Cys_CustomControls.Controls
         #endregion == Watermark 水印==
 
         #region == Icon 图标==
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(BitmapImage), typeof(MTextBox),
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource), typeof(MTextBox),
             new PropertyMetadata(null));
 
         /// <summary>
         /// Icon 图标
         /// </summary>
-        public BitmapImage Icon
+        public ImageSource Icon
         {
-            get => (BitmapImage)GetValue(IconProperty);
+            get => (ImageSource)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
         #endregion == Icon 图标==
@@ -121,9 +121,9 @@ namespace Cys_CustomControls.Controls
         /// </summary>
         private void InitResourceData()
         {
-            this.SetResourceReference(ForegroundProperty, "ColorBrush.FontDefaultColor");
-            this.SetResourceReference(BorderBrushProperty, $"ColorBrush.{StyleType}BorderBrushColor");
-            this.SetResourceReference(FocusedBrushProperty, $"ColorBrush.{StyleType}BackgroundOverColor");
+            //this.SetResourceReference(ForegroundProperty, "ColorBrush.FontDefaultColor");
+            //this.SetResourceReference(BorderBrushProperty, $"ColorBrush.{StyleType}BorderBrushColor");
+            //this.SetResourceReference(FocusedBrushProperty, $"ColorBrush.{StyleType}BackgroundOverColor");
         }
     }
 }

@@ -91,7 +91,6 @@ namespace Cys_CustomControls.Controls
             base.OnApplyTemplate();
             InitCommand();
             InitControl();
-            TabItemAdd(1);
         }
         private void InitControl()
         {
@@ -105,7 +104,7 @@ namespace Cys_CustomControls.Controls
             SetHeaderPanelWidth();
         }
 
-        private void SetHeaderPanelWidth()
+        public void SetHeaderPanelWidth()
         {
             if (this.ActualWidth <= 200) return;
             double totalWidth = this.Items.Count * TabItemMaxWidth;
@@ -114,7 +113,6 @@ namespace Cys_CustomControls.Controls
         }
         private void InitCommand()
         {
-            TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
             TabItemRemoveCommand = new BaseCommand<object>(TabItemRemove);
         }
 
@@ -126,11 +124,6 @@ namespace Cys_CustomControls.Controls
             }
             SetHeaderPanelWidth();
         }
-        private void TabItemAdd(object obj)
-        {
-            TabItem item = new TabItem {Header = "新标签页"};
-            this.Items.Add(item);
-            SetHeaderPanelWidth();
-        }
+       
     }
 }

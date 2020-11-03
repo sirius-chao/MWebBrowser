@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="Images\Carousel\1.png" />
+    <None Remove="Images\Carousel\2.png" />
+    <None Remove="Images\Carousel\3.png" />
+    <None Remove="Images\Carousel\4.png" />
+    <None Remove="Images\Cart.png" />
+    <None Remove="Images\Flight.png" />
+    <None Remove="Images\HandInHand.png" />
+    <None Remove="Images\hotel.png" />
+    <None Remove="Images\HotelV2.png" />
+    <None Remove="Images\Main\Bottom\windows.png" />
+    <None Remove="Images\Main\Bottom\windows_over.png" />
+    <None Remove="Images\Main\Win10.png" />
+    <None Remove="Images\Meals.png" />
+    <None Remove="Images\News.png" />
+    <None Remove="Images\Pagoda.png" />
+    <None Remove="Images\Pictures.png" />
+    <None Remove="Images\PicturesV1.png" />
+    <None Remove="Images\PicturesV2.png" />
+    <None Remove="Images\PicturesV3.png" />
+    <None Remove="Images\PicturesV4.png" />
+    <None Remove="Images\PicturesV5.png" />
+    <None Remove="Images\PicturesV6.png" />
+    <None Remove="Images\PicturesV7.png" />
+    <None Remove="Images\PicturesV8.png" />
+    <None Remove="Images\PicturesV9.png" />
+    <None Remove="Images\ShoppingCart.png" />
+    <None Remove="Images\Ticket.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\iconfont.ttf" />
+    <Resource Include="Images\Carousel\1.png" />
+    <Resource Include="Images\Carousel\2.png" />
+    <Resource Include="Images\Carousel\3.png" />
+    <Resource Include="Images\Carousel\4.png" />
+    <Resource Include="Images\Main\Bottom\windows.png" />
+    <Resource Include="Images\Main\Bottom\windows_over.png" />
+    <Resource Include="Images\Main\Win10.png" />
+    <Resource Include="Images\Meals.png" />
+    <Resource Include="Images\ShoppingCart.png" />
+    <Resource Include="Images\Flight.png" />
+    <Resource Include="Images\Cart.png" />
+    <Resource Include="Images\Pagoda.png" />
+    <Resource Include="Images\Hotel.png" />
+    <Resource Include="Images\HotelV2.png" />
+    <Resource Include="Images\Ticket.png" />
+    <Resource Include="Images\HandInHand.png" />
+    <Resource Include="Images\Pictures.png" />
+    <Resource Include="Images\News.png" />
+    <Resource Include="Images\PicturesV1.png" />
+    <Resource Include="Images\PicturesV2.png" />
+    <Resource Include="Images\PicturesV3.png" />
+    <Resource Include="Images\PicturesV4.png" />
+    <Resource Include="Images\PicturesV5.png" />
+    <Resource Include="Images\PicturesV6.png" />
+    <Resource Include="Images\PicturesV7.png" />
+    <Resource Include="Images\PicturesV8.png" />
+    <Resource Include="Images\PicturesV9.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Brushes\SecondBrushes\ColorBrushes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Brushes\SecondBrushes\ImageBrushes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ListViewStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\SecondStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

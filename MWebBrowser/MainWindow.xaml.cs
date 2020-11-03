@@ -16,7 +16,7 @@ namespace MWebBrowser
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             string url = "http://www.baidu.com";
-            MWebBrowser.Load(url);                
+            //MWebBrowser.Load(url);                
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    <BitmapImage x:Key="BitmapImage.Meals" UriSource="pack://application:,,,/Cys_Resource;component/Images/Meals.png" />
+    <BitmapImage x:Key="BitmapImage.ShoppingCart" UriSource="pack://application:,,,/Cys_Resource;component/Images/ShoppingCart.png" />
+    <BitmapImage x:Key="BitmapImage.Flight" UriSource="pack://application:,,,/Cys_Resource;component/Images/Flight.png" />
+    <BitmapImage x:Key="BitmapImage.Cart" UriSource="pack://application:,,,/Cys_Resource;component/Images/Cart.png" />
+    <BitmapImage x:Key="BitmapImage.Pagoda" UriSource="pack://application:,,,/Cys_Resource;component/Images/Pagoda.png" />
+    <BitmapImage x:Key="BitmapImage.Hotel" UriSource="pack://application:,,,/Cys_Resource;component/Images/Hotel.png" />
+    <BitmapImage x:Key="BitmapImage.HotelV2" UriSource="pack://application:,,,/Cys_Resource;component/Images/HotelV2.png" />
+    <BitmapImage x:Key="BitmapImage.Ticket" UriSource="pack://application:,,,/Cys_Resource;component/Images/Ticket.png" />
+    <BitmapImage x:Key="BitmapImage.HandInHand" UriSource="pack://application:,,,/Cys_Resource;component/Images/HandInHand.png" />
+    <BitmapImage x:Key="BitmapImage.Pictures" UriSource="pack://application:,,,/Cys_Resource;component/Images/Pictures.png" />
+    <BitmapImage x:Key="BitmapImage.News" UriSource="pack://application:,,,/Cys_Resource;component/Images/News.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV1" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV1.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV2" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV2.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV3" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV3.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV4" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV4.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV5" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV5.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV6" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV6.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV7" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV7.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV8" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV8.png" />
+    <BitmapImage x:Key="BitmapImage.PicturesV9" UriSource="pack://application:,,,/Cys_Resource;component/Images/PicturesV9.png" />
+</ResourceDictionary>

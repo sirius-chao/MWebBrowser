@@ -12,4 +12,9 @@
     <PackageReference Include="CefSharp.Wpf" Version="85.3.130" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
+    <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
+  </ItemGroup>
+
 </Project>

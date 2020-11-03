@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Window/MBaseWindow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Window/MMainWindow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Window/WindowControlStyle.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/BaseControl/MBaseControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Bubble/MBubble.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Button/MButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Button/MMenuButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TextBox/MTextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TextBlock/MTextBlock.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/PasswordBox/MPasswordBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/CheckBox/MCheckBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/RadioButton/MRadioButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ToggleButton/MToggleButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Carousel/MCarousel.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Carousel/MMultiItemCarousel.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ComboBox/MComboBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ProgressBar/MProgressBar.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TabControl/MTabControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/QrCode/MQrCode.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

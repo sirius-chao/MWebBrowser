@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\Carousel\MCarousel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Carousel\MMultiItemCarousel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\CheckBox\MCheckBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ComboBox\MComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\PasswordBox\MPasswordBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ProgressBar\MProgressBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\RadioButton\MRadioButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TabControl\MTabControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TextBlock\MTextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TextBox\MTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ToggleButton\MToggleButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Window\MMainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Window\MBaseWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+</Project>

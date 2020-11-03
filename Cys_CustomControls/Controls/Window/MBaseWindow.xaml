@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Cys_CustomControls.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Window/WindowControlStyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="{x:Type local:MBaseWindow}">
+        <Setter Property="Foreground" Value="{DynamicResource ColorBrush.WindowForeground}"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TitleForeground" Value="{DynamicResource ColorBrush.WindowTitleForeground}" />
+        <Setter Property="TitleBackground" Value="{DynamicResource ColorBrush.WindowTitleBackground}" />
+        <Setter Property="BottomForeground" Value="{DynamicResource ColorBrush.WindowTitleForeground}" />
+        <Setter Property="BottomBackground" Value="{DynamicResource ColorBrush.WindowTitleBackground}" />
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="ResizeMode" Value="CanMinimize"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MBaseWindow}" x:Name="PART_Template">
+                    <Grid>
+                        <Grid>
+                            <!--<Border Background="{DynamicResource ColorBrush.WindowBorderBrush}" CornerRadius="0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="{DynamicResource Color.WindowBorderBrush}" BlurRadius="8" ShadowDepth="0" Opacity="1"/>
+                                </Border.Effect>
+                            </Border>-->
+                            <Border BorderBrush="{DynamicResource ColorBrush.WindowInnerBorderBrush}" Opacity="1" BorderThickness="1" Background="{DynamicResource ColorBrush.WindowBackground}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Border x:Name="PART_BorderTitle" Grid.Row="0" Background="{TemplateBinding TitleBackground}" Width ="Auto" Height="30" Padding="5">
+                                        <Grid>
+                                            <!--<Image Source="logo" HorizontalAlignment="Left"/>-->
+                                            <TextBlock Text="{TemplateBinding Title}" Foreground="{TemplateBinding TitleForeground}" HorizontalAlignment="Center" FontSize="15"/>
+                                            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Visible" Orientation="Horizontal"/>
+                                        </Grid>
+                                    </Border>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button x:Name="PART_BtnMin" Style="{StaticResource MWindow.MinBtnStyle}"/>
+                                        <Button x:Name="PART_BtnMax" Style="{StaticResource MWindow.MaxBtnStyle}"/>
+                                        <Button x:Name="PART_BtnClose" Style="{StaticResource MWindow.CloseBtnStyle}"/>
+                                    </StackPanel>
+                                    <Grid x:Name="gridContent" Grid.Row="1">
+                                        <ContentPresenter />
+                                    </Grid>
+                                    <Border x:Name="PART_BorderBottom" Grid.Row="2" Background="{TemplateBinding BottomBackground}" Width ="Auto" Height="30" Padding="5">
+                                        <Grid>
+
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            <Grid x:Name="PART_ResizeGrid">
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type Rectangle}">
+                                        <Setter Property="Stroke" Value="{x:Null}"/>
+                                        <Setter Property="Fill" Value="Transparent"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Rectangle x:Name="Top"         Height="5" Margin="5,0,5,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="Bottom"      Height="5" Margin="5,0,5,0" VerticalAlignment="Bottom" />
+                                <Rectangle x:Name="Left"        Width="5"  Margin="0,5,0,5" HorizontalAlignment="Left"   />
+                                <Rectangle x:Name="Right"       Width="5"  Margin="0,5,0,5" HorizontalAlignment="Right" />
+                                <Rectangle x:Name="BottomLeft"  Width="5" Height="5" Margin="0,0,0,0" HorizontalAlignment="Left"  VerticalAlignment="Bottom"  />
+                                <Rectangle x:Name="BottomRight" Width="5" Height="5" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom"  />
+                                <Rectangle x:Name="TopRight"    Width="5" Height="5" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"  />
+                                <Rectangle x:Name="TopLeft"     Width="5" Height="5" Margin="0,0,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasClose" Value="False">
+                            <Setter TargetName="PART_BtnClose" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="HasMaximize" Value="False">
+                            <Setter TargetName="PART_BtnMax" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="HasMinimize" Value="False">
+                            <Setter TargetName="PART_BtnMin" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

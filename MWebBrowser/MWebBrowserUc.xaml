@@ -2,13 +2,33 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="TabParent">
-            
-        </TabControl>
+        <controls:MTabControl x:Name="TabParent">
+            <TabItem Header="选项卡1">
+                <Grid>
+                    <TextBlock Text="内容1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="选项卡2">
+                <Grid>
+                    <TextBlock Text="内容2"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="选项卡3">
+                <Grid>
+                    <TextBlock Text="内容3"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="选项卡4">
+                <Grid>
+                    <TextBlock Text="内容4"/>
+                </Grid>
+            </TabItem>
+        </controls:MTabControl>
         <!--<web:ChromiumWebBrowser Name="CefWebBrowser"  />-->
     </Grid>
 </UserControl>

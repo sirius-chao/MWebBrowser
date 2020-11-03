@@ -1,0 +1,194 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Cys_CustomControls.Controls">
+
+    <!--下拉按钮样式-->
+    <Style TargetType="ToggleButton" x:Key="MComboBox.ToggleButton">
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="Back" Background="Transparent" BorderThickness="1" BorderBrush="Transparent">
+                        <Path Name="PathFill" Fill="{DynamicResource ColorBrush.ComboBoxToggleButtonBrush}" Width="15" Height="8" StrokeThickness="0" Data="M5,0 L10,10 L0,10 z" 
+                              RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="180"/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked"  Value="True">
+                            <Setter TargetName="PathFill" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="0"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked"  Value="false">
+                            <Setter TargetName="PathFill" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="180"/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--ComboBoxItem样式-->
+    <Style TargetType="{x:Type ComboBoxItem}" x:Key="ComboBoxItemStyle">
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="MinWidth" Value="60"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorBrush.ComboBoxItemForeground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Grid>
+                        <Border Name="PART_Border" Background="Transparent"  BorderThickness="0" HorizontalAlignment="Stretch">
+                            <Grid>
+                                <ContentPresenter ContentSource="{Binding Source}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource ColorBrush.ComboBoxItemIsMouseOver}"/>
+                            <Setter TargetName="PART_Border" Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource ColorBrush.ComboBoxItemIsMouseOver}"/>
+                            <Setter TargetName="PART_Border" Property="BorderThickness" Value="0,1"/>
+                            <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MComboBox}},Path=FocusedBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--ComBox-->
+    <Style TargetType="{x:Type local:MComboBox}">
+        <Setter Property="FontFamily" Value="Microsoft YaHei" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Width" Value="160" />
+        <Setter Property="Background" Value="{DynamicResource ColorBrush.DefaultBackgroundColor}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MaxDropDownHeight" Value="180" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Radius" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MComboBox}">
+                    <Grid x:Name="PART_Parent" VerticalAlignment="Center">
+                        <Grid>
+                            <Border x:Name="PART_Border" CornerRadius="{TemplateBinding CornerRadius}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{TemplateBinding Background}" 
+                                    SnapsToDevicePixels="true">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="PART_DropShadow" 
+                                                      BlurRadius="5"
+                                                      ShadowDepth="0"
+                                                      Color="{TemplateBinding FocusedBrush}"
+                                                      Opacity="0.2"/>
+                                </Border.Effect>
+                                <TextBox x:Name="PART_Content" 
+                                         BorderThickness="0"
+                                         Background="Transparent"  
+                                         MaxLength="{TemplateBinding MaxLength}" 
+                                         FontFamily="{TemplateBinding FontFamily}" 
+                                         FontSize="{TemplateBinding FontSize}"
+                                         VerticalContentAlignment="Center" 
+                                         Height="{TemplateBinding Height}"
+                                         Margin="3,0,22,0">
+                                    <TextBox.Text>
+                                        <Binding Path="Text" 
+                                                 Mode="TwoWay" 
+                                                 RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ComboBox}}" 
+                                                 UpdateSourceTrigger="PropertyChanged"/>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Border>
+                            <ToggleButton x:Name="PART_ToggleButton"
+                                          Style="{StaticResource MComboBox.ToggleButton}" 
+                                          HorizontalAlignment="Right"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
+                        </Grid>
+                        <!--水印-->
+                        <TextBlock x:Name="PART_Watermark" Text="{TemplateBinding Watermark}"   
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Visibility="Hidden"  
+                                   HorizontalAlignment="Left"
+                                   Foreground="{DynamicResource ColorBrush.FontWatermarkColor}" 
+                                   IsHitTestVisible="False" 
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Padding="8,0,25,0"/>
+                        <StackPanel>
+                            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide" >
+                                <StackPanel>
+                                    <Border x:Name="PART_DropDown" 
+                                            Margin="0 0 5 5" 
+                                            CornerRadius="{TemplateBinding CornerRadius}" 
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                            MinWidth="{Binding ElementName=PART_Parent,Path=ActualWidth}"
+                                            SnapsToDevicePixels="True" 
+                                            BorderBrush="{TemplateBinding FocusedBrush}" 
+                                            BorderThickness="1"
+                                            Background="{TemplateBinding Background}">
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="4" Opacity="0.5"/>
+                                        </Border.Effect>
+                                        <ScrollViewer MinHeight="60" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="Transparent" Margin="{TemplateBinding ItemMargin}"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </StackPanel>
+                            </Popup>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PART_Content,Path=Text}" Value="">
+                            <Setter TargetName="PART_Watermark" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <Trigger SourceName="PART_Content" Property="IsFocused" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PART_DropShadow" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <BackEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PART_DropShadow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <BackEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

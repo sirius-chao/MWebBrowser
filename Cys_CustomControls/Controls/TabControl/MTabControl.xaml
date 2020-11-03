@@ -70,31 +70,34 @@
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.TabHeaderBackground}"/>
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.TabHeaderBackground}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="MaxWidth" Value="240"/>
         <Setter Property="Height" Value="40"/>
-        <Setter Property="FontSize" Value="8"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Border x:Name="PART_Border" Background="{TemplateBinding Background}" 
                                     BorderThickness="0,0,0,2" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
-                            Padding="{TemplateBinding Padding}" 
-                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-                        <Grid>
+                            Padding="{TemplateBinding Padding}">
+                        <Grid   HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <ContentPresenter Grid.Column="0" x:Name="Content" ContentSource="Header"
-                                                  HorizontalAlignment="Left"
-                                                  VerticalAlignment="Center"
-                                                  RecognizesAccessKey="True"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                                  Margin="3,0,0,0"
-                                                  />
+                            <ContentPresenter Grid.Column="0" x:Name="contentPresenter" ContentSource="Header" Focusable="False"
+                                              HorizontalAlignment="Left"
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <!--不知为什么直接在tabitem中设置fontsize不起作用-->
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
                             <Button Grid.Column="1" Style="{StaticResource TabCloseButton}"
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemRemoveCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}}" />
@@ -122,7 +125,6 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource MTabControl.TabItemStyle}"/>
-      
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MTabControl}">
@@ -138,14 +140,12 @@
                             </Grid.RowDefinitions>
                             <Grid Background="{DynamicResource WebBrowserBrushes.TabHeaderBackground}" Height="40">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*" x:Name="PART_HeaderPanelColumn"/>
+                                    <ColumnDefinition MinWidth="200"/>
                                 </Grid.ColumnDefinitions>
-                                <UniformGrid Grid.Column="0" x:Name="HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1" Panel.ZIndex="1"  />
-                                <Grid Grid.Column="1" Width="220">
-                                    <Button Style="{StaticResource TabAddButton}" HorizontalAlignment="Left"
+                                <UniformGrid Grid.Column="0" x:Name="PART_HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1" Panel.ZIndex="1"  />
+                                <Button Grid.Column="1" Style="{StaticResource TabAddButton}" HorizontalAlignment="Left"
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemAddCommand}"/>
-                                </Grid>
                             </Grid>
                             <Border x:Name="ContentPanel" 
                                     Background="{TemplateBinding Background}" 

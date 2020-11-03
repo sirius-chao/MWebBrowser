@@ -1,6 +1,7 @@
 ﻿using Cys_Controls.Code;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
@@ -41,6 +42,11 @@ namespace Cys_CustomControls.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MTabControl), new FrameworkPropertyMetadata(typeof(MTabControl)));
         }
+
+        private const double PlaceHolderMinWidth = 200;
+        private const double TabItemMaxWidth = 240;
+        private UniformGrid _partHeaderPanel;
+        private ColumnDefinition _partHeaderPanelColumn;
 
         #region == StyleType 控件样式==
         /// <summary>
@@ -84,9 +90,28 @@ namespace Cys_CustomControls.Controls
         {
             base.OnApplyTemplate();
             InitCommand();
-            TabItemAdd(null);
+            InitControl();
+            TabItemAdd(1);
+        }
+        private void InitControl()
+        {
+            _partHeaderPanel = GetTemplateChild("PART_HeaderPanel") as UniformGrid;
+            _partHeaderPanelColumn = GetTemplateChild("PART_HeaderPanelColumn") as ColumnDefinition;
         }
 
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            SetHeaderPanelWidth();
+        }
+
+        private void SetHeaderPanelWidth()
+        {
+            if (this.ActualWidth <= 200) return;
+            double totalWidth = this.Items.Count * TabItemMaxWidth;
+            _partHeaderPanelColumn.Width = totalWidth > this.ActualWidth - PlaceHolderMinWidth
+                ? new GridLength(this.ActualWidth - PlaceHolderMinWidth) : new GridLength(totalWidth);
+        }
         private void InitCommand()
         {
             TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
@@ -99,12 +124,13 @@ namespace Cys_CustomControls.Controls
             {
                 this.Items.Remove(item);
             }
+            SetHeaderPanelWidth();
         }
         private void TabItemAdd(object obj)
         {
-            TabItem item = new TabItem();
-            item.Header = "新标签页";
+            TabItem item = new TabItem {Header = "新标签页"};
             this.Items.Add(item);
+            SetHeaderPanelWidth();
         }
     }
 }

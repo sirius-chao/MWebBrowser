@@ -1,6 +1,9 @@
-﻿using CefSharp.Wpf;
+﻿using System.Net.Mime;
+using System.Windows;
+using CefSharp.Wpf;
 using System.Windows.Controls;
 using Cys_Controls.Code;
+using Cys_CustomControls.Controls;
 using MWebBrowser.UserControls;
 
 namespace MWebBrowser
@@ -17,6 +20,26 @@ namespace MWebBrowser
             InitCommand();
             CefWebBrowser = new ChromiumWebBrowser();
             //CefWebBrowser.IsBrowserInitializedChanged += MWebBrowser_IsBrowserInitializedChanged;
+          
+            this.Loaded += MWebBrowserUc_Loaded;
+        }
+
+        private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitData();
+        }
+
+        private void InitData()
+        {
+            if (Application.Current.MainWindow is MMainWindow mw)
+            {
+                TabParent.PartHeaderParentGrid.MouseLeftButtonDown += mw.HeaderClickOrDragMove;
+            }
+        }
+
+        private void PartHeaderParentGrid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Load(string url)

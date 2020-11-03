@@ -46,6 +46,7 @@ namespace Cys_CustomControls.Controls
         private const double PlaceHolderMinWidth = 200;
         private const double TabItemMaxWidth = 240;
         private UniformGrid _partHeaderPanel;
+        public Grid PartHeaderParentGrid;
         private ColumnDefinition _partHeaderPanelColumn;
 
         #region == StyleType 控件样式==
@@ -96,6 +97,7 @@ namespace Cys_CustomControls.Controls
         {
             _partHeaderPanel = GetTemplateChild("PART_HeaderPanel") as UniformGrid;
             _partHeaderPanelColumn = GetTemplateChild("PART_HeaderPanelColumn") as ColumnDefinition;
+            PartHeaderParentGrid = GetTemplateChild("PART_HeaderParentGrid") as Grid;
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
@@ -109,7 +111,8 @@ namespace Cys_CustomControls.Controls
             if (this.ActualWidth <= 200) return;
             double totalWidth = this.Items.Count * TabItemMaxWidth;
             _partHeaderPanelColumn.Width = totalWidth > this.ActualWidth - PlaceHolderMinWidth
-                ? new GridLength(this.ActualWidth - PlaceHolderMinWidth) : new GridLength(totalWidth);
+                ? new GridLength
+                    (this.ActualWidth - PlaceHolderMinWidth) : new GridLength(totalWidth);
         }
         private void InitCommand()
         {
@@ -124,6 +127,5 @@ namespace Cys_CustomControls.Controls
             }
             SetHeaderPanelWidth();
         }
-       
     }
 }

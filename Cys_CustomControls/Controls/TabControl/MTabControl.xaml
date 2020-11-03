@@ -129,22 +129,20 @@
                 <ControlTemplate TargetType="{x:Type local:MTabControl}">
                     <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" >
                         <Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="ColumnDefinition0"/>
-                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
-                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
-                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid Background="{DynamicResource WebBrowserBrushes.TabHeaderBackground}" Height="40">
+                            <Grid Background="{DynamicResource WebBrowserBrushes.TabHeaderBackground}" Height="40" x:Name="PART_HeaderParentGrid">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" x:Name="PART_HeaderPanelColumn"/>
+                                    <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition MinWidth="200"/>
                                 </Grid.ColumnDefinitions>
-                                <UniformGrid Grid.Column="0" x:Name="PART_HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1" Panel.ZIndex="1"  />
+                                <UniformGrid Grid.Column="0" x:Name="PART_HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1" Panel.ZIndex="1" />
                                 <Button Grid.Column="1" Style="{StaticResource TabAddButton}" HorizontalAlignment="Left"
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemAddCommand}"/>
+                                <Grid Grid.Column="2"/>
                             </Grid>
                             <Border x:Name="ContentPanel" 
                                     Background="{TemplateBinding Background}" 

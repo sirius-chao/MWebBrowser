@@ -55,15 +55,7 @@ namespace Cys_CustomControls.Controls
         private Button _closeBtn;
         private Button _minBtn;
         private Button _maxBtn;
-        private Button _homeBtn;
-        private Button _rightBottomBtn;
-        private ToggleButton _winBtn;
-        public Popup WinMenu;
-        private ToggleButton _winPower;
-        private Popup _winPowerMenu;
         private Line _titleLine;
-        public ScrollViewer MenuScrollViewer;
-        public StackPanel MenuContainer;
 
         #endregion
         #region DependencyProperty
@@ -109,26 +101,12 @@ namespace Cys_CustomControls.Controls
             _closeBtn = GetTemplateChild("PART_BtnClose") as Button;
             _minBtn = GetTemplateChild("PART_BtnMin") as Button;
             _maxBtn = GetTemplateChild("PART_BtnMax") as Button;
-            _winBtn = GetTemplateChild("PART_BtnWin") as ToggleButton;
-            _homeBtn = GetTemplateChild("PART_BtnHome") as Button;
-            _rightBottomBtn = GetTemplateChild("PART_BtnRightBottom") as Button;
-            _winPower = GetTemplateChild("PART_WinPower") as ToggleButton;
-            WinMenu = GetTemplateChild("PART_WinMenu") as Popup;
-            _winPowerMenu = GetTemplateChild("PART_WinPowerMenu") as Popup;
             _titleLine = GetTemplateChild("PART_TitleLine") as Line;
-             MenuScrollViewer = GetTemplateChild("PART_MenuScrollViewer") as ScrollViewer;
-             MenuContainer = GetTemplateChild("PART_MenuContainer") as StackPanel;
-
-            _winBtn.Click += (sender, args) => WinMenu.IsOpen = !WinMenu.IsOpen;
-            WinMenu.Opened += _winMenu_Opened;
-            _winPower.Click += (sender, args) => _winPowerMenu.IsOpen = !_winPowerMenu.IsOpen;
             _maxBtn.Click += (sender, args) => DoubleClickHeader();
             _minBtn.Click += (sender, args) => this.WindowState = WindowState.Minimized;
             _closeBtn.Click += (sender, args) => CloseWindow();
             _borderTitle.MouseLeftButtonDown += HeaderClickOrDragMove;
             _hwndSource = (HwndSource)PresentationSource.FromVisual(this);
-            _rightBottomBtn.Click += HomeBtn_Click;
-            _homeBtn.Click += HomeBtn_Click;
             if (WindowState != WindowState.Normal)
             {
                 HideShell();
@@ -144,10 +122,6 @@ namespace Cys_CustomControls.Controls
           
         }
 
-        private void _winMenu_Opened(object sender, EventArgs e)
-        {
-            MenuScrollViewer.ScrollToHome();
-        }
         #region 屏幕最大最小化
 
         /// <summary>

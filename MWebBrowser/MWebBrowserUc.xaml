@@ -7,28 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <controls:MTabControl x:Name="TabParent">
-            <TabItem Header="选项卡1">
-                <Grid>
-                    <TextBlock Text="内容1"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="选项卡2">
-                <Grid>
-                    <TextBlock Text="内容2"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="选项卡3">
-                <Grid>
-                    <TextBlock Text="内容3"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="选项卡4">
-                <Grid>
-                    <TextBlock Text="内容4"/>
-                </Grid>
-            </TabItem>
-        </controls:MTabControl>
+        <controls:MTabControl x:Name="TabParent"/>
         <!--<web:ChromiumWebBrowser Name="CefWebBrowser"  />-->
     </Grid>
 </UserControl>

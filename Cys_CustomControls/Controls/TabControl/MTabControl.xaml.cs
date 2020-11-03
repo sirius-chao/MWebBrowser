@@ -40,7 +40,7 @@ namespace Cys_CustomControls.Controls
         static MTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MTabControl), new FrameworkPropertyMetadata(typeof(MTabControl)));
-        }      
+        }
 
         #region == StyleType 控件样式==
         /// <summary>
@@ -54,16 +54,29 @@ namespace Cys_CustomControls.Controls
         }
         #endregion
 
-        #region == TabCloseCommand==
+        #region == TabItemRemoveCommand==
         /// <summary>
         /// StyleType 控件样式
         /// </summary>
-        public static readonly DependencyProperty TabItemCloseCommandProperty = DependencyProperty.Register("TabItemCloseCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty TabItemRemoveCommandProperty = DependencyProperty.Register("TabItemRemoveCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
 
-        public ICommand TabItemCloseCommand
+        public ICommand TabItemRemoveCommand
         {
-            get => (ICommand)GetValue(TabItemCloseCommandProperty);
-            set => SetValue(TabItemCloseCommandProperty, value);
+            get => (ICommand)GetValue(TabItemRemoveCommandProperty);
+            set => SetValue(TabItemRemoveCommandProperty, value);
+        }
+        #endregion
+
+        #region == TabItemAddCommand==
+        /// <summary>
+        /// StyleType 控件样式
+        /// </summary>
+        public static readonly DependencyProperty TabItemAddCommandProperty = DependencyProperty.Register("TabItemAddCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
+
+        public ICommand TabItemAddCommand
+        {
+            get => (ICommand)GetValue(TabItemAddCommandProperty);
+            set => SetValue(TabItemAddCommandProperty, value);
         }
         #endregion
 
@@ -71,19 +84,27 @@ namespace Cys_CustomControls.Controls
         {
             base.OnApplyTemplate();
             InitCommand();
+            TabItemAdd(null);
         }
 
         private void InitCommand()
         {
-            TabItemCloseCommand = new BaseCommand<object>(TabItemClose);
+            TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
+            TabItemRemoveCommand = new BaseCommand<object>(TabItemRemove);
         }
 
-        private void TabItemClose(object obj)
+        private void TabItemRemove(object obj)
         {
             if (obj is TabItem item)
             {
                 this.Items.Remove(item);
             }
+        }
+        private void TabItemAdd(object obj)
+        {
+            TabItem item = new TabItem();
+            item.Header = "新标签页";
+            this.Items.Add(item);
         }
     }
 }

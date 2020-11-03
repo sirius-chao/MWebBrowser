@@ -31,40 +31,75 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type Button}" x:Key="TabAddButton">
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
+                        <Grid>
+                            <Image Source="{DynamicResource DrawingImage.TabClose}" Width="12" Height="12">
+                                <Image.RenderTransform>
+                                    <RotateTransform Angle="45" CenterX="6" CenterY="6"/>
+                                </Image.RenderTransform>
+                            </Image>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsMouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="MTabControl.TabItemStyle" TargetType="{x:Type TabItem}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.TabHeaderBackground}"/>
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.TabHeaderBackground}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="MaxWidth" Value="240"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="8"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Grid SnapsToDevicePixels="true">
-                        <Grid SnapsToDevicePixels="true">
-                            <Border x:Name="PART_Border" Background="{TemplateBinding Background}" 
-                                    BorderThickness="0,0,0,2" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentPresenter Grid.Column="0" x:Name="Content" ContentSource="Header"
-                                                  HorizontalAlignment="Center"
+                    <Border x:Name="PART_Border" Background="{TemplateBinding Background}" 
+                                    BorderThickness="0,0,0,2" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            Padding="{TemplateBinding Padding}" 
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.Column="0" x:Name="Content" ContentSource="Header"
+                                                  HorizontalAlignment="Left"
                                                   VerticalAlignment="Center"
                                                   RecognizesAccessKey="True"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    <Button Grid.Column="1" Style="{StaticResource TabCloseButton}"
-                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemCloseCommand}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  Margin="3,0,0,0"
+                                                  />
+                            <Button Grid.Column="1" Style="{StaticResource TabCloseButton}"
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemRemoveCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}}" />
-                                </Grid>
-                            </Border>
                         </Grid>
-                    </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="PART_Border" Value="{DynamicResource WebBrowserBrushes.TabHeaderIsMouseOverBackground}"/>
@@ -101,7 +136,17 @@
                                 <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
                                 <RowDefinition x:Name="RowDefinition1" Height="*"/>
                             </Grid.RowDefinitions>
-                            <UniformGrid x:Name="HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1"  Panel.ZIndex="1"  />
+                            <Grid Background="{DynamicResource WebBrowserBrushes.TabHeaderBackground}" Height="40">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <UniformGrid Grid.Column="0" x:Name="HeaderPanel" HorizontalAlignment="Stretch" IsItemsHost="true" Rows="1" Panel.ZIndex="1"  />
+                                <Grid Grid.Column="1" Width="220">
+                                    <Button Style="{StaticResource TabAddButton}" HorizontalAlignment="Left"
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MTabControl}},Path=TabItemAddCommand}"/>
+                                </Grid>
+                            </Grid>
                             <Border x:Name="ContentPanel" 
                                     Background="{TemplateBinding Background}" 
                                     BorderBrush="{TemplateBinding BorderBrush}" 

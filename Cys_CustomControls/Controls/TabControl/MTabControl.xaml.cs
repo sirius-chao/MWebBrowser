@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using Cys_Controls.Code;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Cys_Controls.Code;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace Cys_CustomControls.Controls
@@ -40,7 +40,7 @@ namespace Cys_CustomControls.Controls
         static MTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MTabControl), new FrameworkPropertyMetadata(typeof(MTabControl)));
-        }
+        }      
 
         #region == StyleType 控件样式==
         /// <summary>
@@ -52,58 +52,38 @@ namespace Cys_CustomControls.Controls
             get => (StyleType)GetValue(StyleTypeProperty);
             set => SetValue(StyleTypeProperty, value);
         }
-        #endregion == StyleType 控件样式==
-
-        #region == HeaderBorderBrush ==
-        public static readonly DependencyProperty HeaderBorderBrushProperty = DependencyProperty.Register("HeaderBorderBrush", typeof(Brush), typeof(MTabControl),
-            new PropertyMetadata());
-
-        public Brush HeaderBorderBrush
-        {
-            get => (Brush)GetValue(HeaderBorderBrushProperty);
-            set => SetValue(HeaderBorderBrushProperty, value);
-        }
-
         #endregion
 
-        #region == HeaderBackground==
-        public static readonly DependencyProperty HeaderBackgroundProperty = DependencyProperty.Register("HeaderBackground", typeof(Brush), typeof(MTabControl),
-            new PropertyMetadata());
+        #region == TabCloseCommand==
+        /// <summary>
+        /// StyleType 控件样式
+        /// </summary>
+        public static readonly DependencyProperty TabItemCloseCommandProperty = DependencyProperty.Register("TabItemCloseCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
 
-        public Brush HeaderBackground
+        public ICommand TabItemCloseCommand
         {
-            get => (Brush)GetValue(HeaderBackgroundProperty);
-            set => SetValue(HeaderBackgroundProperty, value);
+            get => (ICommand)GetValue(TabItemCloseCommandProperty);
+            set => SetValue(TabItemCloseCommandProperty, value);
         }
-
-        #endregion
-
-        #region == HeaderForeground==
-        public static readonly DependencyProperty HeaderForegroundProperty = DependencyProperty.Register("HeaderForeground", typeof(Brush), typeof(MTabControl),
-            new PropertyMetadata());
-
-        public Brush HeaderForeground
-        {
-            get => (Brush)GetValue(HeaderForegroundProperty);
-            set => SetValue(HeaderForegroundProperty, value);
-        }
-
         #endregion
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            InitResourceData();
+            InitCommand();
         }
 
-        /// <summary>
-        /// 建立 DynamicResource 绑定
-        /// </summary>
-        private void InitResourceData()
+        private void InitCommand()
         {
-            this.SetResourceReference(HeaderForegroundProperty, "ColorBrush.FontDefaultColor");
-            this.SetResourceReference(HeaderBackgroundProperty,StyleType == StyleType.Default ? "ColorBrush.DefaultReversalBackgroundColor" : $"ColorBrush.{StyleType}BackgroundColor");
-            this.SetResourceReference(HeaderBorderBrushProperty, StyleType == StyleType.Default ? "ColorBrush.DefaultReversalBorderBrushColor" : $"ColorBrush.{StyleType}BorderBrushColor");
+            TabItemCloseCommand = new BaseCommand<object>(TabItemClose);
+        }
+
+        private void TabItemClose(object obj)
+        {
+            if (obj is TabItem item)
+            {
+                this.Items.Remove(item);
+            }
         }
     }
 }

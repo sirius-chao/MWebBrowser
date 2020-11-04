@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using CefSharp;
+using MWebBrowser.Code.CustomCef;
 
 namespace MWebBrowser.UserControls
 {
@@ -18,9 +13,66 @@ namespace MWebBrowser.UserControls
     /// </summary>
     public partial class WebItemUc : UserControl
     {
+        public CustomWebBrowser CefWebBrowser;
+
+        public string TargetUrl;//网页链接Url
+
+        private string CurrentUrl;
         public WebItemUc()
         {
             InitializeComponent();
+            InitWebBrowser();
+            this.Loaded += WebItemUc_Loaded;
         }
+
+        private void WebItemUc_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+           
+        }
+
+        private void InitWebBrowser()
+        {
+            CefWebBrowser = new CustomWebBrowser();
+            CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
+            WebParentGrid.Children.Add(CefWebBrowser);
+            
+        }
+
+        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                //防止多次SetPreference，在Browser初始化完成后处理一次
+                if (!CefWebBrowser.IsBrowserInitialized) return;
+
+
+                if (!string.IsNullOrEmpty(TargetUrl))
+                {
+                    Load(TargetUrl);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void WebItemUc_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            string pattern = @"^(http://|https://)?((?:[A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$";
+            var match = Regex.Match(SearchText.Text, pattern);
+
+            if (!match.Success) return;
+            if (e.Key != Key.Enter) return;
+            if (!string.IsNullOrEmpty(CurrentUrl) && CurrentUrl == SearchText.Text) return;
+            CurrentUrl = SearchText.Text;
+            Load(SearchText.Text);
+        }
+
+        public void Load(string url)
+        {
+            CefWebBrowser.Load(url);
+        }
+
     }
 }

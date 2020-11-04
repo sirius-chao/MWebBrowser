@@ -63,7 +63,7 @@ namespace Cys_CustomControls.Controls
 
         #region == TabItemRemoveCommand==
         /// <summary>
-        /// StyleType 控件样式
+        /// TabItemRemoveCommand
         /// </summary>
         public static readonly DependencyProperty TabItemRemoveCommandProperty = DependencyProperty.Register("TabItemRemoveCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
 
@@ -76,7 +76,7 @@ namespace Cys_CustomControls.Controls
 
         #region == TabItemAddCommand==
         /// <summary>
-        /// StyleType 控件样式
+        /// TabItemAddCommand
         /// </summary>
         public static readonly DependencyProperty TabItemAddCommandProperty = DependencyProperty.Register("TabItemAddCommand", typeof(ICommand), typeof(MTabControl), new PropertyMetadata(null));
 

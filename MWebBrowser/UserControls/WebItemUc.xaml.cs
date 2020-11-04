@@ -59,11 +59,11 @@ namespace MWebBrowser.UserControls
 
         private void WebItemUc_OnKeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key != Key.Enter) return;
             string pattern = @"^(http://|https://)?((?:[A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$";
             var match = Regex.Match(SearchText.Text, pattern);
 
             if (!match.Success) return;
-            if (e.Key != Key.Enter) return;
             if (!string.IsNullOrEmpty(CurrentUrl) && CurrentUrl == SearchText.Text) return;
             CurrentUrl = SearchText.Text;
             Load(SearchText.Text);

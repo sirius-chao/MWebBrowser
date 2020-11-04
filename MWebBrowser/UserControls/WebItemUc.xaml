@@ -28,9 +28,6 @@
                     
                 </Grid>
             </Grid>
-            <!--<customCef:CustomWebBrowser Grid.Row="1" Name="CefWebBrowser" />
-            --><!--<wpf:ChromiumWebBrowser Grid.Row="1" Name="CefWebBrowser"  />-->
-
             <Grid Grid.Row="1" x:Name="WebParentGrid">
 
             </Grid>

@@ -1,4 +1,5 @@
-﻿using Cys_Controls.Code;
+﻿using System;
+using Cys_Controls.Code;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -48,7 +49,7 @@ namespace Cys_CustomControls.Controls
         private UniformGrid _partHeaderPanel;
         public Grid PartHeaderParentGrid;
         private ColumnDefinition _partHeaderPanelColumn;
-
+        public Action CloseTabEvent;
         #region == StyleType 控件样式==
         /// <summary>
         /// StyleType 控件样式
@@ -126,6 +127,11 @@ namespace Cys_CustomControls.Controls
                 this.Items.Remove(item);
             }
             SetHeaderPanelWidth();
+
+            if (this.Items.Count <= 0)
+            {
+                CloseTabEvent?.Invoke();
+            }
         }
     }
 }

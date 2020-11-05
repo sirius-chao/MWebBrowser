@@ -49,12 +49,6 @@ namespace MWebBrowser.View.WebBrowser
             }
         }
 
-
-        public void Load(string url)
-        {
-            //CefWebBrowser.Load(url);
-        }
-
         private void InitCommand()
         {
             WebTabControl.TabItemAddCommand = new BaseCommand<object>(TabItemAdd);

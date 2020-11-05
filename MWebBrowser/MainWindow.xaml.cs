@@ -1,4 +1,5 @@
 ﻿using Cys_CustomControls.Controls;
+using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser
 {
@@ -10,6 +11,7 @@ namespace MWebBrowser
         public MainWindow()
         {
             InitializeComponent();
+            ImageHelper.InitImages();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace MWebBrowser.View.WebBrowser
@@ -43,7 +44,7 @@ namespace MWebBrowser.View.WebBrowser
             ViewModel.Favicon = GetFavicon();
         }
 
-        private BitmapFrame GetFavicon()
+        private ImageSource GetFavicon()
         {
             try
             {

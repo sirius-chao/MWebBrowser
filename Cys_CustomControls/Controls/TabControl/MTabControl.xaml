@@ -87,7 +87,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Image x:Name="PART_Favicon" Grid.Column="0" Source="{TemplateBinding attached:AttachedPropertyClass.ImageSource}" Width="20" Height="20"/>
+                            <Image x:Name="PART_Favicon" Grid.Column="0" Source="{TemplateBinding attached:AttachedPropertyClass.ImageSource}" Width="18" Height="18"/>
                             <ContentPresenter Grid.Column="1" x:Name="contentPresenter" ContentSource="Header" Focusable="False"
                                               HorizontalAlignment="Left"
                                               Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 

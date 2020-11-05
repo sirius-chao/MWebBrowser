@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -55,7 +54,7 @@ namespace MWebBrowser.View.WebBrowser
             }
             catch (Exception e)
             {
-                return null;
+                return ImageHelper.DefaultFavicon;
             }
         }
 
@@ -72,8 +71,9 @@ namespace MWebBrowser.View.WebBrowser
         {
             try
             {
-                //防止多次SetPreference，在Browser初始化完成后处理一次
+                
                 if (!CefWebBrowser.IsBrowserInitialized) return;
+                CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
                 if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
                 {
                     Load(ViewModel.CurrentUrl);

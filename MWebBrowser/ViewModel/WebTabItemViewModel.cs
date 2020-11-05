@@ -2,7 +2,10 @@
 {
     public class WebTabItemViewModel: BaseViewModel
     {
-        private string _header = "新标签页";
-        public string Header { get => _header; set { _header = value; OnPropertyChanged("Header"); } }
+        private string _title = "新标签页";
+        public string Title { get => _title; set { _title = value; OnPropertyChanged("Title"); } }
+
+        private string _currentUrl;
+        public string CurrentUrl { get => _currentUrl; set { _currentUrl = value; OnPropertyChanged("CurrentUrl"); } }
     }
 }

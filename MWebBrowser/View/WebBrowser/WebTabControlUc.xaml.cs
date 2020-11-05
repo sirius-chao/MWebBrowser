@@ -1,10 +1,10 @@
-﻿using System;
-using Cys_Controls.Code;
+﻿using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using MWebBrowser.ViewModel;
+using System.Windows.Input;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -62,9 +62,9 @@ namespace MWebBrowser.View.WebBrowser
         {
             try
             {
-                var uc = new WebTabItemUc { TargetUrl = obj?.ToString() };
+                var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
                 var item = new TabItem { Content = uc };
-                var bind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Header")};
+                var bind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Title") };
                 item.SetBinding(HeaderedContentControl.HeaderProperty, bind);
                 WebTabControl.Items.Add(item);
                 WebTabControl.SelectedItem = item;
@@ -74,6 +74,12 @@ namespace MWebBrowser.View.WebBrowser
             {
 
             }
+        }
+
+        private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!(WebTabControl.SelectedItem is TabItem item)) return;
+            if (!(item.Content is WebTabItemUc webTabItemUc)) return;
         }
     }
 }

@@ -64,7 +64,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="MTabControl.TabItemStyle" TargetType="{x:Type TabItem}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
@@ -94,6 +93,7 @@
                                 <ContentPresenter.Resources>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="TextTrimming"  Value="CharacterEllipsis"/>
                                         <!--不知为什么直接在tabitem中设置fontsize不起作用-->
                                     </Style>
                                 </ContentPresenter.Resources>
@@ -115,7 +115,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style TargetType="{x:Type local:MTabControl}">
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontDefaultColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -123,6 +122,7 @@
         <Setter Property="Background" Value="{DynamicResource ColorBrush.FontDefaultColorV3}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource MTabControl.TabItemStyle}"/>
         <Setter Property="Template">
             <Setter.Value>

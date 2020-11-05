@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" KeyDown="WebItemUc_OnKeyDown">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -18,12 +18,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Button Style="{DynamicResource Button.NavigationBack}"/>
-                    <Button Style="{DynamicResource Button.NavigationForward}"/>
-                    <Button Style="{DynamicResource Button.NavigationRefresh}"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" x:Name="NavigationStackPanel">
+                    <Button Style="{DynamicResource Button.NavigationBack}" IsEnabled="{Binding CanGoBack}" Click="NavigationBack_OnClick"/>
+                    <Button Style="{DynamicResource Button.NavigationForward}" IsEnabled="{Binding CanGoForward}" Click="NavigationForward_OnClick"/>
+                    <Button Style="{DynamicResource Button.NavigationRefresh}" Click="NavigationRefresh_OnClick"/>
                 </StackPanel>
-                <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址" x:Name="SearchText"/>
+                <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" KeyDown="Search_OnKeyDown"/>
                 <Grid Grid.Column="2" MinWidth="150">
 
                 </Grid>

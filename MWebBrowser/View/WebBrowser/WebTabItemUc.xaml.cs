@@ -1,10 +1,12 @@
-﻿using MWebBrowser.Code.CustomCef;
+﻿using CefSharp;
+using MWebBrowser.Code.CustomCef;
 using MWebBrowser.ViewModel;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MWebBrowser.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -14,8 +16,6 @@ namespace MWebBrowser.View.WebBrowser
     public partial class WebTabItemUc : UserControl
     {
         public CustomWebBrowser CefWebBrowser;
-        public string TargetUrl;//网页链接Url
-        private string CurrentUrl;
         public WebTabItemViewModel ViewModel;
 
         public WebTabItemUc()
@@ -24,23 +24,27 @@ namespace MWebBrowser.View.WebBrowser
             this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
-            this.Loaded += WebItemUc_Loaded;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
+            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+        }
+
+        private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                this.CefWebBrowser.Reload();
+            }
         }
 
         private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            ViewModel.Header = CefWebBrowser.Title;
-        }
-
-        private void WebItemUc_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
+            ViewModel.Title = CefWebBrowser.Title;
         }
 
         private void InitWebBrowser()
         {
             CefWebBrowser = new CustomWebBrowser();
+            NavigationStackPanel.DataContext = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             WebParentGrid.Children.Add(CefWebBrowser);
 
@@ -52,11 +56,9 @@ namespace MWebBrowser.View.WebBrowser
             {
                 //防止多次SetPreference，在Browser初始化完成后处理一次
                 if (!CefWebBrowser.IsBrowserInitialized) return;
-
-
-                if (!string.IsNullOrEmpty(TargetUrl))
+                if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
                 {
-                    Load(TargetUrl);
+                    Load(ViewModel.CurrentUrl);
                 }
             }
             catch (Exception ex)
@@ -65,22 +67,41 @@ namespace MWebBrowser.View.WebBrowser
             }
         }
 
-        private void WebItemUc_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            string pattern = @"^(http://|https://)?((?:[A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$";
-            var match = Regex.Match(SearchText.Text, pattern);
-
-            if (!match.Success) return;
-            if (!string.IsNullOrEmpty(CurrentUrl) && CurrentUrl == SearchText.Text) return;
-            CurrentUrl = SearchText.Text;
-            Load(SearchText.Text);
-        }
-
         public void Load(string url)
         {
             CefWebBrowser.Load(url);
         }
 
+        private void NavigationBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.CefWebBrowser.Back();
+        }
+
+        private void NavigationForward_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.CefWebBrowser.Forward();
+        }
+
+        private void NavigationRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.CefWebBrowser.Reload();
+        }
+
+        private void Search_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            var pattern = @"^(http://|https://)?((?:[A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$";
+            var match = Regex.Match(ViewModel.CurrentUrl, pattern);
+
+            if (!match.Success) return;
+            if (string.IsNullOrEmpty(ViewModel.CurrentUrl)) return;
+            Load(ViewModel.CurrentUrl);
+
+            DispatcherHelper.UIDispatcher.Invoke(() =>
+            {
+                //使search框失去焦点
+                this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            });
+        }
     }
 }

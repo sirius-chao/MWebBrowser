@@ -19,7 +19,7 @@
                     <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
                             BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
                         <Grid>
-                            <Image Source="{DynamicResource DrawingImage.Forward}" Width="20" Height="20"/>
+                            <Image x:Name="PART_Image" Source="{DynamicResource DrawingImage.Forward}" Width="20" Height="20"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -28,6 +28,9 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_Image" Property="Opacity" Value="0.3"  />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -42,7 +45,7 @@
                     <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
                             BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
                         <Grid>
-                            <Image Source="{DynamicResource DrawingImage.Forward}" Width="20" Height="20">
+                            <Image x:Name="PART_Image" Source="{DynamicResource DrawingImage.Forward}" Width="20" Height="20">
                                 <Image.RenderTransform>
                                     <RotateTransform Angle="180" CenterX="10" CenterY="10"/>
                                 </Image.RenderTransform>
@@ -56,6 +59,9 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_Image" Property="Opacity" Value="0.3"  />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -68,7 +74,7 @@
                     <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
                             BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
                         <Grid>
-                            <Image Source="{DynamicResource DrawingImage.Refresh}" Width="20" Height="20">
+                            <Image x:Name="PART_Image"  Source="{DynamicResource DrawingImage.Refresh}" Width="20" Height="20">
                                 <Image.RenderTransform>
                                     <RotateTransform Angle="-50" CenterX="10" CenterY="10"/>
                                 </Image.RenderTransform>
@@ -81,6 +87,9 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_Image" Property="Opacity" Value="0.3"  />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

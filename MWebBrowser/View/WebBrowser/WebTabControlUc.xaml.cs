@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using CefSharp;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -78,8 +79,10 @@ namespace MWebBrowser.View.WebBrowser
 
         private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key != Key.F5) return;
             if (!(WebTabControl.SelectedItem is TabItem item)) return;
             if (!(item.Content is WebTabItemUc webTabItemUc)) return;
+            webTabItemUc.CefWebBrowser?.Reload();
         }
     }
 }

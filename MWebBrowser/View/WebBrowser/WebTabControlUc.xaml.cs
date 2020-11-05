@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using CefSharp;
+using Cys_CustomControls.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -65,8 +66,13 @@ namespace MWebBrowser.View.WebBrowser
             {
                 var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
                 var item = new TabItem { Content = uc };
-                var bind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Title") };
-                item.SetBinding(HeaderedContentControl.HeaderProperty, bind);
+                var titleBind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Title") };
+                item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
+
+
+                var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
+                item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
+
                 WebTabControl.Items.Add(item);
                 WebTabControl.SelectedItem = item;
                 WebTabControl.SetHeaderPanelWidth();

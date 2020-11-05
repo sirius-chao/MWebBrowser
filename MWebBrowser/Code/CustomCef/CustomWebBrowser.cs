@@ -1,5 +1,6 @@
 ﻿using CefSharp.Wpf;
 using Cys_CustomControls.Controls;
+using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.Code.CustomCef
 {

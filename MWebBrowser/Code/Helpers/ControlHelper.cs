@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MWebBrowser.Code
+namespace MWebBrowser.Code.Helpers
 {
     public class ControlHelper
     {

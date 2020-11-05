@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace MWebBrowser.Code
+namespace MWebBrowser.Code.Helpers
 {
     public static class DispatcherHelper
     {

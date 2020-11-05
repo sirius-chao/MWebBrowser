@@ -1,6 +1,6 @@
 ﻿using CefSharp;
+using MWebBrowser.Code.Helpers;
 using System.Security.Cryptography.X509Certificates;
-using System.Windows;
 
 namespace MWebBrowser.Code.CustomCef
 {

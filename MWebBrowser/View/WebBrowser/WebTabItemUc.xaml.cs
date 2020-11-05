@@ -1,12 +1,13 @@
 ﻿using CefSharp;
 using MWebBrowser.Code.CustomCef;
+using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MWebBrowser.Code;
+using System.Windows.Media.Imaging;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -39,6 +40,22 @@ namespace MWebBrowser.View.WebBrowser
         private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ViewModel.Title = CefWebBrowser.Title;
+            ViewModel.Favicon = GetFavicon();
+        }
+
+        private BitmapFrame GetFavicon()
+        {
+            try
+            {
+                var pattern = @"(\w+:\/\/)([^/:]+)(:\d*)?";
+                var address = CefWebBrowser.Address;
+                var matches = Regex.Matches(address, pattern);
+                return matches.Count <= 0 ? null : ImageHelper.GetBitmapFrame($"{matches[0]}/favicon.ico");
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         private void InitWebBrowser()

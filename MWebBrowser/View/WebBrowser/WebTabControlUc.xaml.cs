@@ -1,19 +1,19 @@
-﻿using System.Net.Mime;
-using System.Windows;
-using CefSharp.Wpf;
-using System.Windows.Controls;
+﻿using System;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
-using MWebBrowser.UserControls;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using MWebBrowser.ViewModel;
 
-namespace MWebBrowser
+namespace MWebBrowser.View.WebBrowser
 {
     /// <summary>
-    /// MWebBrowserUc.xaml 的交互逻辑
+    /// Interaction logic for WebTabControlUc.xaml
     /// </summary>
-    public partial class MWebBrowserUc : UserControl
+    public partial class WebTabControlUc : UserControl
     {
-        public MWebBrowserUc()
+        public WebTabControlUc()
         {
             InitializeComponent();
             InitWebTabControl();
@@ -60,11 +60,20 @@ namespace MWebBrowser
 
         private void TabItemAdd(object obj)
         {
-            WebItemUc uc = new WebItemUc{ TargetUrl = obj?.ToString()};
-            TabItem item = new TabItem {Header = "新标签页", Content = uc };
-            WebTabControl.Items.Add(item);
-            WebTabControl.SelectedItem = item;
-            WebTabControl.SetHeaderPanelWidth();
+            try
+            {
+                var uc = new WebTabItemUc { TargetUrl = obj?.ToString() };
+                var item = new TabItem { Content = uc };
+                var bind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Header")};
+                item.SetBinding(HeaderedContentControl.HeaderProperty, bind);
+                WebTabControl.Items.Add(item);
+                WebTabControl.SelectedItem = item;
+                WebTabControl.SetHeaderPanelWidth();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Cys_CustomControls.Controls;
+﻿using Cys_CustomControls.Controls;
 
 namespace MWebBrowser
 {
@@ -11,13 +10,6 @@ namespace MWebBrowser
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            string url = "http://www.baidu.com";
-            //MWebBrowser.Load(url);                
         }
     }
 }

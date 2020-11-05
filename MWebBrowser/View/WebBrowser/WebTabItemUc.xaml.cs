@@ -1,33 +1,41 @@
-﻿using System;
+﻿using MWebBrowser.Code.CustomCef;
+using MWebBrowser.ViewModel;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CefSharp;
-using MWebBrowser.Code.CustomCef;
 
-namespace MWebBrowser.UserControls
+namespace MWebBrowser.View.WebBrowser
 {
     /// <summary>
-    /// WebItemUc.xaml 的交互逻辑
+    /// Interaction logic for WebTabItem.xaml
     /// </summary>
-    public partial class WebItemUc : UserControl
+    public partial class WebTabItemUc : UserControl
     {
         public CustomWebBrowser CefWebBrowser;
-
         public string TargetUrl;//网页链接Url
-
         private string CurrentUrl;
-        public WebItemUc()
+        public WebTabItemViewModel ViewModel;
+
+        public WebTabItemUc()
         {
+            ViewModel = new WebTabItemViewModel();
+            this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
             this.Loaded += WebItemUc_Loaded;
+            this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
+        }
+
+        private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            ViewModel.Header = CefWebBrowser.Title;
         }
 
         private void WebItemUc_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-           
+
         }
 
         private void InitWebBrowser()
@@ -35,7 +43,7 @@ namespace MWebBrowser.UserControls
             CefWebBrowser = new CustomWebBrowser();
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             WebParentGrid.Children.Add(CefWebBrowser);
-            
+
         }
 
         private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)

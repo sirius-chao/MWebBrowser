@@ -1,5 +1,4 @@
-﻿using System;
-using CefSharp.Wpf;
+﻿using CefSharp.Wpf;
 using Cys_CustomControls.Controls;
 
 namespace MWebBrowser.Code.CustomCef
@@ -9,6 +8,7 @@ namespace MWebBrowser.Code.CustomCef
         public CustomWebBrowser()
         {
             this.LifeSpanHandler = new CustomLifeSpanHandler();
+            this.RequestHandler = new CustomRequestHandler();
         }
 
         public void OpenNewTab(string url)

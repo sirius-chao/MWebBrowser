@@ -13,4 +13,13 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchForegroundColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchBorderBrushColor" Color="#656565"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchFocusBorderBrushColor" Color="#63ADE5"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadToolBackground" Color="#3B3B3B"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllBackground" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsMouseOverBackground" Color="#5E5E5E"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsPressBackground" Color="#6F6F6F"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DefaultForeground" Color="#FFFFFF"/>
+    
 </ResourceDictionary>

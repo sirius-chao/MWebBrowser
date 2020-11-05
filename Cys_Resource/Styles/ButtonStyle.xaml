@@ -67,6 +67,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style TargetType="{x:Type Button}" x:Key="Button.NavigationRefresh" BasedOn="{StaticResource Button.NavigationBase}">
         <Setter Property="Template">
             <Setter.Value>
@@ -169,4 +170,59 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="DownloadCloseButton" BasedOn="{StaticResource Button.NavigationBase}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
+                        <Grid>
+                            <Image Source="{DynamicResource DrawingImage.TabClose}" Width="12" Height="12"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsMouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.TabCloseIsPressBackground}"  />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="DownloadLookAllButton" BasedOn="{StaticResource Button.NavigationBase}">
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="Width" Value="84"/>
+        <Setter Property="Foreground" Value="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
+        <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.LookAllBackground}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
+                        <Grid>
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
+                                      FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.LookAllIsMouseOverBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_Border" Property="Background" Value="{DynamicResource WebBrowserBrushes.LookAllIsPressBackground}"  />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

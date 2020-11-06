@@ -9,6 +9,5 @@
              Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="500">
     <Grid>
         <webBrowser:WebTabControlUc x:Name="WebTabControl"/>
-        <webBrowser:DownloadToolUc Height="50" VerticalAlignment="Bottom"/>
     </Grid>
 </controls:MMainWindow>

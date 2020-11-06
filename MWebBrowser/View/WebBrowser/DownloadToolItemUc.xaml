@@ -17,7 +17,7 @@
             <Image Grid.Column="0" Margin="10,0" Source="{DynamicResource DrawingImage.File}" Width="25" Height="25"/>
          
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                <TextBlock Text="文件.svg"  FontSize="14" Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding FileName}"  FontSize="14" Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
                 <Grid>
                     <TextBlock Margin="0,5,0,0" Visibility="Collapsed">
                         <Hyperlink FontSize="14" Foreground="{DynamicResource WebBrowserBrushes.OpenFileForeground}" Focusable="False" Click="OpenFile_OnClick">打开文件</Hyperlink>
@@ -25,9 +25,9 @@
                     <StackPanel Margin="0,5,0,0">
                         <ProgressBar Height="6"/>
                         <TextBlock FontSize="12" Margin="0,5,0,0" TextTrimming="CharacterEllipsis">
-                            <Run Text="12"/>
+                            <Run Text="{Binding CurrentSizeStr}"/>
                             <Run Text="/"/>
-                            <Run Text="12k"/>
+                            <Run Text="{Binding TotalSizeStr}"/>
                         </TextBlock>
                     </StackPanel>
                 </Grid>

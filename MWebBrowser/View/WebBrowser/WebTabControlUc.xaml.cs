@@ -29,6 +29,16 @@ namespace MWebBrowser.View.WebBrowser
             TabItemAdd("http://www.baidu.com");
         }
 
+        private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.F5) return;
+            if (!(WebTabControl.SelectedItem is TabItem item)) return;
+            if (!(item.Content is WebTabItemUc webTabItemUc)) return;
+            webTabItemUc.CefWebBrowser?.Reload();
+        }
+
+        #region TabControl
+
         private void InitWebTabControl()
         {
             WebTabControl.CloseTabEvent += () =>
@@ -59,17 +69,20 @@ namespace MWebBrowser.View.WebBrowser
             try
             {
                 var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
+                uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
+
+                #region TabItem
+
                 var item = new TabItem { Content = uc };
-                var titleBind = new Binding {Source = uc.DataContext, Path = new PropertyPath("Title") };
+                var titleBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Title") };
                 item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
-
-
                 var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
                 item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
-
                 WebTabControl.Items.Add(item);
                 WebTabControl.SelectedItem = item;
                 WebTabControl.SetHeaderPanelWidth();
+                #endregion
+
             }
             catch (Exception ex)
             {
@@ -77,12 +90,12 @@ namespace MWebBrowser.View.WebBrowser
             }
         }
 
-        private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.F5) return;
-            if (!(WebTabControl.SelectedItem is TabItem item)) return;
-            if (!(item.Content is WebTabItemUc webTabItemUc)) return;
-            webTabItemUc.CefWebBrowser?.Reload();
-        }
+        #endregion
+
+        #region DownloadTool
+
+        
+
+        #endregion
     }
 }

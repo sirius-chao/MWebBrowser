@@ -19,8 +19,8 @@
             <Grid Grid.Column="1">
 
             </Grid>
-            <Button Grid.Column="2" Style="{DynamicResource DownloadLookAllButton}" Content="全部显示"/>
-            <Button Grid.Column="3" Style="{DynamicResource DownloadCloseButton}" Margin="5,0"/>
+            <Button Grid.Column="2" Style="{DynamicResource Button.DownloadLookAllButton}" Content="全部显示"/>
+            <Button Grid.Column="3" Style="{DynamicResource Button.DownloadCloseButton}" Margin="5,0"/>
         </Grid>
     </Grid>
 </UserControl>

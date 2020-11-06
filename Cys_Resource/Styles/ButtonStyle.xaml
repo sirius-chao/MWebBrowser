@@ -171,7 +171,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="DownloadCloseButton" BasedOn="{StaticResource Button.NavigationBase}">
+    <Style TargetType="{x:Type Button}" x:Key="Button.DownloadCloseButton" BasedOn="{StaticResource Button.NavigationBase}">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Template">
@@ -196,9 +196,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="DownloadLookAllButton" BasedOn="{StaticResource Button.NavigationBase}">
+    <Style TargetType="{x:Type Button}" x:Key="Button.DownloadLookAllButton" BasedOn="{StaticResource Button.NavigationBase}">
         <Setter Property="Height" Value="34"/>
         <Setter Property="Width" Value="84"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Foreground" Value="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.LookAllBackground}"/>
         <Setter Property="FontSize" Value="14"/>
@@ -208,7 +209,7 @@
                     <Border x:Name="PART_Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
                             BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2">
                         <Grid>
-                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
+                            <TextBlock Margin="{TemplateBinding Padding}" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
                                       FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>

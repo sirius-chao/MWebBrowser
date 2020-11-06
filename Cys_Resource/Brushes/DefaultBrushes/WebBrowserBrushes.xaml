@@ -21,5 +21,5 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsPressBackground" Color="#6F6F6F"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.DefaultForeground" Color="#FFFFFF"/>
-    
+    <SolidColorBrush x:Key="WebBrowserBrushes.OpenFileForeground" Color="#65ADE4"/>
 </ResourceDictionary>

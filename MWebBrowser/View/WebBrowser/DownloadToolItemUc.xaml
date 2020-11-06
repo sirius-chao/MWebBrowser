@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="230" 
+             d:DesignHeight="50" d:DesignWidth="230" Height="50" Width="230"
              Background="{DynamicResource WebBrowserBrushes.DownloadToolBackground}"
              Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}">
     <Grid>
@@ -15,7 +15,6 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Margin="10,0" Source="{DynamicResource DrawingImage.File}" Width="25" Height="25"/>
-         
             <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding FileName}"  FontSize="14" Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
                 <Grid>

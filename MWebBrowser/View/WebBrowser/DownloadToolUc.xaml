@@ -13,9 +13,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" x:Name="ItemsGrid">
+            <StackPanel Grid.Column="0" x:Name="ItemsParent" Orientation="Horizontal">
 
-            </Grid>
+            </StackPanel>
             <Grid Grid.Column="1">
 
             </Grid>

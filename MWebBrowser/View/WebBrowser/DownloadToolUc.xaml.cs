@@ -34,10 +34,9 @@ namespace MWebBrowser.View.WebBrowser
             if (!isUpdate)
             {
                 if (_downloadDict.ContainsKey(downloadItem.Id)) return;
-                var viewModel = new DownloadToolItemViewModel()
+                var viewModel = new DownloadToolItemViewModel
                 {
                     FileName = downloadItem.SuggestedFileName,
-                    TotalSizeStr = downloadItem.TotalBytes.ToString(),
                 };
                 _downloadDict.Add(downloadItem.Id, viewModel);
                 
@@ -45,8 +44,7 @@ namespace MWebBrowser.View.WebBrowser
                 {
                     this.Visibility = Visibility.Visible;
                     var item = new DownloadToolItemUc { DataContext = viewModel };
-                    ItemsGrid.Children.Add(item);
-                    ItemsGrid.Visibility = Visibility.Visible;
+                    ItemsParent.Children.Insert(0, item);
                 }));
 
             }
@@ -54,7 +52,8 @@ namespace MWebBrowser.View.WebBrowser
             {
                 if (!_downloadDict.ContainsKey(downloadItem.Id)) return;
                 var item = _downloadDict[downloadItem.Id];
-                item.CurrentSizeStr = downloadItem.ReceivedBytes.ToString();
+                item.CurrentSizeStr = item.ConvertFileSize(downloadItem.ReceivedBytes);
+                item.TotalSizeStr = downloadItem.TotalBytes <= 0 ? "未知" : item.ConvertFileSize(downloadItem.TotalBytes);
             }
         }
     }

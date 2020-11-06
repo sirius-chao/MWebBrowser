@@ -22,7 +22,7 @@
                         <Hyperlink FontSize="14" Foreground="{DynamicResource WebBrowserBrushes.OpenFileForeground}" Focusable="False" Click="OpenFile_OnClick">打开文件</Hyperlink>
                     </TextBlock>
                     <StackPanel Margin="0,5,0,0">
-                        <ProgressBar Height="6"/>
+                        <ProgressBar Height="6" Maximum="{Binding TotalSize}" Value="{Binding CurrentSize}"/>
                         <TextBlock FontSize="12" Margin="0,5,0,0" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding CurrentSizeStr}"/>
                             <Run Text="/"/>

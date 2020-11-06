@@ -54,6 +54,10 @@ namespace MWebBrowser.View.WebBrowser
                 var item = _downloadDict[downloadItem.Id];
                 item.CurrentSizeStr = item.ConvertFileSize(downloadItem.ReceivedBytes);
                 item.TotalSizeStr = downloadItem.TotalBytes <= 0 ? "未知" : item.ConvertFileSize(downloadItem.TotalBytes);
+                item.TotalSize = downloadItem.TotalBytes > downloadItem.ReceivedBytes
+                    ? downloadItem.TotalBytes
+                    : downloadItem.ReceivedBytes;
+                item.CurrentSize = downloadItem.ReceivedBytes;
             }
         }
     }

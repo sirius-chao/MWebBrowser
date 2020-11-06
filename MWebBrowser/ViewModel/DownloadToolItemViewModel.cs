@@ -2,6 +2,13 @@
 {
     public class DownloadToolItemViewModel : BaseViewModel
     {
+
+        private double _currentSize;
+        public double CurrentSize { get => _currentSize; set { _currentSize = value; OnPropertyChanged("CurrentSize"); } }
+
+        private double _totalSize;
+        public double TotalSize { get => _totalSize; set { _totalSize = value; OnPropertyChanged("TotalSize"); } }
+
         private string _currentSizeStr;
         public string CurrentSizeStr { get => _currentSizeStr; set { _currentSizeStr = value; OnPropertyChanged("CurrentSizeStr"); } }
 

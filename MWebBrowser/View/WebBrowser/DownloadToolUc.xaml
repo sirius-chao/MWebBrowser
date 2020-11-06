@@ -8,19 +8,15 @@
     <Grid Background="{DynamicResource WebBrowserBrushes.DownloadToolBackground}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" x:Name="ItemsParent" Orientation="Horizontal">
+            <StackPanel Grid.Column="0" x:Name="ItemsParent" Orientation="Horizontal" HorizontalAlignment="Left">
 
             </StackPanel>
-            <Grid Grid.Column="1">
-
-            </Grid>
-            <Button Grid.Column="2" Style="{DynamicResource Button.DownloadLookAllButton}" Content="全部显示" Click="ShowAll_OnClick"/>
-            <Button Grid.Column="3" Style="{DynamicResource Button.DownloadCloseButton}" Margin="5,0" Click="CloseDownloadTool_OnClick"/>
+            <Button Grid.Column="1" Style="{DynamicResource Button.DownloadLookAllButton}" Content="全部显示" Click="ShowAll_OnClick"/>
+            <Button Grid.Column="2" Style="{DynamicResource Button.DownloadCloseButton}" Margin="5,0" Click="CloseDownloadTool_OnClick"/>
         </Grid>
     </Grid>
 </UserControl>

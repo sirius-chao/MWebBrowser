@@ -21,11 +21,13 @@ namespace MWebBrowser.View.WebBrowser
 
         private void CloseDownloadTool_OnClick(object sender, RoutedEventArgs e)
         {
+            ItemsParent.Children.Clear();
             this.Visibility = Visibility.Collapsed;
         }
 
         private void ShowAll_OnClick(object sender, RoutedEventArgs e)
         {
+            ItemsParent.Children.Clear();
             this.Visibility = Visibility.Collapsed;
         }
 

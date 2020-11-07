@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -13,22 +14,26 @@ namespace MWebBrowser.View.WebBrowser
     public partial class DownloadToolUc : UserControl
     {
         private readonly Dictionary<int,DownloadToolItemViewModel> _downloadDict;
+
+        private Storyboard _displayToolStoryboard;
+        private Storyboard _hideToolStoryboard;
         public DownloadToolUc()
         {
             _downloadDict = new Dictionary<int, DownloadToolItemViewModel>();
             InitializeComponent();
+            InitStoryboard();
         }
 
         private void CloseDownloadTool_OnClick(object sender, RoutedEventArgs e)
         {
             ItemsParent.Children.Clear();
-            this.Visibility = Visibility.Collapsed;
+            HideTool();
         }
 
         private void ShowAll_OnClick(object sender, RoutedEventArgs e)
         {
             ItemsParent.Children.Clear();
-            this.Visibility = Visibility.Collapsed;
+            HideTool();
         }
 
         public void DownloadFile(bool isUpdate, DownloadItem downloadItem)
@@ -44,7 +49,8 @@ namespace MWebBrowser.View.WebBrowser
                 
                 this.Dispatcher.Invoke(new Action(() =>
                 {
-                    this.Visibility = Visibility.Visible;
+                    //this.Visibility = Visibility.Visible;
+                    DisplayTool();
                     var item = new DownloadToolItemUc { DataContext = viewModel };
                     ItemsParent.Children.Insert(0, item);
                 }));
@@ -62,5 +68,24 @@ namespace MWebBrowser.View.WebBrowser
                 item.CurrentSize = downloadItem.ReceivedBytes;
             }
         }
+
+        #region Animation
+        private void InitStoryboard()
+        {
+            _displayToolStoryboard = (Storyboard)ParentGrid.FindResource("DisplayTool");
+            _hideToolStoryboard = (Storyboard)ParentGrid.FindResource("HideTool");
+        }
+
+        private void DisplayTool()
+        {
+            _displayToolStoryboard.Begin();
+        }
+
+        private void HideTool()
+        {
+            _hideToolStoryboard.Begin();
+        }
+
+        #endregion
     }
 }

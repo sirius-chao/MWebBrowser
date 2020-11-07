@@ -4,8 +4,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="800" Visibility="Collapsed">
-    <Grid Background="{DynamicResource WebBrowserBrushes.DownloadToolBackground}">
+             d:DesignHeight="50" d:DesignWidth="800" x:Name="DownloadUc">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform Y="50"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
+    <Grid Background="{DynamicResource WebBrowserBrushes.DownloadToolBackground}" x:Name="ParentGrid">
+        <Grid.Resources>
+            <!-- 显示下载工具栏 -->
+            <Storyboard x:Key="DisplayTool" RepeatBehavior="1x">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DownloadUc">
+                    <EasingDoubleKeyFrame Value="0" KeyTime="00:00:01">
+                        <EasingDoubleKeyFrame.EasingFunction>
+                            <QuarticEase EasingMode="EaseInOut"/>
+                        </EasingDoubleKeyFrame.EasingFunction>
+                    </EasingDoubleKeyFrame>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <Storyboard x:Key="HideTool" RepeatBehavior="1x">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DownloadUc">
+                    <EasingDoubleKeyFrame Value="50" KeyTime="00:00:01">
+                        <EasingDoubleKeyFrame.EasingFunction>
+                            <QuarticEase EasingMode="EaseInOut"/>
+                        </EasingDoubleKeyFrame.EasingFunction>
+                    </EasingDoubleKeyFrame>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

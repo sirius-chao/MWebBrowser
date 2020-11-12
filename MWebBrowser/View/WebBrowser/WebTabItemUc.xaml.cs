@@ -121,5 +121,10 @@ namespace MWebBrowser.View.WebBrowser
                 this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             });
         }
+
+        private void MenuButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MenuPop.IsOpen = !MenuPop.IsOpen;
+        }
     }
 }

@@ -21,6 +21,9 @@
     <Page Update="Brushes\SecondBrushes\ImageBrushes.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\MenuStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\ToggleButtonStyle.xaml">
       <SubType>Designer</SubType>
     </Page>

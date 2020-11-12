@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace Cys_CustomControls.Code
+namespace Cys_Resource.Code
 {
     public class AttachedPropertyClass
     {

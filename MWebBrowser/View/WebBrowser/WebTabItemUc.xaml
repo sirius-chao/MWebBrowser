@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+             xmlns:webBrowser="clr-namespace:MWebBrowser.View.WebBrowser"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -25,10 +26,15 @@
                 </StackPanel>
                 <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" KeyDown="Search_OnKeyDown"/>
                 <Grid Grid.Column="2" MinWidth="150">
-
+                    <ToggleButton x:Name="MenuButton" Style="{DynamicResource ToggleButton.NavigationMenu}" Content=". . ." Padding="0,0,0,8" 
+                                  HorizontalAlignment="Right" Margin="0,0,10,0" IsEnabled="{Binding CanGoBack}" Click="MenuButton_OnClick"/>
+                    <Popup x:Name="MenuPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=MenuButton}"
+                           StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-280">
+                        <webBrowser:WebMenu></webBrowser:WebMenu>
+                    </Popup>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" x:Name="WebParentGrid">
+            <Grid Grid.Row="1" x:Name="WebParentGrid" Visibility="Collapsed">
 
             </Grid>
         </Grid>

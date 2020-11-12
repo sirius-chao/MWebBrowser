@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Cys_CustomControls.Controls"
-                    xmlns:attached="clr-namespace:Cys_CustomControls.Code">
+                    xmlns:attached="clr-namespace:Cys_Resource.Code;assembly=Cys_Resource">
 
     <Style TargetType="{x:Type Button}" x:Key="TabCloseButton">
         <Setter Property="Foreground" Value="Transparent" />

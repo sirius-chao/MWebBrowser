@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Controls\Carousel\MCarousel.xaml">
       <SubType>Designer</SubType>
     </Page>

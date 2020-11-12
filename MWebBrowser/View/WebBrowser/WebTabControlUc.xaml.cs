@@ -1,12 +1,12 @@
 ﻿using CefSharp;
 using Cys_Controls.Code;
-using Cys_CustomControls.Code;
 using Cys_CustomControls.Controls;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Cys_Resource.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {

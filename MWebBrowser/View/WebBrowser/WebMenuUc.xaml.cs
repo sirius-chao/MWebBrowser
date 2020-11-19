@@ -5,9 +5,9 @@ namespace MWebBrowser.View.WebBrowser
     /// <summary>
     /// Interaction logic for WebMenu.xaml
     /// </summary>
-    public partial class WebMenu : UserControl
+    public partial class WebMenuUc : UserControl
     {
-        public WebMenu()
+        public WebMenuUc()
         {
             InitializeComponent();
         }

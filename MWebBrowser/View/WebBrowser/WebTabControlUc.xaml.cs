@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Cys_Resource.Code;
+using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -24,10 +25,13 @@ namespace MWebBrowser.View.WebBrowser
 
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.IsInDesignMode())
+                return;
             InitCommand();
             InitData();
             TabItemAdd("http://www.baidu.com");
         }
+
 
         private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {

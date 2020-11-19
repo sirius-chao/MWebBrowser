@@ -72,7 +72,7 @@ namespace Cys_CustomControls.Controls
             new PropertyMetadata(MenuItemRoleEx.None));
 
         /// <summary>
-        /// PopupWidth
+        /// RoleEx
         /// </summary>
         public MenuItemRoleEx RoleEx
         {

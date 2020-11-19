@@ -20,6 +20,6 @@ namespace Cys_CustomControls.Controls
         //     Header for a submenu.
         SubmenuHeaderEx = 3,
 
-        None = 3,
+        None = 4,
     }
 }

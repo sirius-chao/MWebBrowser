@@ -26,12 +26,7 @@
                 </StackPanel>
                 <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" KeyDown="Search_OnKeyDown"/>
                 <Grid Grid.Column="2" MinWidth="150">
-                    <ToggleButton x:Name="MenuButton" Style="{DynamicResource ToggleButton.NavigationMenu}" Content=". . ." Padding="0,0,0,8" 
-                                  HorizontalAlignment="Right" Margin="0,0,10,0" IsEnabled="{Binding CanGoBack}" Click="MenuButton_OnClick"/>
-                    <Popup x:Name="MenuPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=MenuButton}"
-                           StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-280">
-                        <webBrowser:WebMenu></webBrowser:WebMenu>
-                    </Popup>
+                    <webBrowser:WebMenu HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" x:Name="WebParentGrid" Visibility="Collapsed">

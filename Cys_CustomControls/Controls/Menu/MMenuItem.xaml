@@ -19,7 +19,7 @@
                         <Border.Effect>
                             <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
                         </Border.Effect>
-                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}" >
+                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource ColorBrush.MenuItemPopBorderBrush}" >
                             <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}" Margin="0,5">
                                 <Grid RenderOptions.ClearTypeHint="Enabled" Background="Transparent">
                                     <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -48,7 +48,7 @@
                 <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource ColorBrush.MenuItemOverBackground}"/>
+                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}"/>
                 <Setter TargetName="PART_TextGrid" Property="Opacity"  Value="1"/>
             </Trigger>
         </ControlTemplate.Triggers>
@@ -70,7 +70,7 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource ColorBrush.MenuItemOverBackground}"/>
+                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}"/>
                 <Setter TargetName="PART_TextGrid" Property="Opacity"  Value="1"/>
             </Trigger>
         </ControlTemplate.Triggers>
@@ -96,12 +96,12 @@
                       HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center" Opacity="0.6"/>
 
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
-                   Placement="Left" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" MinHeight="120" MinWidth="120">
+                   Placement="Right" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" MinWidth="120">
                     <Border x:Name="SubMenuBorder" Margin="0 0 5 5" >
                         <Border.Effect>
-                            <DropShadowEffect Color="{DynamicResource WebBrowserColor.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
+                            <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
                         </Border.Effect>
-                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}" >
+                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource ColorBrush.MenuItemPopBorderBrush}" >
                             <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}" Margin="0,5">
                                 <Grid RenderOptions.ClearTypeHint="Enabled" Background="Transparent">
                                     <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -133,7 +133,7 @@
                 <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource ColorBrush.MenuItemOverBackground}"/>
+                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -159,20 +159,20 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource ColorBrush.MenuItemOverBackground}"/>
+                <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type local:MMenuItem}">
-        <Setter Property="BorderBrush" Value="{DynamicResource ColorBrush.SuccessBorderBrushColor}"/>
-        <Setter Property="Background" Value="{DynamicResource ColorBrush.SuccessBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.WebMenuBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="Auto"/>
-        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinWidth" Value="40"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
@@ -188,7 +188,7 @@
                 <Setter Property="Template" Value="{StaticResource MTopLevelItemTemplate}"/>
             </Trigger>
             <Trigger Property="Role" Value="SubmenuHeader">
-                <Setter Property="Background" Value="Red"/>
+                <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
                 <Setter Property="Template" Value="{StaticResource MSubmenuHeaderTemplate}"/>
                 <Setter Property="Padding" Value="3,0,0,0"/>

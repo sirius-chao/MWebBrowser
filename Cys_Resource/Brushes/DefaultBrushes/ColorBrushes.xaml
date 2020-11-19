@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
+
     <!--字体颜色-->
 
     <SolidColorBrush x:Key="ColorBrush.FontDefaultColor" Color="#000000"/>
@@ -9,7 +9,7 @@
     <SolidColorBrush x:Key="ColorBrush.FontDefaultColorV3" Color="#eeeeee"/>
     <SolidColorBrush x:Key="ColorBrush.FontPrimaryColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ColorBrush.FontWatermarkColor" Color="#999999"/>
-    
+
 
     <!--默认-->
     <SolidColorBrush x:Key="ColorBrush.DefaultBackgroundColor" Color="#ffffff"/>
@@ -88,7 +88,7 @@
     <!--#endregion-->
 
     <!--#endregion-->
-   
+
     <!--#region UserControl-->
     <SolidColorBrush x:Key="ColorBrush.ControlTitleForeground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="ColorBrush.ControlTitleBackground" Color="#01BD71"/>
@@ -115,9 +115,13 @@
     <SolidColorBrush x:Key="ColorBrush.ListViewIsSelectedBackground" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="ColorBrush.ListViewBorderBrush" Color="#888888"/>
     <!--#endregion-->
+    <SolidColorBrush x:Key="ColorBrush.MenuItemPopBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="ColorBrush.MenuItemPopBorderBrush" Color="#BFBFC0"/>
 
-
-    <SolidColorBrush x:Key="ColorBrush.MenuItemOverBackground" Color="#616161"/>
+    <SolidColorBrush x:Key="ColorBrush.MenuItemOverBackground" Color="#F5F5F5"/>
+    <Color x:Key="Color.MenuItemDropShadowBrush">#000000</Color>
 
     <Color x:Key="Color.WindowBorderBrush">#FFFFFF</Color>
+
+
 </ResourceDictionary>

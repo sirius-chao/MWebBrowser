@@ -54,9 +54,6 @@ namespace Cys_CustomControls.Controls
         }
         #endregion
 
-        #endregion
-
-        #region == DependencyProperty==
         #region == PopupWidth==
         public static readonly DependencyProperty PopupWidthProperty = DependencyProperty.Register("PopupWidth", typeof(double), typeof(MMenuItem),
             new PropertyMetadata(null));
@@ -70,7 +67,20 @@ namespace Cys_CustomControls.Controls
             set => SetValue(PopupWidthProperty, value);
         }
         #endregion
+        #region == RoleEx==
+        public static readonly DependencyProperty RoleExProperty = DependencyProperty.Register("RoleEx", typeof(MenuItemRoleEx), typeof(MMenuItem),
+            new PropertyMetadata(MenuItemRoleEx.None));
 
+        /// <summary>
+        /// PopupWidth
+        /// </summary>
+        public MenuItemRoleEx RoleEx
+        {
+            get => (MenuItemRoleEx)GetValue(RoleExProperty);
+            set => SetValue(RoleExProperty, value);
+        }
         #endregion
+        #endregion
+
     }
 }

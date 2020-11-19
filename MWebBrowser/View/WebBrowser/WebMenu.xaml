@@ -12,13 +12,7 @@
                 <controls:MMenuItem Header="新建标签页" Icon="&#xe600;"/>
                 <controls:MMenuItem Header="新建窗口" Icon="&#xe602;"/>
                 <controls:MMenuItem Header="新建InPrivate窗口" Icon="&#xe68c;"/>
-                <Grid Height="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
+                <controls:MMenuItem RoleEx="SubmenuItemEx"/>
                 <controls:MMenuItem Header="收藏夹" Icon="&#xe6de;"/>
                 <controls:MMenuItem Header="历史记录" Icon="&#xe6f8;"/>
                 <controls:MMenuItem Header="下载" Icon="&#xe6d3;"/>
@@ -31,7 +25,11 @@
                 <controls:MMenuItem Header="共享" Icon="&#xe6e4;"/>
                 <controls:MMenuItem Header="在页面上查找" Icon="&#xe660;"/>
                 <controls:MMenuItem Header="大声朗读" Icon="&#xe600;"/>
-                <controls:MMenuItem Header="更多工具" />
+                <controls:MMenuItem Header="更多工具" >
+                    <controls:MMenuItem Header="更多工具1" />
+                    <controls:MMenuItem Header="更多工具2" />
+                    <controls:MMenuItem Header="更多工具3" />
+                </controls:MMenuItem>
                 <controls:MMenuItem Header="设置" Icon="&#xe603;"/>
                 <controls:MMenuItem Header="帮助和反馈" Icon="&#xe653;"/>
                 <controls:MMenuItem Header="关闭 浏览器"/>

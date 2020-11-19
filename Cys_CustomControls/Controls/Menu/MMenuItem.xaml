@@ -79,7 +79,7 @@
     <ControlTemplate  x:Key="MSubmenuHeaderTemplate" TargetType="{x:Type local:MMenuItem}">
         <Border x:Name="templateRoot" Background="{TemplateBinding Background}" 
                 BorderThickness="{TemplateBinding BorderThickness}"
-                BorderBrush="{TemplateBinding BorderBrush}" Height="30" 
+                BorderBrush="{TemplateBinding BorderBrush}" Height="35" 
                 SnapsToDevicePixels="true">
             <Grid >
                 <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -139,7 +139,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="MSubmenuItemTemplate" TargetType="{x:Type local:MMenuItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="30" SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="35" SnapsToDevicePixels="true">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -164,14 +164,42 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="MSubmenuItemExpandTemplate" TargetType="{x:Type local:MMenuItem}">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="35" SnapsToDevicePixels="true">
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" >
+                    <TextBlock Text="缩放" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" />
+                        <TextBlock Grid.Column="1" Text="100%" Margin="9,0" VerticalAlignment="Center"/>
+                        <Button Grid.Column="2" Content="&#xe699;" Style="{DynamicResource Button.FontButton}"/>
+                    </Grid>
+                </Border>
+                <Button Grid.Column="2" Content="&#xe61f;" Style="{DynamicResource Button.FontButton}"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
     <Style TargetType="{x:Type local:MMenuItem}">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.WebMenuBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="13"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Height" Value="30"/>
+        <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="MinWidth" Value="40"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -202,6 +230,15 @@
                 <Setter Property="Template" Value="{StaticResource MSubmenuItemTemplate}"/>
                 <Setter Property="Padding" Value="3,0,0,0"/>
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Role" Value="SubmenuItem"/>
+                    <Condition Property="RoleEx" Value="SubmenuItemEx"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Template" Value="{StaticResource MSubmenuItemExpandTemplate}"/>
+                <Setter Property="BorderThickness" Value="0,1,0,1"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.WebMenuDivisionBorderBrush}"/>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

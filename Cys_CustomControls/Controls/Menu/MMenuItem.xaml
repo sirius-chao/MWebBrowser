@@ -10,16 +10,16 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="Icon" FontSize="25" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
-                   Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" MinWidth="120">
+                   Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" Width="{TemplateBinding PopupWidth}">
                     <Border x:Name="SubMenuBorder" Margin="0 0 5 5" >
                         <Border.Effect>
                             <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
                         </Border.Effect>
-                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource ColorBrush.MenuItemPopBorderBrush}" >
+                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5">
                             <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}" Margin="0,5">
                                 <Grid RenderOptions.ClearTypeHint="Enabled" Background="Transparent">
                                     <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -61,14 +61,14 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="Icon" FontSize="25" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Icon" Value="{x:Null}">
+            <!--<Trigger Property="Icon" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsHighlighted" Value="True">
                 <Setter TargetName="templateRoot" Property="Background"  Value="{DynamicResource WebBrowserBrushes.WebMenuIsMouseOverBackground}"/>
                 <Setter TargetName="PART_TextGrid" Property="Opacity"  Value="1"/>
@@ -87,7 +87,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" x:Name="Icon" Margin="10,0,0,0" FontSize="25" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     <ContentPresenter Grid.Column="1" ContentSource="Header"  HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
@@ -96,12 +96,12 @@
                       HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center" Opacity="0.6"/>
 
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
-                   Placement="Right" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" MinWidth="120">
+                   Placement="Right" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" VerticalOffset="-5" Width="{TemplateBinding PopupWidth}">
                     <Border x:Name="SubMenuBorder" Margin="0 0 5 5" >
                         <Border.Effect>
                             <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
                         </Border.Effect>
-                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5" BorderBrush="{DynamicResource ColorBrush.MenuItemPopBorderBrush}" >
+                        <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" BorderThickness="1" CornerRadius="5">
                             <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}" Margin="0,5">
                                 <Grid RenderOptions.ClearTypeHint="Enabled" Background="Transparent">
                                     <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -122,9 +122,9 @@
             <Trigger Property="IsSuspendingPopupAnimation" Value="true">
                 <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
             </Trigger>
-            <Trigger Property="Icon" Value="{x:Null}">
+            <!--<Trigger Property="Icon" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
@@ -145,16 +145,16 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="Icon" Margin="10,0,0,0" FontSize="25" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter Grid.Column="1" x:Name="menuHeaderContainer"  HorizontalAlignment="Center" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Icon" Value="{x:Null}">
+            <!--<Trigger Property="Icon" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
@@ -169,6 +169,7 @@
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.WebMenuBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Microsoft YaHei"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="Auto"/>
@@ -181,6 +182,7 @@
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                <Setter Property="PopupWidth" Value="300"/>
                 <Setter Property="Template" Value="{StaticResource MTopLevelHeaderTemplate}"/>
             </Trigger>
             <Trigger Property="Role" Value="TopLevelItem">
@@ -188,6 +190,7 @@
                 <Setter Property="Template" Value="{StaticResource MTopLevelItemTemplate}"/>
             </Trigger>
             <Trigger Property="Role" Value="SubmenuHeader">
+                <Setter Property="PopupWidth" Value="300"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
                 <Setter Property="Template" Value="{StaticResource MSubmenuHeaderTemplate}"/>

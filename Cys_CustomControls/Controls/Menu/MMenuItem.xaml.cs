@@ -55,5 +55,22 @@ namespace Cys_CustomControls.Controls
         #endregion
 
         #endregion
+
+        #region == DependencyProperty==
+        #region == PopupWidth==
+        public static readonly DependencyProperty PopupWidthProperty = DependencyProperty.Register("PopupWidth", typeof(double), typeof(MMenuItem),
+            new PropertyMetadata(null));
+
+        /// <summary>
+        /// PopupWidth
+        /// </summary>
+        public double PopupWidth
+        {
+            get => (double)GetValue(PopupWidthProperty);
+            set => SetValue(PopupWidthProperty, value);
+        }
+        #endregion
+
+        #endregion
     }
 }

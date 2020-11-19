@@ -3,19 +3,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:attached="clr-namespace:Cys_Resource.Code;assembly=Cys_Resource"
+             xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="320" Height="300" Width="320" Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}">
+             d:DesignHeight="600" d:DesignWidth="320" Height="600" Width="320" Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}">
     <UserControl.Resources>
         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource DefaultMenuItem}"/>
         <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource DefaultMenu}"/>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <MenuItem Style="{StaticResource TransparentHeaderMenuItem}">
-                <MenuItem Header="新建标签页"/>
-                <MenuItem Header="新建窗口"/>
-            </MenuItem>
+        <StackPanel Margin="0,10">
+            <controls:MMenuItem Header="新建标签页"/>
+            <controls:MMenuItem Header="新建窗口"/>
+            <controls:MMenuItem Header="新建InPrivate窗口"/>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <controls:MMenuItem Header="收藏夹"/>
+            <controls:MMenuItem Header="历史记录"/>
+            <controls:MMenuItem Header="下载"/>
+            <controls:MMenuItem Header="应用">
+                <controls:MMenuItem Header="管理应用"/>
+            </controls:MMenuItem>
+            <controls:MMenuItem Header="扩展"/>
+            <controls:MMenuItem Header="集锦"/>
+            <controls:MMenuItem Header="打印"/>
+            <controls:MMenuItem Header="共享"/>
+            <controls:MMenuItem Header="在页面上查找"/>
+            <controls:MMenuItem Header="大声朗读"/>
+            <controls:MMenuItem Header="更多工具"/>
+            <controls:MMenuItem Header="设置"/>
+            <controls:MMenuItem Header="帮助和反馈"/>
+            <controls:MMenuItem Header="关闭"/>
         </StackPanel>
     </Grid>
 </UserControl>

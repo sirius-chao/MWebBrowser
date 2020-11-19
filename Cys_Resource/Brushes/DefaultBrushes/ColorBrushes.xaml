@@ -117,5 +117,7 @@
     <!--#endregion-->
 
 
+    <SolidColorBrush x:Key="ColorBrush.MenuItemOverBackground" Color="#616161"/>
+
     <Color x:Key="Color.WindowBorderBrush">#FFFFFF</Color>
 </ResourceDictionary>

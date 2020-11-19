@@ -25,4 +25,5 @@
 
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuBackground" Color="#4A4A4A"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuIsMouseOverBackground" Color="#616161"/>
+    <Color x:Key="WebBrowserColor.MenuItemDropShadowBrush" >#000000</Color>
 </ResourceDictionary>

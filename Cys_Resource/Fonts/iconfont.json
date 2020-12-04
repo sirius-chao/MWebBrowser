@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1586259",
+      "name": "应用",
+      "font_class": "yingyong",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "5965297",
+      "name": "other",
+      "font_class": "other",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "8765261",
+      "name": "pdf",
+      "font_class": "pdf",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "9944377",
+      "name": "音频",
+      "font_class": "yinpin",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "11930350",
+      "name": "图像",
+      "font_class": "tuxiang",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "12596769",
+      "name": "所有文件",
+      "font_class": "suoyouwenjian",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "13054680",
+      "name": "压缩文件",
+      "font_class": "yasuowenjian",
+      "unicode": "e901",
+      "unicode_decimal": 59649
+    },
+    {
+      "icon_id": "13746418",
+      "name": "文档",
+      "font_class": "wendang",
+      "unicode": "eb1e",
+      "unicode_decimal": 60190
+    },
+    {
+      "icon_id": "16366773",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e902",
+      "unicode_decimal": 59650
+    },
+    {
       "icon_id": "10604796",
       "name": "缩放",
       "font_class": "suofang",

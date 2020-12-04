@@ -21,11 +21,19 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsPressBackground" Color="#6F6F6F"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.DefaultForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DefaultBackground" Color="#333333"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.OpenFileForeground" Color="#65ADE4"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuBackground" Color="#4A4A4A"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuIsMouseOverBackground" Color="#616161"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuDivisionBorderBrush" Color="#636363"/>
+
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllUrlForeground" Color="#979797"/>
+
+
     <Color x:Key="WebBrowserColor.MenuItemDropShadowBrush" >#000000</Color>
+
+
 </ResourceDictionary>

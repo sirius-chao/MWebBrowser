@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="MWebBrowser.View.WebBrowser.DownloadShowAllUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000" 
+             Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"
+             Background="{DynamicResource WebBrowserBrushes.DefaultBackground}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Width="340">
+            <ScrollViewer Margin="50,30,30,0" Style="{DynamicResource ScrollViewer.MainMenu}">
+                <StackPanel>
+                    <TextBlock Text="下载" FontSize="30" FontWeight="Bold"/>
+                    <controls:MTextBox Watermark="搜索 所有文件" Margin="0,10,20,0"/>
+                    <controls:MMenuItem Header="所有文件" Icon="&#xe69b;"/>
+                    <controls:MMenuItem Header="PDF" Icon="&#xe63f;"/>
+                    <controls:MMenuItem Header="文档" Icon="&#xeb1e;"/>
+                    <controls:MMenuItem Header="应用" Icon="&#xe60a;"/>
+                    <controls:MMenuItem Header="图像" Icon="&#xe616;"/>
+                    <controls:MMenuItem Header="视频" Icon="&#xe902;"/>
+                    <controls:MMenuItem Header="音频" Icon="&#xe636;"/>
+                    <controls:MMenuItem Header="其他" Icon="&#xe63a;"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid Margin="50,30,30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="所有文件" FontSize="30" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                        <controls:MMenuItem Header="全部清除" Icon="&#xe74e;"/>
+                        <controls:MMenuItem Header="打开下载文件夹" Icon="&#xe7d0;" Margin="10,0"/>
+                        <Button Style="{DynamicResource Button.FontButton}" Content=". . ." Padding="0,0,0,5" Click="NavigationRefresh_OnClick"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

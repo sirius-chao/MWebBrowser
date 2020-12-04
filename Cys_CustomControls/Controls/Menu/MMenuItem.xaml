@@ -182,9 +182,9 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" />
+                        <Button Grid.Column="0" Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" Command="{Binding ZoomInCommand}"/>
                         <TextBlock Grid.Column="1" Text="100%" Margin="9,0" VerticalAlignment="Center"/>
-                        <Button Grid.Column="2" Content="&#xe699;" Style="{DynamicResource Button.FontButton}"/>
+                        <Button Grid.Column="2" Content="&#xe699;" Style="{DynamicResource Button.FontButton}" Command="{Binding ZoomOutCommand}"/>
                     </Grid>
                 </Border>
                 <Button Grid.Column="2" Content="&#xe61f;" Style="{DynamicResource Button.FontButton}"/>

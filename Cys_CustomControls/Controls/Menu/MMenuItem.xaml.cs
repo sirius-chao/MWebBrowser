@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Cys_CustomControls.Controls
 {
@@ -67,6 +68,7 @@ namespace Cys_CustomControls.Controls
             set => SetValue(PopupWidthProperty, value);
         }
         #endregion
+
         #region == RoleEx==
         public static readonly DependencyProperty RoleExProperty = DependencyProperty.Register("RoleEx", typeof(MenuItemRoleEx), typeof(MMenuItem),
             new PropertyMetadata(MenuItemRoleEx.None));
@@ -80,6 +82,33 @@ namespace Cys_CustomControls.Controls
             set => SetValue(RoleExProperty, value);
         }
         #endregion
+
+        #region == ZoomInCommand==
+        /// <summary>
+        /// ZoomInCommand
+        /// </summary>
+        public static readonly DependencyProperty ZoomInCommandProperty = DependencyProperty.Register("ZoomInCommand", typeof(ICommand), typeof(MMenuItem), new PropertyMetadata(null));
+
+        public ICommand ZoomInCommand
+        {
+            get => (ICommand)GetValue(ZoomInCommandProperty);
+            set => SetValue(ZoomInCommandProperty, value);
+        }
+        #endregion
+
+        #region == ZoomOutCommand==
+        /// <summary>
+        /// ZoomOutCommand
+        /// </summary>
+        public static readonly DependencyProperty ZoomOutCommandProperty = DependencyProperty.Register("ZoomOutCommand", typeof(ICommand), typeof(MMenuItem), new PropertyMetadata(null));
+
+        public ICommand ZoomOutCommand
+        {
+            get => (ICommand)GetValue(ZoomOutCommandProperty);
+            set => SetValue(ZoomOutCommandProperty, value);
+        }
+        #endregion
+
         #endregion
 
     }

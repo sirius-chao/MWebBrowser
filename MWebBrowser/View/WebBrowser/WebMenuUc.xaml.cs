@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Cys_Controls.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -10,6 +11,24 @@ namespace MWebBrowser.View.WebBrowser
         public WebMenuUc()
         {
             InitializeComponent();
+            this.Loaded += WebMenuUc_Loaded;
         }
+
+        private void WebMenuUc_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ZoomMenuItem.ZoomInCommand = new BaseCommand<object>(ZoomIn);
+            ZoomMenuItem.ZoomOutCommand = new BaseCommand<object>(ZoomOut);
+        }
+
+        private void ZoomIn(object obj)
+        { 
+            
+        }
+
+        private void ZoomOut(object obj)
+        {
+
+        }
+
     }
 }

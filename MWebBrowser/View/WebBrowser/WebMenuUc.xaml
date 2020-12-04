@@ -12,7 +12,7 @@
                 <controls:MMenuItem Header="新建标签页" Icon="&#xe600;"/>
                 <controls:MMenuItem Header="新建窗口" Icon="&#xe602;"/>
                 <controls:MMenuItem Header="新建InPrivate窗口" Icon="&#xe68c;"/>
-                <controls:MMenuItem RoleEx="SubmenuItemEx" />
+                <controls:MMenuItem RoleEx="SubmenuItemEx" x:Name="ZoomMenuItem"/>
                 <controls:MMenuItem Header="收藏夹" Icon="&#xe6de;"/>
                 <controls:MMenuItem Header="历史记录" Icon="&#xe6f8;"/>
                 <controls:MMenuItem Header="下载" Icon="&#xe6d3;"/>

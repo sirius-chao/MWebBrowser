@@ -19,6 +19,8 @@ namespace MWebBrowser.View.WebBrowser
         public CustomWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
 
+        private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
+
         public WebTabItemUc()
         {
             ViewModel = new WebTabItemViewModel();
@@ -27,6 +29,31 @@ namespace MWebBrowser.View.WebBrowser
             InitWebBrowser();
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
             this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
+            var s = this.CefWebBrowser.ZoomLevel;
+            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
+        }
+
+
+        private void CefWebBrowser_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
+            try
+            {
+                if (e.Delta > 0)
+                {
+                    CefWebBrowser.ZoomInCommand.Execute(null);
+                }
+                else if (e.Delta < 0)
+                {
+                    CefWebBrowser.ZoomOutCommand.Execute(null);
+                }
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
+               
+            }
         }
 
         private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)

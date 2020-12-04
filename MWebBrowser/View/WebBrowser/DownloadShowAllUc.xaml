@@ -11,12 +11,13 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Width="340">
             <ScrollViewer Margin="50,30,30,0" Style="{DynamicResource ScrollViewer.MainMenu}">
                 <StackPanel>
-                    <TextBlock Text="下载" FontSize="30" FontWeight="Bold"/>
+                    <TextBlock Text="下载" Margin="10,0,0,0" FontSize="25" FontWeight="Bold"/>
                     <controls:MTextBox Watermark="搜索 所有文件" Margin="0,10,20,0"/>
                     <controls:MMenuItem Header="所有文件" Icon="&#xe69b;"/>
                     <controls:MMenuItem Header="PDF" Icon="&#xe63f;"/>
@@ -30,7 +31,10 @@
             </ScrollViewer>
         </Grid>
         <Grid Grid.Column="1">
-            <Grid Margin="50,30,30,0">
+            <Rectangle Width="1" Fill="{DynamicResource WebBrowserBrushes.DownloadShowAllDivisionBrush}"/>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid Margin="50,30,30,0" MaxWidth="800" HorizontalAlignment="Left">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -41,16 +45,18 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="所有文件" FontSize="30" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="0" Text="所有文件" FontSize="22" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Grid.Column="2">
-                        <controls:MMenuItem Header="全部清除" Icon="&#xe74e;"/>
-                        <controls:MMenuItem Header="打开下载文件夹" Icon="&#xe7d0;" Margin="10,0"/>
-                        <Button Style="{DynamicResource Button.FontButton}" Content=". . ." Padding="0,0,0,5" Click="NavigationRefresh_OnClick"/>
+                        <controls:MMenuItem Header="全部清除" Icon="&#xe74e;" Padding="0,0,12,0" Click="Clear_OnClick"/>
+                        <controls:MMenuItem Header="打开下载文件夹" Icon="&#xe7d0;" Margin="10,0" Padding="0,0,12,0" Click="OpenDownFilePath_OnClick"/>
+                        <Button Style="{DynamicResource Button.FontButton}" Content=". . ." Padding="0,0,0,5"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1">
-                    
+                <Grid Grid.Row="1" Margin="0,30,0,0">
+                    <StackPanel x:Name="FileList">
+
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>

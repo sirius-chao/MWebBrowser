@@ -8,7 +8,7 @@ namespace Cys_DataRepository
         public static string GetFilePath(DataFileType type)
         {
             string filePath = null;
-            string BaseFilePath = AppDomain.CurrentDomain.BaseDirectory;
+            string BaseFilePath = $"{AppDomain.CurrentDomain.BaseDirectory}Data\\";
             filePath = type switch
             {
                 DataFileType.Download => $"{BaseFilePath}Download.json",

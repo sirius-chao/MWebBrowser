@@ -31,6 +31,8 @@
 
 
     <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllUrlForeground" Color="#979797"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllDivisionBrush" Color="#737373"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllDisplayForeground" Color="#68AFe5"/>
 
 
     <Color x:Key="WebBrowserColor.MenuItemDropShadowBrush" >#000000</Color>

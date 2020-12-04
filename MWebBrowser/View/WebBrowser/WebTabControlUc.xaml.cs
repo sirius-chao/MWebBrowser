@@ -6,7 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using Cys_Common;
 using Cys_Resource.Code;
+using MWebBrowser.Code;
 using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.View.WebBrowser
@@ -61,6 +64,8 @@ namespace MWebBrowser.View.WebBrowser
             {
                 WebTabControl.PartHeaderParentGrid.MouseLeftButtonDown += mw.HeaderClickOrDragMove;
             }
+
+            DownloadTool.ShowDownloadTabEvent += ShowDownloadTab;
         }
 
         private void InitCommand()
@@ -98,8 +103,29 @@ namespace MWebBrowser.View.WebBrowser
 
         #region DownloadTool
 
-        
+        private void ShowDownloadTab()
+        {
+            foreach (var tabItem in WebTabControl.Items)
+            {
+                if (tabItem is TabItem tI)
+                {
+                    if (tI.Content is DownloadShowAllUc)
+                    {
+                        WebTabControl.SelectedItem = tabItem;
+                        return;
+                    }
+                }
+            }
 
+            GlobalControl.DownloadShowAll ??= new DownloadShowAllUc();
+            var item = new TabItem { Content = GlobalControl.DownloadShowAll };
+            item.SetValue(HeaderedContentControl.HeaderProperty, "下载");
+            var source = Application.Current.FindResource($"DrawingImage.File") as ImageSource;
+            item.SetValue(AttachedPropertyClass.ImageSourceProperty, source);
+            WebTabControl.Items.Add(item);
+            WebTabControl.SelectedItem = item;
+            WebTabControl.SetHeaderPanelWidth();
+        }
         #endregion
     }
 }

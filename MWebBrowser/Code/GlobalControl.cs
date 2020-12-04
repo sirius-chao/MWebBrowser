@@ -4,8 +4,10 @@ namespace MWebBrowser.Code
 {
     public class GlobalControl
     {
-        private static DownloadShowAllUc _downloadShowAll;
-
-        public static DownloadShowAllUc DownloadShowAll => _downloadShowAll ?? new DownloadShowAllUc();
+        public static DownloadShowAllUc DownloadShowAll
+        {
+            get;
+            set;
+        }
     }
 }

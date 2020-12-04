@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
     <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
+    <ProjectReference Include="..\Cys_DataRepository\Cys_DataRepository.csproj" />
     <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
   </ItemGroup>
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Cys_Common;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -13,6 +14,7 @@ namespace MWebBrowser.View.WebBrowser
     /// </summary>
     public partial class DownloadToolUc : UserControl
     {
+        public Action ShowDownloadTabEvent;
         private readonly Dictionary<int,DownloadToolItemViewModel> _downloadDict;
 
         private Storyboard _displayToolStoryboard;
@@ -34,6 +36,7 @@ namespace MWebBrowser.View.WebBrowser
         {
             ItemsParent.Children.Clear();
             HideTool();
+            ShowDownloadTabEvent?.Invoke();
         }
 
         public void DownloadFile(bool isUpdate, DownloadItem downloadItem)
@@ -55,6 +58,16 @@ namespace MWebBrowser.View.WebBrowser
                     ItemsParent.Children.Insert(0, item);
                 }));
 
+                if (!GlobalInfo.DownloadSetting.DownloadItemInfos.Exists(x =>
+                    x.FileName == downloadItem.SuggestedFileName))
+                {
+                    GlobalInfo.DownloadSetting.DownloadItemInfos.Add(new DownloadItemInfo
+                    {
+                        FileName = downloadItem.SuggestedFileName,
+                        FilePath = downloadItem.FullPath,
+                        Url = downloadItem.Url,
+                    });
+                }
             }
             else
             {

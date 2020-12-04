@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -7,9 +8,15 @@ namespace MWebBrowser.View.WebBrowser
     /// </summary>
     public partial class DownloadShowAllItemUc : UserControl
     {
+        public Action<DownloadShowAllItemUc> RemoveFileEvent;
         public DownloadShowAllItemUc()
         {
             InitializeComponent();
+        }
+
+        private void RemoveFile_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RemoveFileEvent?.Invoke(this);
         }
     }
 }

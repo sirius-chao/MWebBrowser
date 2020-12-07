@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Cys_CustomControls.Controls">
 
-    <Style TargetType="{x:Type local:MTextBox}">
+    <Style TargetType="{x:Type local:MSearchText}">
         <Setter Property="Foreground" Value="{DynamicResource WebBrowserBrushes.SearchForegroundColor}"/>
         <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.SearchBackgroundColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.SearchBorderBrushColor}" />
@@ -14,7 +14,7 @@
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:MTextBox}">
+                <ControlTemplate TargetType="{x:Type local:MSearchText}">
                     <Grid VerticalAlignment="Center">
                         <Border x:Name="PART_Border" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" 
                                     SnapsToDevicePixels="true">
@@ -26,6 +26,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <Button Style="{DynamicResource Button.NavigationSearch}" Margin="2,0"/>
@@ -37,6 +39,14 @@
                                 <TextBlock x:Name="Part_Watermark" Text="{TemplateBinding Watermark}" FontSize="{TemplateBinding FontSize}" Visibility="Hidden" HorizontalAlignment="Left"
                                    Foreground="{DynamicResource ColorBrush.FontWatermarkColor}" IsHitTestVisible="False" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="5,0"/>
                             </Grid>
+
+                            <Grid Grid.Column="2">
+                                <ToggleButton x:Name="PART_ZoomButton" FontSize="16" Style="{DynamicResource ToggleButton.FontButton}" Margin="2,0"/>
+                            </Grid>
+
+                            <Grid Grid.Column="3">
+                                <ToggleButton Style="{DynamicResource ToggleButton.NavigationCollection}" Margin="2,0"/>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -47,6 +57,17 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_Border" Property="BorderThickness" Value="1" />
                         </Trigger>
+
+                        <Trigger Property="ZoomLevelType" Value="None">
+                            <Setter TargetName="PART_ZoomButton" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ZoomLevelType" Value="In">
+                            <Setter TargetName="PART_ZoomButton" Property="Content" Value="&#xe678;" />
+                        </Trigger>
+                        <Trigger Property="ZoomLevelType" Value="Out">
+                            <Setter TargetName="PART_ZoomButton" Property="Content" Value="&#xe620;" />
+                        </Trigger>
+
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="PART_Border" Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.SearchFocusBorderBrushColor}" />
                             <Setter TargetName="PART_Border" Property="BorderThickness" Value= "2"/>
@@ -79,3 +100,4 @@
         </Setter>
     </Style>
 </ResourceDictionary>
+

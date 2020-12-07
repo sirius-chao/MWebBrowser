@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Button/MButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Button/MMenuButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TextBox/MTextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TextBox/MSearchText.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TextBlock/MTextBlock.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/PasswordBox/MPasswordBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/CheckBox/MCheckBox.xaml"/>

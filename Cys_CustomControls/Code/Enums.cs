@@ -47,4 +47,11 @@ namespace Cys_Controls.Code
         BottomLeft = 7,
         BottomRight = 8,
     }
+
+    public enum ZoomType
+    {
+        None,
+        In,
+        Out,
+    }
 }

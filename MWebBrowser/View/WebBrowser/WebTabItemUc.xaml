@@ -24,7 +24,8 @@
                     <Button Style="{DynamicResource Button.NavigationForward}" IsEnabled="{Binding CanGoForward}" Click="NavigationForward_OnClick"/>
                     <Button Style="{DynamicResource Button.NavigationRefresh}" Click="NavigationRefresh_OnClick"/>
                 </StackPanel>
-                <controls:MTextBox Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" KeyDown="Search_OnKeyDown"/>
+                <controls:MSearchText Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      ZoomLevelType="{Binding ZoomLevelType}" KeyDown="Search_OnKeyDown"/>
                 <Grid Grid.Column="2" MinWidth="150">
                     <webBrowser:WebMenuUc HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 </Grid>

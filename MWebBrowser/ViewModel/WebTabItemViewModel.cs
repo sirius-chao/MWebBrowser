@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.ViewModel
@@ -13,5 +14,8 @@ namespace MWebBrowser.ViewModel
 
         private string _currentUrl;
         public string CurrentUrl { get => _currentUrl; set { _currentUrl = value; OnPropertyChanged("CurrentUrl"); } }
+
+        private ZoomType _zoomLevelType;
+        public ZoomType ZoomLevelType { get => _zoomLevelType; set { _zoomLevelType = value; OnPropertyChanged("ZoomLevelType"); } }
     }
 }

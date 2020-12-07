@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Cys_Controls.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -27,8 +28,6 @@ namespace MWebBrowser.View.WebBrowser
             this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
-
-       
         }
 
 
@@ -45,7 +44,8 @@ namespace MWebBrowser.View.WebBrowser
                 {
                     CefWebBrowser.ZoomOutCommand.Execute(null);
                 }
-                var level = CefWebBrowser.ZoomLevel;
+
+                SetSearchZoomStatus();
                 e.Handled = true;
             }
             catch (Exception ex)
@@ -66,6 +66,7 @@ namespace MWebBrowser.View.WebBrowser
             {
                 CefWebBrowser.ZoomResetCommand.Execute(null);
                 // CefWebBrowser.SetZoomLevel(0);
+                SetSearchZoomStatus();
             }
         }
 
@@ -156,6 +157,22 @@ namespace MWebBrowser.View.WebBrowser
                 //使search框失去焦点
                 this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             });
+        }
+
+        private void SetSearchZoomStatus()
+        {
+            if (CefWebBrowser.ZoomLevel < 0)
+            {
+                ViewModel.ZoomLevelType = ZoomType.Out;
+            }
+            else if (CefWebBrowser.ZoomLevel > 0)
+            {
+                ViewModel.ZoomLevelType = ZoomType.In;
+            }
+            else
+            {
+                ViewModel.ZoomLevelType = ZoomType.None;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cys_Controls.Code;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
@@ -154,6 +155,42 @@ namespace Cys_CustomControls.Controls
         {
             get => (bool)GetValue(ZoomStaysOpenProperty);
             set => SetValue(ZoomStaysOpenProperty, value);
+        }
+        #endregion
+
+        #region == ZoomInCommand 放大Command ==
+        public static readonly DependencyProperty ZoomInCommandProperty = DependencyProperty.Register("ZoomInCommand", typeof(ICommand), typeof(MSearchText));
+        /// <summary>
+        /// ZoomInCommand 放大Command
+        /// </summary>
+        public ICommand ZoomInCommand
+        {
+            get => (ICommand)GetValue(ZoomInCommandProperty);
+            set => SetValue(ZoomInCommandProperty, value);
+        }
+        #endregion
+
+        #region == ZoomInCommand 放大Command ==
+        public static readonly DependencyProperty ZoomOutCommandProperty = DependencyProperty.Register("ZoomOutCommand", typeof(ICommand), typeof(MSearchText));
+        /// <summary>
+        /// ZoomInCommand 放大Command
+        /// </summary>
+        public ICommand ZoomOutCommand
+        {
+            get => (ICommand)GetValue(ZoomOutCommandProperty);
+            set => SetValue(ZoomOutCommandProperty, value);
+        }
+        #endregion
+
+        #region == ZoomResetCommand 放大Command ==
+        public static readonly DependencyProperty ZoomResetCommandProperty = DependencyProperty.Register("ZoomResetCommand", typeof(ICommand), typeof(MSearchText));
+        /// <summary>
+        /// ZoomResetCommand 放大Command
+        /// </summary>
+        public ICommand ZoomResetCommand
+        {
+            get => (ICommand)GetValue(ZoomResetCommandProperty);
+            set => SetValue(ZoomResetCommandProperty, value);
         }
         #endregion
 

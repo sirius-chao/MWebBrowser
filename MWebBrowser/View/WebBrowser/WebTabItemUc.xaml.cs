@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using Cys_Controls.Code;
 using MWebBrowser.Code.CustomCef;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
@@ -8,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Cys_Controls.Code;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -32,6 +32,8 @@ namespace MWebBrowser.View.WebBrowser
             this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
+            InitSearchText();
+            InitWebMenu();
         }
 
 
@@ -44,34 +46,52 @@ namespace MWebBrowser.View.WebBrowser
             }
             try
             {
-                _zoomWaitingCount = 0;
                 if (e.Delta > 0)
                 {
-                    if (this.CefWebBrowser.ZoomLevel < 4)
-                    {
-                        CefWebBrowser.ZoomInCommand.Execute(null);
-                    }
-                    ViewModel.ZoomStaysOpen = true;
+                    ZoomIn();
                 }
                 else if (e.Delta < 0)
                 {
-                    if (this.CefWebBrowser.ZoomLevel > -4)
-                    {
-                        CefWebBrowser.ZoomOutCommand.Execute(null);
-                    }
-                    ViewModel.ZoomStaysOpen = true;
+                    ZoomOut();
                 }
+                _zoomWaitingCount = 0;
                 _zoomToolTimer.Elapsed -= ZoomToolTimer_Elapsed;
                 _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
                 _zoomToolTimer.AutoReset = true;
                 _zoomToolTimer.Enabled = true;
-                SetSearchZoomStatus();
                 e.Handled = true;
             }
             catch (Exception ex)
             {
                
             }
+        }
+
+        private void ZoomIn()
+        {
+            if (this.CefWebBrowser.ZoomLevel < 4)
+            {
+                CefWebBrowser.ZoomInCommand.Execute(null);
+            }
+            ViewModel.ZoomStaysOpen = true;
+            SetSearchZoomStatus();
+        }
+
+        private void ZoomOut()
+        {
+            if (this.CefWebBrowser.ZoomLevel > -4)
+            {
+                CefWebBrowser.ZoomOutCommand.Execute(null);
+            }
+            ViewModel.ZoomStaysOpen = true;
+            SetSearchZoomStatus();
+        }
+
+        private void ZoomReset()
+        {
+            CefWebBrowser.ZoomResetCommand.Execute(null);
+            // CefWebBrowser.SetZoomLevel(0);
+            SetSearchZoomStatus();
         }
 
         private void ZoomToolTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -101,9 +121,7 @@ namespace MWebBrowser.View.WebBrowser
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control 
                 && (e.Key == Key.D0 || e.Key == Key.NumPad0))
             {
-                CefWebBrowser.ZoomResetCommand.Execute(null);
-                // CefWebBrowser.SetZoomLevel(0);
-                SetSearchZoomStatus();
+               
             }
         }
 
@@ -139,6 +157,28 @@ namespace MWebBrowser.View.WebBrowser
             this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
             this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
 
+        }
+
+        private void InitSearchText()
+        {
+            SearchText.ZoomInCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomIn();
+            });
+            SearchText.ZoomOutCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomOut();
+            });
+            SearchText.ZoomResetCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomReset();
+            });
+        }
+
+        private void InitWebMenu()
+        {
+            WebMenu.ZoomInEvent += ZoomIn;
+            WebMenu.ZoomOutEvent += ZoomOut;
         }
 
         private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -224,7 +264,6 @@ namespace MWebBrowser.View.WebBrowser
                 ViewModel.ZoomLevelType = ZoomType.None;
                 ViewModel.ZoomIsChecked = false;
             }
-         
         }
     }
 }

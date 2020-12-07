@@ -56,9 +56,9 @@
                                 <DockPanel Width="251" Height="40">
                                     <TextBlock Text="{TemplateBinding ZoomRatio}" VerticalAlignment="Center" Margin="15,0,0,0" HorizontalAlignment="Left"/>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
-                                        <Button Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" Width="26" Height="26"/>
-                                        <Button Content="&#xe699;" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="26" Height="26"/>
-                                        <Button Content="重置" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="64" Background="{DynamicResource WebBrowserBrushes.SearchZoomPopupResetBackground}"/>
+                                        <Button Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" Width="26" Height="26" Command="{TemplateBinding ZoomOutCommand}"/>
+                                        <Button Content="&#xe699;" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="26" Height="26" Command="{TemplateBinding ZoomInCommand}"/>
+                                        <Button Content="重置" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="64" Background="{DynamicResource WebBrowserBrushes.SearchZoomPopupResetBackground}" Command="{TemplateBinding ZoomResetCommand}"/>
                                     </StackPanel>
                                 </DockPanel>
                             </Border>

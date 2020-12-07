@@ -11,6 +11,7 @@ namespace MWebBrowser.View.WebBrowser
     {
         public Action ZoomInEvent;
         public Action ZoomOutEvent;
+        public Action ZoomResetEvent;
         public WebMenuUc()
         {
             InitializeComponent();

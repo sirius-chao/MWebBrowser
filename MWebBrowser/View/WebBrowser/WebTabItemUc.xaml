@@ -24,11 +24,12 @@
                     <Button Style="{DynamicResource Button.NavigationForward}" IsEnabled="{Binding CanGoForward}" Click="NavigationForward_OnClick"/>
                     <Button Style="{DynamicResource Button.NavigationRefresh}" Click="NavigationRefresh_OnClick"/>
                 </StackPanel>
-                <controls:MSearchText Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                <controls:MSearchText x:Name="SearchText" Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                       ZoomLevelType="{Binding ZoomLevelType}" ZoomRatio="{Binding ZoomRatio}" ZoomIsChecked="{Binding ZoomIsChecked}"
-                                      ZoomStaysOpen="{Binding ZoomStaysOpen}"  KeyDown="Search_OnKeyDown"/>
+                                      ZoomStaysOpen="{Binding ZoomStaysOpen}" 
+                                      KeyDown="Search_OnKeyDown"/>
                 <Grid Grid.Column="2" MinWidth="150">
-                    <webBrowser:WebMenuUc HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    <webBrowser:WebMenuUc x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" x:Name="WebParentGrid" Visibility="Visible">

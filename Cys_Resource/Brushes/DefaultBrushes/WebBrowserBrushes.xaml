@@ -13,6 +13,8 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchForegroundColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchBorderBrushColor" Color="#656565"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.SearchFocusBorderBrushColor" Color="#63ADE5"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchZoomPopupBackground" Color="#4A4A4A"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchZoomPopupResetBackground" Color="#5C5C5C"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.DownloadToolBackground" Color="#3B3B3B"/>
 

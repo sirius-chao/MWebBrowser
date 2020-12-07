@@ -22,6 +22,10 @@ namespace MWebBrowser.View.WebBrowser
 
         private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
 
+
+        private readonly System.Timers.Timer _zoomToolTimer = new System.Timers.Timer(1000);
+        private int _zoomWaitingCount = -1;
+
         public WebTabItemUc()
         {
             ViewModel = new WebTabItemViewModel();
@@ -33,24 +37,57 @@ namespace MWebBrowser.View.WebBrowser
 
         private void CefWebBrowser_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control) return;
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
+            {
+                ViewModel.ZoomStaysOpen = false;
+                return;
+            }
             try
             {
+                _zoomWaitingCount = 0;
                 if (e.Delta > 0)
                 {
-                    CefWebBrowser.ZoomInCommand.Execute(null);
+                    if (this.CefWebBrowser.ZoomLevel < 4)
+                    {
+                        CefWebBrowser.ZoomInCommand.Execute(null);
+                    }
+                    ViewModel.ZoomStaysOpen = true;
                 }
                 else if (e.Delta < 0)
                 {
-                    CefWebBrowser.ZoomOutCommand.Execute(null);
+                    if (this.CefWebBrowser.ZoomLevel > -4)
+                    {
+                        CefWebBrowser.ZoomOutCommand.Execute(null);
+                    }
+                    ViewModel.ZoomStaysOpen = true;
                 }
-
+                _zoomToolTimer.Elapsed -= ZoomToolTimer_Elapsed;
+                _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
+                _zoomToolTimer.AutoReset = true;
+                _zoomToolTimer.Enabled = true;
                 SetSearchZoomStatus();
                 e.Handled = true;
             }
             catch (Exception ex)
             {
                
+            }
+        }
+
+        private void ZoomToolTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_zoomWaitingCount > 2)
+            {
+                _zoomToolTimer?.Stop();
+                ViewModel.ZoomIsChecked = false;
+                ViewModel.ZoomStaysOpen = false;
+                _zoomWaitingCount = -1;
+                return;
+            }
+
+            if (_zoomWaitingCount > -1)
+            {
+                _zoomWaitingCount++;
             }
         }
 
@@ -164,15 +201,30 @@ namespace MWebBrowser.View.WebBrowser
             if (CefWebBrowser.ZoomLevel < 0)
             {
                 ViewModel.ZoomLevelType = ZoomType.Out;
+                ViewModel.ZoomIsChecked = true;
+                if (CefWebBrowser.ZoomLevel > -1)
+                {
+                    ViewModel.ZoomRatio = "90%";
+                }
+                else if (CefWebBrowser.ZoomLevel <= 1)
+                {
+                    var radio = Math.Round((CefWebBrowser.ZoomLevel+5) / 5 * 100);
+                    ViewModel.ZoomRatio = $"{radio}%";
+                }
             }
             else if (CefWebBrowser.ZoomLevel > 0)
             {
                 ViewModel.ZoomLevelType = ZoomType.In;
+                ViewModel.ZoomIsChecked = true;
+                var radio = Math.Round((1 + CefWebBrowser.ZoomLevel) * 100, 2);
+                ViewModel.ZoomRatio = $"{radio}%";
             }
             else
             {
                 ViewModel.ZoomLevelType = ZoomType.None;
+                ViewModel.ZoomIsChecked = false;
             }
+         
         }
     }
 }

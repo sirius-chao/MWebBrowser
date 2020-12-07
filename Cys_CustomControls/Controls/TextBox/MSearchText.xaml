@@ -41,13 +41,28 @@
                             </Grid>
 
                             <Grid Grid.Column="2">
-                                <ToggleButton x:Name="PART_ZoomButton" FontSize="16" Style="{DynamicResource ToggleButton.FontButton}" Margin="2,0"/>
+                                <!--<ToggleButton x:Name="PART_ZoomButton" FontSize="16" Style="{DynamicResource ToggleButton.FontButton}" IsChecked="{Binding ElementName=PART_ZoomPopUp, Path=IsOpen,Mode=OneWay}" Margin="2,0"/>-->
+
+                                <ToggleButton x:Name="PART_ZoomButton" FontSize="16" Style="{DynamicResource ToggleButton.FontButton}" IsChecked="{TemplateBinding ZoomIsChecked}" Margin="2,0"/>
                             </Grid>
 
                             <Grid Grid.Column="3">
                                 <ToggleButton Style="{DynamicResource ToggleButton.NavigationCollection}" Margin="2,0"/>
                             </Grid>
                         </Grid>
+                        <Popup x:Name="PART_ZoomPopUp" PopupAnimation="Fade" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_ZoomButton}"
+                               StaysOpen="{TemplateBinding ZoomStaysOpen}" AllowsTransparency="True" HorizontalOffset="-180" VerticalOffset="5" IsOpen="{TemplateBinding ZoomIsChecked}">
+                            <Border Background="{DynamicResource WebBrowserBrushes.SearchZoomPopupBackground}" CornerRadius="5">
+                                <DockPanel Width="251" Height="40">
+                                    <TextBlock Text="{TemplateBinding ZoomRatio}" VerticalAlignment="Center" Margin="15,0,0,0" HorizontalAlignment="Left"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
+                                        <Button Content="&#xe60c;" Style="{DynamicResource Button.FontButton}" Width="26" Height="26"/>
+                                        <Button Content="&#xe699;" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="26" Height="26"/>
+                                        <Button Content="重置" Style="{DynamicResource Button.FontButton}" Margin="10,0,0,0" Width="64" Background="{DynamicResource WebBrowserBrushes.SearchZoomPopupResetBackground}"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>
+                        </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <!--显示水印-->
@@ -66,6 +81,12 @@
                         </Trigger>
                         <Trigger Property="ZoomLevelType" Value="Out">
                             <Setter TargetName="PART_ZoomButton" Property="Content" Value="&#xe620;" />
+                        </Trigger>
+                        <Trigger SourceName="PART_ZoomButton" Property="IsChecked"  Value="True">
+                            <Setter TargetName="PART_ZoomPopUp" Property="IsOpen" Value="True" />
+                        </Trigger>
+                        <Trigger SourceName="PART_ZoomButton" Property="IsChecked"  Value="False">
+                            <Setter TargetName="PART_ZoomPopUp" Property="IsOpen" Value="False" />
                         </Trigger>
 
                         <Trigger Property="IsFocused" Value="True">
@@ -100,4 +121,3 @@
         </Setter>
     </Style>
 </ResourceDictionary>
-

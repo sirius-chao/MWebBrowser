@@ -121,11 +121,51 @@ namespace Cys_CustomControls.Controls
         }
         #endregion
 
+        #region == ZoomRatio 缩放比例 ==
+        public static readonly DependencyProperty ZoomRatioProperty = DependencyProperty.Register("ZoomRatio", typeof(string), typeof(MSearchText));
+        /// <summary>
+        /// ZoomLevelType 缩放比例
+        /// </summary>
+        public string ZoomRatio
+        {
+            get => (string)GetValue(ZoomRatioProperty);
+            set => SetValue(ZoomRatioProperty, value);
+        }
+        #endregion
+
+        #region == ZoomIsChecked 缩放按钮是否选中 ==
+        public static readonly DependencyProperty ZoomIsCheckedProperty = DependencyProperty.Register("ZoomIsChecked", typeof(bool), typeof(MSearchText));
+        /// <summary>
+        /// ZoomIsChecked 缩放按钮是否选中
+        /// </summary>
+        public bool ZoomIsChecked
+        {
+            get => (bool)GetValue(ZoomIsCheckedProperty);
+            set => SetValue(ZoomIsCheckedProperty, value);
+        }
+        #endregion
+
+        #region == ZoomStaysOpen 缩放Popup ==
+        public static readonly DependencyProperty ZoomStaysOpenProperty = DependencyProperty.Register("ZoomStaysOpen", typeof(bool), typeof(MSearchText));
+        /// <summary>
+        /// ZoomStaysOpen 缩放Popup
+        /// </summary>
+        public bool ZoomStaysOpen
+        {
+            get => (bool)GetValue(ZoomStaysOpenProperty);
+            set => SetValue(ZoomStaysOpenProperty, value);
+        }
+        #endregion
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             InitResourceData();
         }
+
+
+
+        
 
         /// <summary>
         /// 建立 DynamicResource 绑定

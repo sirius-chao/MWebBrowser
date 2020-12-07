@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using Cys_Controls.Code;
 
 namespace MWebBrowser.View.WebBrowser
@@ -8,6 +9,8 @@ namespace MWebBrowser.View.WebBrowser
     /// </summary>
     public partial class WebMenuUc : UserControl
     {
+        public Action ZoomInEvent;
+        public Action ZoomOutEvent;
         public WebMenuUc()
         {
             InitializeComponent();
@@ -21,14 +24,13 @@ namespace MWebBrowser.View.WebBrowser
         }
 
         private void ZoomIn(object obj)
-        { 
-            
+        {
+            ZoomInEvent?.Invoke();
         }
 
         private void ZoomOut(object obj)
         {
-
+            ZoomOutEvent?.Invoke();
         }
-
     }
 }

@@ -27,11 +27,8 @@ namespace MWebBrowser.View.WebBrowser
             this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
-            this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
-            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
-            var s = this.CefWebBrowser.ZoomLevel;
-            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
+
+       
         }
 
 
@@ -48,6 +45,7 @@ namespace MWebBrowser.View.WebBrowser
                 {
                     CefWebBrowser.ZoomOutCommand.Execute(null);
                 }
+                var level = CefWebBrowser.ZoomLevel;
                 e.Handled = true;
             }
             catch (Exception ex)
@@ -61,6 +59,13 @@ namespace MWebBrowser.View.WebBrowser
             if (e.Key == Key.F5)
             {
                 this.CefWebBrowser.Reload();
+            }
+
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control 
+                && (e.Key == Key.D0 || e.Key == Key.NumPad0))
+            {
+                CefWebBrowser.ZoomResetCommand.Execute(null);
+                // CefWebBrowser.SetZoomLevel(0);
             }
         }
 
@@ -91,6 +96,10 @@ namespace MWebBrowser.View.WebBrowser
             NavigationStackPanel.DataContext = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             WebParentGrid.Children.Add(CefWebBrowser);
+            this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
+            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
+            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
 
         }
 

@@ -4,6 +4,7 @@
 
     <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderBackground" Color="#1B1B1B"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderIsSelectedBackground" Color="#3B3B3B"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderFavoritesBarBackground" Color="#3B3B3B"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderIsMouseOverBackground" Color="#272727"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.TabCloseIsMouseOverBackground" Color="#4A4A4A"/>

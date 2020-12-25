@@ -10,10 +10,11 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
+            <Grid Grid.Row="0" Height="30" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -32,8 +33,67 @@
                     <webBrowser:WebMenuUc x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" x:Name="WebParentGrid" Visibility="Visible">
+            <Grid Grid.Row="1" Background="{DynamicResource WebBrowserBrushes.TabHeaderFavoritesBarBackground}" Height="30" >
+                <!--<TextBlock MaxWidth="130" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+                    <Run Text="&#xe903;" Foreground="#FFCD2C" FontSize="16"/>
+                    <Run Text="防腐剂奥斯卡了发动机阿卡丽富家大室风口浪尖啊" Foreground="#FFFFFF"/>
+                </TextBlock>-->
 
+                <controls:MMenu>
+                    <controls:MMenuItem Header="新建标签页" Icon="&#xe903;" Foreground="#FFCD2C">
+                        <controls:MMenuItem Header="新建标签页" Icon="&#xe600;"/>
+                        <controls:MMenuItem Header="新建窗口" Icon="&#xe602;"/>
+                        <controls:MMenuItem Header="新建InPrivate窗口" Icon="&#xe68c;"/>
+                        <controls:MMenuItem Header="收藏夹" Icon="&#xe6de;"/>
+                        <controls:MMenuItem Header="历史记录" Icon="&#xe6f8;"/>
+                        <controls:MMenuItem Header="下载" Icon="&#xe6d3;"/>
+                        <controls:MMenuItem Header="应用" Icon="&#xe651;" PopupWidth="160">
+                            <controls:MMenuItem Header="管理应用" Icon="&#xe600;"/>
+                        </controls:MMenuItem>
+                        <controls:MMenuItem Header="扩展" Icon="&#xe6c1;"/>
+                        <controls:MMenuItem Header="集锦" Icon="&#xe644;"/>
+                        <controls:MMenuItem Header="打印" Icon="&#xe621;"/>
+                        <controls:MMenuItem Header="共享" Icon="&#xe6e4;"/>
+                        <controls:MMenuItem Header="在页面上查找" Icon="&#xe660;"/>
+                        <controls:MMenuItem Header="大声朗读" Icon="&#xe600;"/>
+                        <controls:MMenuItem Header="更多工具" >
+                            <controls:MMenuItem Header="更多工具1" />
+                            <controls:MMenuItem Header="更多工具2" />
+                            <controls:MMenuItem Header="更多工具3" />
+                        </controls:MMenuItem>
+                        <controls:MMenuItem Header="设置" Icon="&#xe603;"/>
+                        <controls:MMenuItem Header="帮助和反馈" Icon="&#xe653;"/>
+                        <controls:MMenuItem Header="关闭 浏览器"/>
+                    </controls:MMenuItem>
+                    <controls:MMenuItem Header=". . ." Width="40" Height="30">
+                        <controls:MMenuItem Header="新建标签页" Icon="&#xe600;"/>
+                        <controls:MMenuItem Header="新建窗口" Icon="&#xe602;"/>
+                        <controls:MMenuItem Header="新建InPrivate窗口" Icon="&#xe68c;"/>
+                        <controls:MMenuItem Header="收藏夹" Icon="&#xe6de;"/>
+                        <controls:MMenuItem Header="历史记录" Icon="&#xe6f8;"/>
+                        <controls:MMenuItem Header="下载" Icon="&#xe6d3;"/>
+                        <controls:MMenuItem Header="应用" Icon="&#xe651;" PopupWidth="160">
+                            <controls:MMenuItem Header="管理应用" Icon="&#xe600;"/>
+                        </controls:MMenuItem>
+                        <controls:MMenuItem Header="扩展" Icon="&#xe6c1;"/>
+                        <controls:MMenuItem Header="集锦" Icon="&#xe644;"/>
+                        <controls:MMenuItem Header="打印" Icon="&#xe621;"/>
+                        <controls:MMenuItem Header="共享" Icon="&#xe6e4;"/>
+                        <controls:MMenuItem Header="在页面上查找" Icon="&#xe660;"/>
+                        <controls:MMenuItem Header="大声朗读" Icon="&#xe600;"/>
+                        <controls:MMenuItem Header="更多工具" >
+                            <controls:MMenuItem Header="更多工具1" />
+                            <controls:MMenuItem Header="更多工具2" />
+                            <controls:MMenuItem Header="更多工具3" />
+                        </controls:MMenuItem>
+                        <controls:MMenuItem Header="设置" Icon="&#xe603;"/>
+                        <controls:MMenuItem Header="帮助和反馈" Icon="&#xe653;"/>
+                        <controls:MMenuItem Header="关闭 浏览器"/>
+                    </controls:MMenuItem>
+                </controls:MMenu>
+            </Grid>
+            <Grid Grid.Row="2" x:Name="WebParentGrid" Visibility="Visible">
+                
             </Grid>
         </Grid>
     </Grid>

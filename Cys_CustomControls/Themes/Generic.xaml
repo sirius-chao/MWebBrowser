@@ -21,6 +21,8 @@
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/TabControl/MTabControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Menu/MMenu.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Menu/MMenuItem.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Favorites/MFavorites.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Favorites/MFavoritesItem.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/QrCode/MQrCode.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

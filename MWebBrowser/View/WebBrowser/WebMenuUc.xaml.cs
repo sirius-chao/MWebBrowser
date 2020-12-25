@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Cys_Controls.Code;
+using Cys_CustomControls.Controls;
 
 namespace MWebBrowser.View.WebBrowser
 {
@@ -12,6 +14,8 @@ namespace MWebBrowser.View.WebBrowser
         public Action ZoomInEvent;
         public Action ZoomOutEvent;
         public Action ZoomResetEvent;
+
+        public Action<string> OpenNewTabEvent;
         public WebMenuUc()
         {
             InitializeComponent();
@@ -32,6 +36,20 @@ namespace MWebBrowser.View.WebBrowser
         private void ZoomOut(object obj)
         {
             ZoomOutEvent?.Invoke();
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is MMenuItem menuItem)
+            {
+                switch (menuItem.Tag)
+                {
+                    case "6":
+                        OpenNewTabEvent?.Invoke("6");
+                        break;
+
+                }
+            }
         }
     }
 }

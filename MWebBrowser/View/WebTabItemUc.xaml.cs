@@ -84,28 +84,6 @@ namespace MWebBrowser.View
 
         }
 
-        //private void InitSearchText()
-        //{
-        //    SearchText.ZoomInCommand = new BaseCommand<object>((obj) =>
-        //    {
-        //        ZoomIn();
-        //    });
-        //    SearchText.ZoomOutCommand = new BaseCommand<object>((obj) =>
-        //    {
-        //        ZoomOut();
-        //    });
-        //    SearchText.ZoomResetCommand = new BaseCommand<object>((obj) =>
-        //    {
-        //        ZoomReset();
-        //    });
-        //}
-
-        //private void InitWebMenu()
-        //{
-        //    WebMenu.ZoomInEvent += ZoomIn;
-        //    WebMenu.ZoomOutEvent += ZoomOut;
-        //}
-
         private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             try

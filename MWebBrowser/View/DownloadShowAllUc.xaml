@@ -14,7 +14,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Width="340">
+        <Grid Grid.Column="0" Width="340" Margin="0,40,0,0">
             <ScrollViewer Margin="50,30,30,0" Style="{DynamicResource ScrollViewer.MainMenu}">
                 <StackPanel>
                     <TextBlock Text="下载" Margin="10,0,0,0" FontSize="25" FontWeight="Bold"/>

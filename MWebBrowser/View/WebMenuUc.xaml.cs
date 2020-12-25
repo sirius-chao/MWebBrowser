@@ -15,7 +15,7 @@ namespace MWebBrowser.View
         public Action ZoomOutEvent;
         public Action ZoomResetEvent;
 
-        public Action<string> OpenNewTabEvent;
+        public Action<string> MenuOpenNewTabEvent;
         public WebMenuUc()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace MWebBrowser.View
                 switch (menuItem.Tag)
                 {
                     case "6":
-                        OpenNewTabEvent?.Invoke("6");
+                        MenuOpenNewTabEvent?.Invoke("6");
                         break;
 
                 }

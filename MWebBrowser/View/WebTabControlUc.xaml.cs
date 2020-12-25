@@ -40,12 +40,19 @@ namespace MWebBrowser.View
                 return;
             InitCommand();
             InitData();
-            InitSearchText();
+            InitSearchCommand();
             InitWebMenu();
             TabItemAdd("http://www.baidu.com");
         }
 
         #region InitData
+
+        private void InitWebMenu()
+        {
+            WebMenu.ZoomInEvent += ZoomIn;
+            WebMenu.ZoomOutEvent += ZoomOut;
+            WebMenu.MenuOpenNewTabEvent += MenuOpenNewTab;
+        }
         private void InitWebTabControl()
         {
             WebTabControl.CloseTabEvent += () =>
@@ -77,18 +84,6 @@ namespace MWebBrowser.View
 
         private void ShowDownloadTab()
         {
-            foreach (var tabItem in WebTabControl.Items)
-            {
-                if (tabItem is TabItem tI)
-                {
-                    if (tI.Content is DownloadShowAllUc)
-                    {
-                        WebTabControl.SelectedItem = tabItem;
-                        return;
-                    }
-                }
-            }
-
             GlobalControl.DownloadShowAll ??= new DownloadShowAllUc();
             var item = new TabItem { Content = GlobalControl.DownloadShowAll };
             item.SetValue(HeaderedContentControl.HeaderProperty, "下载");
@@ -144,6 +139,17 @@ namespace MWebBrowser.View
 
             }
         }
+
+        private void MenuOpenNewTab(string obj)
+        {
+            switch (obj)
+            {
+                case "6":
+                    ShowDownloadTab();
+                    break;
+
+            }
+        }
         /// <summary>
         /// TabControl 选中值改变
         /// </summary>
@@ -168,6 +174,21 @@ namespace MWebBrowser.View
         #endregion
 
         #region 搜索框
+        private void InitSearchCommand()
+        {
+            SearchText.ZoomInCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomIn();
+            });
+            SearchText.ZoomOutCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomOut();
+            });
+            SearchText.ZoomResetCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomReset();
+            });
+        }
 
         /// <summary>
         /// 前进
@@ -222,9 +243,36 @@ namespace MWebBrowser.View
 
         #endregion
 
-
         #region 缩放
+        private void WebMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
+            {
+                _viewModel.ZoomStaysOpen = false;
+                return;
+            }
+            try
+            {
+                if (e.Delta > 0)
+                {
+                    ZoomIn();
+                }
+                else if (e.Delta < 0)
+                {
+                    ZoomOut();
+                }
+                _zoomWaitingCount = 0;
+                _zoomToolTimer.Elapsed -= ZoomToolTimer_Elapsed;
+                _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
+                _zoomToolTimer.AutoReset = true;
+                _zoomToolTimer.Enabled = true;
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
         private void ZoomToolTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (_zoomWaitingCount > 2)
@@ -300,63 +348,5 @@ namespace MWebBrowser.View
             }
         }
         #endregion
-
-        private void InitSearchText()
-        {
-            SearchText.ZoomInCommand = new BaseCommand<object>((obj) =>
-            {
-                ZoomIn();
-            });
-            SearchText.ZoomOutCommand = new BaseCommand<object>((obj) =>
-            {
-                ZoomOut();
-            });
-            SearchText.ZoomResetCommand = new BaseCommand<object>((obj) =>
-            {
-                ZoomReset();
-            });
-        }
-
-        private void InitWebMenu()
-        {
-            WebMenu.ZoomInEvent += () =>
-            {
-                ZoomIn();
-            };
-            WebMenu.ZoomOutEvent += () =>
-            {
-                ZoomOut();
-            };
-        }
-
-        private void WebMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
-            {
-                _viewModel.ZoomStaysOpen = false;
-                return;
-            }
-            try
-            {
-                if (e.Delta > 0)
-                {
-                    ZoomIn();
-                }
-                else if (e.Delta < 0)
-                {
-                    ZoomOut();
-                }
-                _zoomWaitingCount = 0;
-                _zoomToolTimer.Elapsed -= ZoomToolTimer_Elapsed;
-                _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
-                _zoomToolTimer.AutoReset = true;
-                _zoomToolTimer.Enabled = true;
-                e.Handled = true;
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
     }
 }

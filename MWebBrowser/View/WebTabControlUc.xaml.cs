@@ -163,7 +163,6 @@ namespace MWebBrowser.View
         private void SetCurrentSelectedInfo()
         {
             _viewModel.CurrentUrl = _currentWebTabItem.ViewModel.CurrentUrl;
-            _viewModel.ZoomStaysOpen = _currentWebTabItem.ViewModel.ZoomStaysOpen;
         }
 
         #endregion

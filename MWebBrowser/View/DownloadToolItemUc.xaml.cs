@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace MWebBrowser.View.WebBrowser
+namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for DownloadToolItemUc.xaml

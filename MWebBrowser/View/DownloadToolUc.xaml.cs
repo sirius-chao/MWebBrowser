@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Cys_Common;
 
-namespace MWebBrowser.View.WebBrowser
+namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for DownloadToolUc.xaml

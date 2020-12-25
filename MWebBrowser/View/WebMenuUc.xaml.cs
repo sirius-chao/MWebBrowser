@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 
-namespace MWebBrowser.View.WebBrowser
+namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for WebMenu.xaml

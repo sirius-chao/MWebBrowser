@@ -1,4 +1,4 @@
-﻿using MWebBrowser.View.WebBrowser;
+﻿using MWebBrowser.View;
 
 namespace MWebBrowser.Code
 {

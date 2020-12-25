@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 
-namespace MWebBrowser.View.WebBrowser
+namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for DownloadShowAllItemUc.xaml

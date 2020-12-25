@@ -6,7 +6,7 @@ using MWebBrowser.ViewModel;
 using System.Windows.Controls;
 using MWebBrowser.Code.Configure;
 
-namespace MWebBrowser.View.WebBrowser
+namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for DownloadShowAllUc.xaml

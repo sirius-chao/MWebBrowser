@@ -4,7 +4,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
-                      xmlns:webBrowser="clr-namespace:MWebBrowser.View.WebBrowser"
+                      xmlns:webBrowser="clr-namespace:MWebBrowser.View"
                       mc:Ignorable="d"
              Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="500">
     <Grid>

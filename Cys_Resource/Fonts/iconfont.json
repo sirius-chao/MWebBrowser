@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5121512",
+      "name": "收藏3",
+      "font_class": "shoucang1",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "15323979",
+      "name": "打开文件夹",
+      "font_class": "dakaiwenjianjia",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "17667583",
+      "name": "文件_夹",
+      "font_class": "jia",
+      "unicode": "e904",
+      "unicode_decimal": 59652
+    },
+    {
       "icon_id": "16328590",
       "name": "文件夹",
       "font_class": "wenjianjia",
@@ -461,13 +482,6 @@
       "unicode_decimal": 59449
     },
     {
-      "icon_id": "11481317",
-      "name": "favorites-fill",
-      "font_class": "favorites-fill",
-      "unicode": "e721",
-      "unicode_decimal": 59169
-    },
-    {
       "icon_id": "11488273",
       "name": "integral-fill",
       "font_class": "integral-fill1",
@@ -585,13 +599,6 @@
       "font_class": "Newuserzone-fill",
       "unicode": "e842",
       "unicode_decimal": 59458
-    },
-    {
-      "icon_id": "11487971",
-      "name": "4column",
-      "font_class": "column1",
-      "unicode": "e743",
-      "unicode_decimal": 59203
     },
     {
       "icon_id": "11488283",
@@ -753,13 +760,6 @@
       "font_class": "pdf-fill",
       "unicode": "e84e",
       "unicode_decimal": 59470
-    },
-    {
-      "icon_id": "11487985",
-      "name": "atm",
-      "font_class": "atm",
-      "unicode": "e74f",
-      "unicode_decimal": 59215
     },
     {
       "icon_id": "11488297",
@@ -3450,20 +3450,6 @@
       "unicode_decimal": 59421
     },
     {
-      "icon_id": "11488239",
-      "name": "ali-clould-fill",
-      "font_class": "ali-clould-fill",
-      "unicode": "e81e",
-      "unicode_decimal": 59422
-    },
-    {
-      "icon_id": "11488240",
-      "name": "color-fill",
-      "font_class": "color-fill",
-      "unicode": "e81f",
-      "unicode_decimal": 59423
-    },
-    {
       "icon_id": "11488241",
       "name": "coupons-fill",
       "font_class": "coupons-fill",
@@ -3527,20 +3513,6 @@
       "unicode_decimal": 59429
     },
     {
-      "icon_id": "11474234",
-      "name": "component",
-      "font_class": "component",
-      "unicode": "e6f2",
-      "unicode_decimal": 59122
-    },
-    {
-      "icon_id": "11488249",
-      "name": "discounts-fill",
-      "font_class": "discounts-fill",
-      "unicode": "e826",
-      "unicode_decimal": 59430
-    },
-    {
       "icon_id": "11474242",
       "name": "code",
       "font_class": "code",
@@ -3548,39 +3520,11 @@
       "unicode_decimal": 59123
     },
     {
-      "icon_id": "11488250",
-      "name": "Daytime mode-fill",
-      "font_class": "Daytimemode-fill",
-      "unicode": "e827",
-      "unicode_decimal": 59431
-    },
-    {
-      "icon_id": "11474243",
-      "name": "copy",
-      "font_class": "copy",
-      "unicode": "e6f4",
-      "unicode_decimal": 59124
-    },
-    {
       "icon_id": "11488251",
       "name": "exl-fill",
       "font_class": "exl-fill",
       "unicode": "e828",
       "unicode_decimal": 59432
-    },
-    {
-      "icon_id": "11474255",
-      "name": "dollar",
-      "font_class": "dollar",
-      "unicode": "e6f5",
-      "unicode_decimal": 59125
-    },
-    {
-      "icon_id": "11488252",
-      "name": "cry-fill",
-      "font_class": "cry-fill",
-      "unicode": "e829",
-      "unicode_decimal": 59433
     },
     {
       "icon_id": "7708023",

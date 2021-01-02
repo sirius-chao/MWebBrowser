@@ -12,5 +12,6 @@
         <Grid x:Name="InputMethodMask" Visibility="Collapsed">
 
         </Grid>
+        <webBrowser:FavoritesMenuUc></webBrowser:FavoritesMenuUc>
     </Grid>
 </controls:MMainWindow>

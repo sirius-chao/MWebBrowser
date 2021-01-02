@@ -27,7 +27,12 @@
             </StackPanel>
             <controls:MSearchText x:Name="SearchText" Grid.Column="1" Watermark="搜索或输入Web地址" Text="{Binding CurrentUrl, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" ZoomLevelType="{Binding ZoomLevelType}" ZoomRatio="{Binding ZoomRatio}" ZoomIsChecked="{Binding ZoomIsChecked}" ZoomStaysOpen="{Binding ZoomStaysOpen}" KeyDown="Search_OnKeyDown"/>
             <Grid Grid.Column="2" MinWidth="150">
-                <webBrowser:WebMenuUc x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <webBrowser:WebMenuUc Grid.Column="2" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </Grid>
 

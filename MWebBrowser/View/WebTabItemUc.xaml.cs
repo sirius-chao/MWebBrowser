@@ -53,24 +53,8 @@ namespace MWebBrowser.View
         private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ViewModel.Title = CefWebBrowser.Title;
-            ViewModel.Favicon = GetFavicon();
+            ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
         }
-
-        private ImageSource GetFavicon()
-        {
-            try
-            {
-                var pattern = @"(\w+:\/\/)([^/:]+)(:\d*)?";
-                var address = CefWebBrowser.Address;
-                var matches = Regex.Matches(address, pattern);
-                return matches.Count <= 0 ? null : ImageHelper.GetBitmapFrame($"{matches[0]}/favicon.ico");
-            }
-            catch (Exception e)
-            {
-                return ImageHelper.DefaultFavicon;
-            }
-        }
-
         private void InitWebBrowser()
         {
             CefWebBrowser = new CustomWebBrowser();

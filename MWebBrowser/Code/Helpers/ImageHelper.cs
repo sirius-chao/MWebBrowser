@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -29,6 +30,21 @@ namespace MWebBrowser.Code.Helpers
         {
             if (Application.Current.MainWindow == null) return;
             DefaultFavicon = Application.Current.MainWindow.FindResource("DrawingImage.DefaultFavicon") as ImageSource;
+        }
+
+        public static ImageSource GetFavicon(string url)
+        {
+            try
+            {
+                var pattern = @"(\w+:\/\/)([^/:]+)(:\d*)?";
+                var address = url;
+                var matches = Regex.Matches(address, pattern);
+                return matches.Count <= 0 ? null : ImageHelper.GetBitmapFrame($"{matches[0]}/favicon.ico");
+            }
+            catch (Exception e)
+            {
+                return ImageHelper.DefaultFavicon;
+            }
         }
     }
 }

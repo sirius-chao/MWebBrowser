@@ -23,23 +23,23 @@ namespace MWebBrowser.View
         {
             nodes = new List<TreeNode>()
             {
-                new TreeNode(){ParentID=-1, NodeID=0, NodeName = "收藏夹",Type = 1},
-                new TreeNode(){ParentID=0, NodeID=1, NodeName = "文本",Type = 1},
-                new TreeNode(){ParentID=0, NodeID=2, NodeName = "音频",Type = 1},
-                new TreeNode(){ParentID=0, NodeID=3, NodeName = "视频",Type = 1},
+                new TreeNode(){ParentId=-1, NodeId=0, NodeName = "收藏夹",Type = 1},
+                new TreeNode(){ParentId=0, NodeId=1, NodeName = "文本",Type = 1},
+                new TreeNode(){ParentId=0, NodeId=2, NodeName = "音频",Type = 1},
+                new TreeNode(){ParentId=0, NodeId=3, NodeName = "视频",Type = 1},
 
-                new TreeNode(){ParentID=1, NodeID=11, NodeName = "文本1",Type = 0},
-                new TreeNode(){ParentID=1, NodeID=12, NodeName = "文本2",Type = 0},
-                new TreeNode(){ParentID=1, NodeID=13, NodeName = "文本3",Type = 0},
+                new TreeNode(){ParentId=1, NodeId=11, NodeName = "文本1",Type = 0},
+                new TreeNode(){ParentId=1, NodeId=12, NodeName = "文本2",Type = 0},
+                new TreeNode(){ParentId=1, NodeId=13, NodeName = "文本3",Type = 0},
             };
         }
 
         private List<TreeNode> getNodes(int parentID, List<TreeNode> nodes)
         {
-            List<TreeNode> mainNodes = nodes.Where(x => x.ParentID == parentID).OrderByDescending(x=>x.Type).ToList();
-            List<TreeNode> otherNodes = nodes.Where(x => x.ParentID != parentID).OrderByDescending(x => x.Type).ToList();
+            List<TreeNode> mainNodes = nodes.Where(x => x.ParentId == parentID).OrderByDescending(x=>x.Type).ToList();
+            List<TreeNode> otherNodes = nodes.Where(x => x.ParentId != parentID).OrderByDescending(x => x.Type).ToList();
             foreach (TreeNode node in mainNodes)
-                node.ChildNodes = getNodes(node.NodeID, otherNodes);
+                node.ChildNodes = getNodes(node.NodeId, otherNodes);
             return mainNodes;
         }
 

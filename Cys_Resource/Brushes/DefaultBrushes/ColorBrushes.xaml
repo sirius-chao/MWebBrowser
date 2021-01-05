@@ -123,5 +123,42 @@
 
     <Color x:Key="Color.WindowBorderBrush">#FFFFFF</Color>
 
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderBackground" Color="#1B1B1B"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderIsSelectedBackground" Color="#3B3B3B"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderFavoritesBarBackground" Color="#3B3B3B"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabHeaderIsMouseOverBackground" Color="#272727"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabCloseIsMouseOverBackground" Color="#4A4A4A"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.TabCloseIsPressBackground" Color="#636363"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchBackgroundColor" Color="#2B2B2B"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchForegroundColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchBorderBrushColor" Color="#656565"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchFocusBorderBrushColor" Color="#63ADE5"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchZoomPopupBackground" Color="#4A4A4A"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.SearchZoomPopupResetBackground" Color="#5C5C5C"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadToolBackground" Color="#3B3B3B"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllBackground" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsMouseOverBackground" Color="#5E5E5E"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.LookAllIsPressBackground" Color="#6F6F6F"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DefaultForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DefaultBackground" Color="#333333"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.OpenFileForeground" Color="#65ADE4"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuBackground" Color="#4A4A4A"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuIsMouseOverBackground" Color="#616161"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuDivisionBorderBrush" Color="#636363"/>
+
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllUrlForeground" Color="#979797"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllDivisionBrush" Color="#737373"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.DownloadShowAllDisplayForeground" Color="#68AFe5"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuDivideLine" Color="#575757"/>
+    <Color x:Key="WebBrowserColor.MenuItemDropShadowBrush" >#000000</Color>
 
 </ResourceDictionary>

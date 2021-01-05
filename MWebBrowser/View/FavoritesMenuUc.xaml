@@ -8,13 +8,38 @@
              d:DesignHeight="30" d:DesignWidth="40">
     <Grid>
         <ToggleButton x:Name="FavoritesButton" Style="{DynamicResource ToggleButton.FontButton}" Checked="FavoritesButton_OnChecked"
-                      Unchecked="FavoritesButton_OnUnchecked"
-                      Content="&#xe646;" FontSize="26" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
+                      Unchecked="FavoritesButton_OnUnchecked" Content="&#xe646;" FontSize="26" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
         <Popup x:Name="FavoritesPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=FavoritesButton}"
                StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-330">
-            <Grid Width="360" Height="660">
-                <controls:MTreeView x:Name="FavoritesTree"/>
-            </Grid>
+            <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
+                </Border.Effect>
+                <Grid Width="360" Height="660">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="收藏夹栏" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,10,0">
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe659;"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe652;"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe65c;"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="..." Padding="0,0,0,12"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe6b9;"/>
+                        </StackPanel>
+                    </Grid>
+                    <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
+                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree"/>
+                </Grid>
+            </Border>
         </Popup>
     </Grid>
 </UserControl>

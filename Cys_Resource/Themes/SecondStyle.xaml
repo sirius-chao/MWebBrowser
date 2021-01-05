@@ -4,7 +4,6 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Brushes/DefaultBrushes/ColorBrushes.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Brushes/DefaultBrushes/WebBrowserBrushes.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Brushes/ImageBrushes/DrawingImage.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/ScrollViewerStyle.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/ListViewStyle.xaml"/>

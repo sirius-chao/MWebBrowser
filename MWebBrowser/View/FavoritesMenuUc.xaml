@@ -5,9 +5,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="30" d:DesignWidth="40">
     <Grid>
-        <ToggleButton VerticalAlignment="Top" Style="{DynamicResource ToggleButton.FontButton}" Content="&#xe646;" FontSize="26" Background="Transparent"/>
-        <controls:MTreeView x:Name="FavoritesTree" Margin="0,30,0,0"/>
+        <ToggleButton x:Name="FavoritesButton" Style="{DynamicResource ToggleButton.FontButton}" Checked="FavoritesButton_OnChecked"
+                      Unchecked="FavoritesButton_OnUnchecked"
+                      Content="&#xe646;" FontSize="26" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
+        <Popup x:Name="FavoritesPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=FavoritesButton}"
+               StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-330">
+            <Grid Width="360" Height="660">
+                <controls:MTreeView x:Name="FavoritesTree"/>
+            </Grid>
+        </Popup>
     </Grid>
 </UserControl>

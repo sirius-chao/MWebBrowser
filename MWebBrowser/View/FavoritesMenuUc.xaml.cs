@@ -1,6 +1,7 @@
 ﻿using MWebBrowser.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Cys_CustomControls.Controls;
@@ -80,6 +81,16 @@ namespace MWebBrowser.View
             {
                 FavoritesTree.Items.Add(treeViewItem);
             }
+        }
+
+        private void FavoritesButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            FavoritesPop.IsOpen = true;
+        }
+
+        private void FavoritesButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            FavoritesPop.IsOpen = false;
         }
     }
 }

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6695487",
+      "name": "重命名",
+      "font_class": "zhongmingming",
+      "unicode": "e712",
+      "unicode_decimal": 59154
+    },
+    {
+      "icon_id": "8069322",
+      "name": "排序",
+      "font_class": "paixu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
       "icon_id": "2118499",
       "name": "添加收藏",
       "font_class": "tianjiashoucang",

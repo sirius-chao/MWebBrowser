@@ -1,10 +1,11 @@
-﻿using MWebBrowser.ViewModel;
+﻿using Cys_CustomControls.Controls;
+using MWebBrowser.Code.Helpers;
+using MWebBrowser.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Cys_CustomControls.Controls;
 
 namespace MWebBrowser.View
 {
@@ -13,10 +14,14 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class FavoritesMenuUc : UserControl
     {
+        /// <summary>
+        /// 记录当前右键选中的Item;
+        /// </summary>
+        private MTreeViewItem _currentRightItem;
         public FavoritesMenuUc()
         {
             InitializeComponent();
-            InitTreeView();
+            GetFavoritesInfo();
         }
         private List<TreeNode> nodes;
         private void GetFavoritesInfo()
@@ -32,22 +37,17 @@ namespace MWebBrowser.View
                 new TreeNode(){ParentId=1, NodeId=12, NodeName = "文本2",Type = 0},
                 new TreeNode(){ParentId=1, NodeId=13, NodeName = "文本3",Type = 0},
             };
+            List<TreeNode> root = GetNodes(-1, nodes);
+            AddTreeViewItems(null, root[0], true);
         }
 
-        private List<TreeNode> getNodes(int parentID, List<TreeNode> nodes)
+        private List<TreeNode> GetNodes(int parentId, List<TreeNode> nodes)
         {
-            List<TreeNode> mainNodes = nodes.Where(x => x.ParentId == parentID).OrderByDescending(x=>x.Type).ToList();
-            List<TreeNode> otherNodes = nodes.Where(x => x.ParentId != parentID).OrderByDescending(x => x.Type).ToList();
+            List<TreeNode> mainNodes = nodes.Where(x => x.ParentId == parentId).OrderByDescending(x=>x.Type).ToList();
+            List<TreeNode> otherNodes = nodes.Where(x => x.ParentId != parentId).OrderByDescending(x => x.Type).ToList();
             foreach (TreeNode node in mainNodes)
-                node.ChildNodes = getNodes(node.NodeId, otherNodes);
+                node.ChildNodes = GetNodes(node.NodeId, otherNodes);
             return mainNodes;
-        }
-
-        private void InitTreeView()
-        {
-            GetFavoritesInfo();
-            List<TreeNode> root = getNodes(-1, nodes);
-            AddTreeViewItems(null, root[0],true);
         }
 
         private void AddTreeViewItems(MTreeViewItem parent, TreeNode treeNode, bool isRoot)
@@ -91,6 +91,15 @@ namespace MWebBrowser.View
         private void FavoritesButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
             FavoritesPop.IsOpen = false;
+        }
+
+        private void FavoritesTree_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            _currentRightItem = ControlHelper.FindVisualParent<MTreeViewItem>(e.OriginalSource as DependencyObject);
+            if (null == _currentRightItem)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

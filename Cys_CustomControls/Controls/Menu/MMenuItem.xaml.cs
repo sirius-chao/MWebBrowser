@@ -69,6 +69,19 @@ namespace Cys_CustomControls.Controls
         }
         #endregion
 
+        #region == IconFontSize==
+        public static readonly DependencyProperty IconFontSizeProperty = DependencyProperty.Register("IconFontSize", typeof(double), typeof(MMenuItem),
+            new PropertyMetadata(null));
+
+        /// <summary>
+        /// PopupWidth
+        /// </summary>
+        public double IconFontSize
+        {
+            get => (double)GetValue(IconFontSizeProperty);
+            set => SetValue(IconFontSizeProperty, value);
+        }
+        #endregion
         #region == RoleEx==
         public static readonly DependencyProperty RoleExProperty = DependencyProperty.Register("RoleEx", typeof(MenuItemRoleEx), typeof(MMenuItem),
             new PropertyMetadata(MenuItemRoleEx.None));

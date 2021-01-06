@@ -37,7 +37,21 @@
                         </StackPanel>
                     </Grid>
                     <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
-                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree"/>
+                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree" ContextMenuOpening="FavoritesTree_OnContextMenuOpening">
+                        <controls:MTreeView.ContextMenu>
+                            <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
+                                <controls:MMenuItem Tag="0" Header="全部打开（16个）" Icon="&#xe600;"/>
+                                <controls:MMenuItem Tag="1" Header="在新建窗口中全部打开（16个）" Icon="&#xe602;"/>
+                                <controls:MMenuItem Tag="2" Header="在新 InPrivate窗口全部打开（16个）" Icon="&#xe68c;"/>
+                                <controls:MMenuItem Tag="4" Header="按名称排序" Icon="&#xe606;"/>
+                                <controls:MMenuItem Tag="5" Header="重命名" Icon="&#xe712;"/>
+                                <controls:MMenuItem Tag="5" Header="删除" Icon="&#xe74e;" IconFontSize="26"/>
+                                <controls:MMenuItem Tag="5" Header="将当前标签页添加到文件夹" Icon="&#xe659;"/>
+                                <controls:MMenuItem Tag="5" Header="将所有标签页添加到文件夹"/>
+                                <controls:MMenuItem Tag="5" Header="添加文件夹" Icon="&#xe652;"/>
+                            </ContextMenu>
+                        </controls:MTreeView.ContextMenu>
+                    </controls:MTreeView>
                 </Grid>
             </Border>
         </Popup>

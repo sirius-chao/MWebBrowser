@@ -10,7 +10,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="Icon" FontSize="{TemplateBinding IconFontSize}" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
@@ -61,7 +61,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Icon" FontSize="{TemplateBinding IconFontSize}" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
@@ -87,7 +87,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="{TemplateBinding IconFontSize}" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     <ContentPresenter Grid.Column="1" ContentSource="Header"  HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
@@ -145,7 +145,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="{TemplateBinding IconFontSize}" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter Grid.Column="1" x:Name="menuHeaderContainer"  HorizontalAlignment="Center" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
@@ -204,6 +204,7 @@
         <Setter Property="Height" Value="35"/>
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="IconFontSize" Value="20"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>

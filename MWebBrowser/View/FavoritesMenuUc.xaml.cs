@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MWebBrowser.View
@@ -18,6 +19,8 @@ namespace MWebBrowser.View
     public partial class FavoritesMenuUc : UserControl
     {
         public Func<WebTabControlViewModel> GetWebUrlEvent;
+        public Action<string> OpenNewTabEvent;
+
         /// <summary>
         /// 记录当前右键选中的Item;
         /// </summary>
@@ -128,7 +131,7 @@ namespace MWebBrowser.View
         }
 
         /// <summary>
-        /// 添加到当前网页到根目录
+        /// 添加收藏
         /// </summary>
         /// <param name="sender"></param> 
         /// <param name="e"></param>
@@ -136,12 +139,49 @@ namespace MWebBrowser.View
         {
             var model = GetWebUrlEvent?.Invoke();
             if (null == model) return;
-
-            var newTreeNode = GetNewTreeNodeInfo(true, 0, model.Title, model.CurrentUrl);
-            if (!(FavoritesTree.Items[0] is MTreeViewItem item)) return;
-
-            GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
-            item.Items.Add(newTreeNode.Item2);
+           
+            if (sender is Button)
+            {
+                if (!(FavoritesTree.Items[0] is MTreeViewItem item)) return;
+                var newTreeNode = GetNewTreeNodeInfo(true, 0, model.Title, model.CurrentUrl);
+                GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
+                item.Items.Add(newTreeNode.Item2);
+            }
+            else if (sender is MMenuItem)
+            {
+                if (_currentRightItem != null && _currentRightItem.Type == 1)
+                {
+                    var newTreeNode = GetNewTreeNodeInfo(false, 0, model.Title, model.CurrentUrl);
+                    _currentRightItem.Items.Add(newTreeNode.Item2);
+                    GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
+                }
+            }
+        }
+        /// <summary>
+        /// 添加文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddFolder_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button)
+            {
+                var newTreeNode = GetNewTreeNodeInfo(true, 1, "新建文件夹", null);
+                if (null == FavoritesTree || FavoritesTree.Items.Count <= 0) return;
+                var treeNodeUc = FavoritesTree.Items[0];
+                if (!(treeNodeUc is MTreeViewItem item)) return;
+                item.Items.Add(newTreeNode.Item2);
+                GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
+            }
+            else if (sender is MMenuItem)
+            {
+                var newTreeNode = GetNewTreeNodeInfo(false, 1, "新建文件夹", null);
+                if (_currentRightItem != null && _currentRightItem.Type == 1)
+                {
+                    _currentRightItem.Items.Add(newTreeNode.Item2);
+                    GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
+                }
+            }
         }
 
         /// <summary>
@@ -161,7 +201,7 @@ namespace MWebBrowser.View
                 var currentNode = (GlobalInfo.FavoritesSetting.FavoritesInfos.FirstOrDefault(x => x.NodeId == _currentRightItem.NodeId));
                 GlobalInfo.FavoritesSetting.FavoritesInfos.Remove(currentNode);
             }
-            
+
             if (_currentRightItem.Parent is MTreeViewItem items)
             {
                 if (GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId))
@@ -172,34 +212,6 @@ namespace MWebBrowser.View
                 items.Items.Remove(_currentRightItem);
             }
         }
-
-        /// <summary>
-        /// 添加文件夹
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddFolder_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button)
-            {
-                var newTreeNode = GetNewTreeNodeInfo(true,1, "新建文件夹", null);
-                if (null == FavoritesTree || FavoritesTree.Items.Count <= 0) return;
-                var treeNodeUc = FavoritesTree.Items[0];
-                if (!(treeNodeUc is MTreeViewItem item)) return;
-                item.Items.Add(newTreeNode.Item2);
-                GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
-            }
-            else if(sender is MMenuItem)
-            {
-                var newTreeNode = GetNewTreeNodeInfo(false,1, "新建文件夹", null);
-                if (_currentRightItem != null&&_currentRightItem.Type==1)
-                {
-                    _currentRightItem.Items.Add(newTreeNode.Item2);
-                    GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
-                }
-            }
-        }
-
         /// <summary>
         /// 创建新节点
         /// </summary>
@@ -245,7 +257,6 @@ namespace MWebBrowser.View
                 Level = level,
                 TextMaxWidth = _textMaxWidth - left,
             };
-            var s = treeViewItem.ItemMargin;
             if (type == 0)
             {
                 treeViewItem.Icon = "\ueb1e";
@@ -253,6 +264,15 @@ namespace MWebBrowser.View
                 treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
             return new Tuple<TreeNode, MTreeViewItem>(treeNode, treeViewItem);
+        }
+        private void FavoritesTree_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (null == FavoritesTree.SelectedItem) return;
+            if (!(FavoritesTree.SelectedItem is MTreeViewItem item)) return;
+            if (item.Type == 1) return;
+            if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
+            var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
+            OpenNewTabEvent?.Invoke(treeNode.Url);
         }
     }
 }

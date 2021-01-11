@@ -33,6 +33,7 @@ namespace MWebBrowser.View
             this.Loaded += MWebBrowserUc_Loaded;
             WebTabControl.SelectionChanged += WebTabControl_SelectionChanged;
             FavoritesMenu.GetWebUrlEvent += () => _viewModel;
+            FavoritesMenu.OpenNewTabEvent += TabItemAdd;
         }
 
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)

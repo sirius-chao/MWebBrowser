@@ -101,6 +101,11 @@ namespace MWebBrowser.View
             FavoritesPop.IsOpen = false;
         }
 
+        /// <summary>
+        /// 处理右键菜单打开前的行为
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FavoritesTree_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             _currentRightItem = ControlHelper.FindVisualParent<MTreeViewItem>(e.OriginalSource as DependencyObject);
@@ -135,24 +140,15 @@ namespace MWebBrowser.View
             var newTreeNode = GetNewTreeNodeInfo(true, 0, model.Title, model.CurrentUrl);
             if (!(FavoritesTree.Items[0] is MTreeViewItem item)) return;
 
-            if (IsExistNode(item, model.CurrentUrl)) return;
-
             GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
             item.Items.Add(newTreeNode.Item2);
         }
 
-        private bool IsExistNode(MTreeViewItem treeViewItem, string url)
-        {
-            foreach (var child in treeViewItem.Items)
-            {
-                if (child is MTreeViewItem item && item.Header.ToString() == url)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// 删除当前节点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Delete_OnClick(object sender, RoutedEventArgs e)
         {
             if (_currentRightItem?.Parent == null) return;
@@ -177,6 +173,11 @@ namespace MWebBrowser.View
             }
         }
 
+        /// <summary>
+        /// 添加文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddFolder_OnClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button)

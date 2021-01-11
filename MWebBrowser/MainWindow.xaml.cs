@@ -27,12 +27,14 @@ namespace MWebBrowser
 
         private void InitGlobalInfo()
         {
-            GlobalInfo.DownloadSetting = DataRepositoryServer.Instance.DownloadData.GetSelectStockPlateSetting();
+            GlobalInfo.DownloadSetting = DataRepositoryServer.Instance.DownloadData.GetDownloadSetting();
+            GlobalInfo.FavoritesSetting = DataRepositoryServer.Instance.FavoritesData.GetFavoritesSetting();
         }
 
         private void SaveGlobalInfo()
         {
-            DataRepositoryServer.Instance.DownloadData.SaveSelectStockPlateSetting();
+            DataRepositoryServer.Instance.DownloadData.SaveDownloadSetting();
+            DataRepositoryServer.Instance.FavoritesData.SaveFavoritesSetting();
         }
     }
 }

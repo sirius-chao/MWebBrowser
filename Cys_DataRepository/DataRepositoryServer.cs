@@ -4,7 +4,7 @@
     {
         public static DataRepositoryServer Instance { get; } = new DataRepositoryServer();
 
-        private readonly DownloadDataRepository _downloadData = new DownloadDataRepository();
-        public DownloadDataRepository DownloadData => _downloadData;
+        public DownloadDataRepository DownloadData { get; } = new DownloadDataRepository();
+        public FavoritesDataRepository FavoritesData { get; } = new FavoritesDataRepository();
     }
 }

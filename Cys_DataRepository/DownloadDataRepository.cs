@@ -7,7 +7,7 @@ namespace Cys_DataRepository
 {
     public class DownloadDataRepository
     {
-        public void SaveSelectStockPlateSetting()
+        public void SaveDownloadSetting()
         {
             try
             {
@@ -22,7 +22,7 @@ namespace Cys_DataRepository
             }
         }
 
-        public DownloadSetting GetSelectStockPlateSetting()
+        public DownloadSetting GetDownloadSetting()
         {
             var fileName = FileDataPath.GetFilePath(DataFileType.Download);
             var setting = CommonOperator.GetDataJson<DownloadSetting>(fileName);

@@ -1,6 +1,7 @@
-﻿using Cys_CustomControls.Controls;
+﻿using Cys_Common;
+using Cys_CustomControls.Controls;
+using Cys_Model;
 using MWebBrowser.Code.Helpers;
-using MWebBrowser.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -23,21 +24,9 @@ namespace MWebBrowser.View
             InitializeComponent();
             GetFavoritesInfo();
         }
-        private List<TreeNode> nodes;
         private void GetFavoritesInfo()
         {
-            nodes = new List<TreeNode>()
-            {
-                new TreeNode(){ParentId=-1, NodeId=0, NodeName = "收藏夹",Type = 1},
-                new TreeNode(){ParentId=0, NodeId=1, NodeName = "文本",Type = 1},
-                new TreeNode(){ParentId=0, NodeId=2, NodeName = "音频",Type = 1},
-                new TreeNode(){ParentId=0, NodeId=3, NodeName = "视频",Type = 1},
-
-                new TreeNode(){ParentId=1, NodeId=11, NodeName = "文本1",Type = 0},
-                new TreeNode(){ParentId=1, NodeId=12, NodeName = "文本2",Type = 0},
-                new TreeNode(){ParentId=1, NodeId=13, NodeName = "文本3",Type = 0},
-            };
-            List<TreeNode> root = GetNodes(-1, nodes);
+            List<TreeNode> root = GetNodes(-1, GlobalInfo.FavoritesSetting.FavoritesInfos);
             AddTreeViewItems(null, root[0], true);
         }
 

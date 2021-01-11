@@ -29,26 +29,26 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="收藏夹栏" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,10,0">
-                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe659;"/>
-                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe652;"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe659;" Click="AddFavorites_OnClick"/>
+                            <Button Style="{DynamicResource Button.FontButton}" Content="&#xe652;" Click="AddFolder_OnClick"/>
                             <Button Style="{DynamicResource Button.FontButton}" Content="&#xe65c;"/>
                             <Button Style="{DynamicResource Button.FontButton}" Content="..." Padding="0,0,0,12"/>
                             <Button Style="{DynamicResource Button.FontButton}" Content="&#xe6b9;"/>
                         </StackPanel>
                     </Grid>
                     <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
-                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree" ContextMenuOpening="FavoritesTree_OnContextMenuOpening">
+                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <controls:MTreeView.ContextMenu>
                             <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
-                                <controls:MMenuItem Tag="0" Header="全部打开（16个）" Icon="&#xe600;"/>
-                                <controls:MMenuItem Tag="1" Header="在新建窗口中全部打开（16个）" Icon="&#xe602;"/>
+                                <controls:MMenuItem Tag="0" x:Name="OpenAllFolder" Header="全部打开（16个）" Icon="&#xe600;"/>
+                                <controls:MMenuItem Tag="1" x:Name="OpenNewAllFolder" Header="在新建窗口中全部打开（16个）" Icon="&#xe602;"/>
                                 <controls:MMenuItem Tag="2" Header="在新 InPrivate窗口全部打开（16个）" Icon="&#xe68c;"/>
                                 <controls:MMenuItem Tag="4" Header="按名称排序" Icon="&#xe606;"/>
                                 <controls:MMenuItem Tag="5" Header="重命名" Icon="&#xe712;"/>
-                                <controls:MMenuItem Tag="5" Header="删除" Icon="&#xe74e;" IconFontSize="26"/>
-                                <controls:MMenuItem Tag="5" Header="将当前标签页添加到文件夹" Icon="&#xe659;"/>
-                                <controls:MMenuItem Tag="5" Header="将所有标签页添加到文件夹"/>
-                                <controls:MMenuItem Tag="5" Header="添加文件夹" Icon="&#xe652;"/>
+                                <controls:MMenuItem Tag="6" x:Name="DeleteNode" Header="删除" Icon="&#xe74e;" IconFontSize="26" Click="Delete_OnClick"/>
+                                <controls:MMenuItem Tag="7" Header="将当前标签页添加到文件夹" Icon="&#xe659;"/>
+                                <controls:MMenuItem Tag="8" Header="将所有标签页添加到文件夹"/>
+                                <controls:MMenuItem Tag="9" Header="添加文件夹" Icon="&#xe652;" Click="AddFolder_OnClick"/>
                             </ContextMenu>
                         </controls:MTreeView.ContextMenu>
                     </controls:MTreeView>

@@ -70,5 +70,8 @@ namespace Cys_CustomControls.Controls
             get => (Brush)GetValue(IconForegroundProperty);
             set => SetValue(IconForegroundProperty, value);
         }
+
+        public int Type { get; set; }
+        public int NodeId { get; set; }
     }
 }

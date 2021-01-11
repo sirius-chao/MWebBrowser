@@ -32,6 +32,7 @@ namespace MWebBrowser.View
             this.DataContext = _viewModel;
             this.Loaded += MWebBrowserUc_Loaded;
             WebTabControl.SelectionChanged += WebTabControl_SelectionChanged;
+            FavoritesMenu.GetWebUrlEvent += () => _viewModel;
         }
 
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
@@ -169,6 +170,7 @@ namespace MWebBrowser.View
         private void SetCurrentSelectedInfo()
         {
             _viewModel.CurrentUrl = _currentWebTabItem.ViewModel.CurrentUrl;
+            _viewModel.Title = _currentWebTabItem.ViewModel.Title;
         }
 
         #endregion

@@ -3,11 +3,9 @@ using MWebBrowser.Code.CustomCef;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace MWebBrowser.View
 {

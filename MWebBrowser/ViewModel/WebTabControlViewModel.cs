@@ -7,6 +7,9 @@ namespace MWebBrowser.ViewModel
         private string _currentUrl;
         public string CurrentUrl { get => _currentUrl; set { _currentUrl = value; OnPropertyChanged("CurrentUrl"); } }
 
+        private string _title;
+        public string Title { get => _title; set { _title = value; OnPropertyChanged("Title"); } }
+
         private ZoomType _zoomLevelType;
         public ZoomType ZoomLevelType { get => _zoomLevelType; set { _zoomLevelType = value; OnPropertyChanged("ZoomLevelType"); } }
 

@@ -22,8 +22,14 @@ namespace MWebBrowser.View
         public FavoritesMenuUc()
         {
             InitializeComponent();
+            this.Loaded += FavoritesMenuUc_Loaded;
+        }
+
+        private void FavoritesMenuUc_Loaded(object sender, RoutedEventArgs e)
+        {
             GetFavoritesInfo();
         }
+
         private void GetFavoritesInfo()
         {
             List<TreeNode> root = GetNodes(-1, GlobalInfo.FavoritesSetting.FavoritesInfos);

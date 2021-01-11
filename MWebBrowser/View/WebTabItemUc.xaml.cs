@@ -17,7 +17,10 @@ namespace MWebBrowser.View
         public CustomWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
         public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
+
+        public Action SetCurrentEvent;
         private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
+
 
         public WebTabItemUc()
         {
@@ -52,6 +55,7 @@ namespace MWebBrowser.View
         {
             ViewModel.Title = CefWebBrowser.Title;
             ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
+            SetCurrentEvent?.Invoke();
         }
         private void InitWebBrowser()
         {

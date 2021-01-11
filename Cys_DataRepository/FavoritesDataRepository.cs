@@ -37,6 +37,7 @@ namespace Cys_DataRepository
                     NodeId = 0,
                     NodeName = "收藏夹",
                     Type = 1,
+                    Level = 0,
                 });
             }
             return setting;

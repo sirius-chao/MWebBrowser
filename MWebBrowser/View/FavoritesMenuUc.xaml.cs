@@ -6,7 +6,6 @@ using MWebBrowser.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,11 +18,12 @@ namespace MWebBrowser.View
     public partial class FavoritesMenuUc : UserControl
     {
         public Func<WebTabControlViewModel> GetWebUrlEvent;
-
         /// <summary>
         /// 记录当前右键选中的Item;
         /// </summary>
         private MTreeViewItem _currentRightItem;
+
+        private const double _textMaxWidth = 300;
         public FavoritesMenuUc()
         {
             InitializeComponent();
@@ -52,7 +52,15 @@ namespace MWebBrowser.View
 
         private void AddTreeViewItems(MTreeViewItem parent, TreeNode treeNode, bool isRoot)
         {
-            var treeViewItem = new MTreeViewItem();
+            double left = treeNode.Level * 10;
+            var treeViewItem = new MTreeViewItem
+            {
+                Type = treeNode.Type,
+                NodeId = treeNode.NodeId,
+                Level = treeNode.Level,
+                ItemMargin = new Thickness(left, 0, 0, 0),
+                TextMaxWidth = _textMaxWidth - left,
+            };
             if (treeNode.ChildNodes.Count <= 0)
             {
                 if (treeNode.Type == 0)
@@ -61,21 +69,15 @@ namespace MWebBrowser.View
                     treeViewItem.Icon = "\ueb1e";
                     treeViewItem.IsExpandedIcon = "\ueb1e";
                     treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                    treeViewItem.Type = treeNode.Type;
-                    treeViewItem.NodeId = treeNode.NodeId;
                 }
                 else
                 {
                     treeViewItem.Header = treeNode.NodeName;
-                    treeViewItem.Type = treeNode.Type;
-                    treeViewItem.NodeId = treeNode.NodeId;
                 }
             }
             else
             {
                 treeViewItem.Header = treeNode.NodeName;
-                treeViewItem.Type = treeNode.Type;
-                treeViewItem.NodeId = treeNode.NodeId;
                 foreach (var child in treeNode.ChildNodes)
                 {
                     AddTreeViewItems(treeViewItem, child, false);
@@ -123,7 +125,7 @@ namespace MWebBrowser.View
         /// <summary>
         /// 添加到当前网页到根目录
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender"></param> 
         /// <param name="e"></param>
         private void AddFavorites_OnClick(object sender, RoutedEventArgs e)
         {
@@ -208,9 +210,19 @@ namespace MWebBrowser.View
         private Tuple<TreeNode, MTreeViewItem> GetNewTreeNodeInfo(bool isRoot, int type, string nodeName, string url)
         {
             int parentId = 0;
+            int level = 1;
             if (!isRoot)
             {
                 parentId = _currentRightItem.NodeId;
+
+                if (parentId == -1)
+                {
+                    level = +1;
+                }
+                else
+                {
+                    level = _currentRightItem.Level + 1;
+                }
             }
             int nodeMax = GlobalInfo.FavoritesSetting.FavoritesInfos.Max(x => x.NodeId);
             var treeNode = new TreeNode
@@ -220,14 +232,19 @@ namespace MWebBrowser.View
                 NodeId = nodeMax + 1,
                 NodeName = nodeName,
                 Type = type,
+                Level = level,
             };
+            double left = treeNode.Level * 10;
             var treeViewItem = new MTreeViewItem
             {
                 Header = treeNode.NodeName,
                 Type = type,
                 NodeId = treeNode.NodeId,
+                ItemMargin = new Thickness(level*10, 0, 0, 0),
+                Level = level,
+                TextMaxWidth = _textMaxWidth - left,
             };
-
+            var s = treeViewItem.ItemMargin;
             if (type == 0)
             {
                 treeViewItem.Icon = "\ueb1e";

@@ -71,7 +71,29 @@ namespace Cys_CustomControls.Controls
             set => SetValue(IconForegroundProperty, value);
         }
 
+        /// <summary>
+        /// ItemMargin 
+        /// </summary>
+        public static readonly DependencyProperty ItemMarginProperty = DependencyProperty.Register("ItemMargin", typeof(Thickness), typeof(MTreeViewItem));
+        public Thickness ItemMargin
+        {
+            get => (Thickness)GetValue(ItemMarginProperty);
+            set => SetValue(ItemMarginProperty, value);
+        }
+
+        /// <summary>
+        /// ItemMargin 
+        /// </summary>
+        public static readonly DependencyProperty TextMaxWidthProperty = DependencyProperty.Register("TextMaxWidth", typeof(double), typeof(MTreeViewItem));
+        public double TextMaxWidth
+        {
+            get => (double)GetValue(TextMaxWidthProperty);
+            set => SetValue(TextMaxWidthProperty, value);
+        }
+
         public int Type { get; set; }
+
+        public int Level { get; set; }
         public int NodeId { get; set; }
     }
 }

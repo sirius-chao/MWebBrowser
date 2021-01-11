@@ -120,6 +120,7 @@ namespace MWebBrowser.View
             try
             {
                 var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
+                uc.SetCurrentEvent += SetCurrentSelectedInfo;
                 uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
                 uc.WebMouseWheelEvent += WebMouseWheel;
                 #region TabItem

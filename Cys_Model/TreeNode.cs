@@ -9,6 +9,13 @@ namespace Cys_Model
         public string NodeName { get; set; }
         public string Url { get; set; }
         public List<TreeNode> ChildNodes { get; set; } = new List<TreeNode>();
-        public int Type { get; set; } //0-文件，1-文件夹
+        /// <summary>
+        /// //0-文件，1-文件夹
+        /// </summary>
+        public int Type { get; set; }
+        /// <summary>
+        /// 层级
+        /// </summary>
+        public int Level { get; set; } 
     }
 }

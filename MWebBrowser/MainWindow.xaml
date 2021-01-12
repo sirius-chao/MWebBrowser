@@ -6,7 +6,7 @@
                       xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
                       xmlns:webBrowser="clr-namespace:MWebBrowser.View"
                       mc:Ignorable="d"
-             Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="500">
+             Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="500" WindowState="Maximized">
     <Grid>
         <webBrowser:WebTabControlUc x:Name="WebTabControl"/>
         <Grid x:Name="InputMethodMask" Visibility="Collapsed">

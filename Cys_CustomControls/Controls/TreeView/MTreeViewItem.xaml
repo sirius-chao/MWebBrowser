@@ -30,6 +30,39 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MTreeViewItem.InputTextBox" TargetType="{x:Type TextBox}" >
+        <Setter Property="Foreground" Value="{DynamicResource WebBrowserBrushes.InputTextBoxForeground}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource WebBrowserBrushes.InputTextBoxBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="CharacterCasing" Value="Upper" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid x:Name="PART_Root">
+                        <Border x:Name="Bg" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" Width="{Binding ElementName=Content,Path=ActualWidth}"
+                                          BorderThickness="0" IsTabStop="False" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="Transparent" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <!--<Setter TargetName="Bg" Property="BorderBrush"  Value="{DynamicResource CustomBrushes.LoginWindowTextHighlightedBrush}"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type local:MTreeViewItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -39,7 +72,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Icon" Value="&#xe903;"/>
         <Setter Property="IsExpandedIcon" Value="&#xe605;"/>
-        <Setter Property="IconForeground" Value="#FFCD2C"/>
+        <Setter Property="IconForeground" Value="{DynamicResource WebBrowserBrushes.MTreeItemIconForeground}"/>
         <Setter Property="TextMaxWidth" Value="300"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -54,7 +87,8 @@
                                 <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
                                 <TextBlock x:Name ="PART_Icon"  Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}" VerticalAlignment="Center" Margin="5,0"/>
                                 <Grid VerticalAlignment="Center" Height="35">
-                                    <TextBlock VerticalAlignment="Center" MaxWidth="{TemplateBinding TextMaxWidth}" TextTrimming="CharacterEllipsis" x:Name="PART_Header" Text="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <TextBlock x:Name="PART_Header" VerticalAlignment="Center" MaxWidth="{TemplateBinding TextMaxWidth}" TextTrimming="CharacterEllipsis" Text="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <TextBox Height="23" x:Name="PART_EditText" Width="{TemplateBinding TextMaxWidth}" FontSize="{TemplateBinding FontSize}" Style="{StaticResource MTreeViewItem.InputTextBox}" Visibility="Collapsed" HorizontalAlignment="Stretch" />
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -73,7 +107,11 @@
                             <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="#575757"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource WebBrowserBrushes.MTreeItemIsSelectedBackground}"/>
+                        </Trigger>
+                        <Trigger Property="IsEdit" Value="true">
+                            <Setter TargetName="PART_EditText" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="PART_Header" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

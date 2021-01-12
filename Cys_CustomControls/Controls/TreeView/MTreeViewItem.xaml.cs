@@ -91,6 +91,15 @@ namespace Cys_CustomControls.Controls
             set => SetValue(TextMaxWidthProperty, value);
         }
 
+        /// <summary>
+        /// IsEdit 
+        /// </summary>
+        public static readonly DependencyProperty IsEditProperty = DependencyProperty.Register("IsEdit", typeof(bool), typeof(MTreeViewItem));
+        public bool IsEdit
+        {
+            get => (bool)GetValue(IsEditProperty);
+            set => SetValue(IsEditProperty, value);
+        }
         public int Type { get; set; }
 
         public int Level { get; set; }

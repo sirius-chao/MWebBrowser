@@ -68,7 +68,7 @@ namespace MWebBrowser.View
             {
                 if (treeNode.Type == 0)
                 {
-                    treeViewItem.Header = treeNode.Url;
+                    treeViewItem.Header = treeNode.NodeName;
                     treeViewItem.Icon = "\ueb1e";
                     treeViewItem.IsExpandedIcon = "\ueb1e";
                     treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
@@ -270,9 +270,17 @@ namespace MWebBrowser.View
             if (null == FavoritesTree.SelectedItem) return;
             if (!(FavoritesTree.SelectedItem is MTreeViewItem item)) return;
             if (item.Type == 1) return;
+            if (item.IsEdit) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
             OpenNewTabEvent?.Invoke(treeNode.Url);
+        }
+
+        private void ReName_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (null == _currentRightItem) return;
+            if (_currentRightItem.NodeId == 0) return;
+            _currentRightItem.IsEdit = true;
         }
     }
 }

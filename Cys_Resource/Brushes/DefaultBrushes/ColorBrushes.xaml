@@ -161,4 +161,8 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.WebMenuDivideLine" Color="#575757"/>
     <Color x:Key="WebBrowserColor.MenuItemDropShadowBrush" >#000000</Color>
 
+    <SolidColorBrush x:Key="WebBrowserBrushes.MTreeItemIconForeground" Color="#FFCD2C"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.MTreeItemIsSelectedBackground" Color="#575757"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxForeground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxBorderBrush" Color="#A4A4A4"/>
 </ResourceDictionary>

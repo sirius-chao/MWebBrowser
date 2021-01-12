@@ -1,4 +1,5 @@
-﻿using Cys_Common;
+﻿using System.Windows;
+using Cys_Common;
 using Cys_CustomControls.Controls;
 using Cys_DataRepository;
 using MWebBrowser.Code.Configure;

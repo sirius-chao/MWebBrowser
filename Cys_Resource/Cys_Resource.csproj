@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Fonts\iconfont.ttf" />
+    <Resource Include="Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

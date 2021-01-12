@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
 	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+	<ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

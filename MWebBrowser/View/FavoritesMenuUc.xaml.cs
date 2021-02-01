@@ -5,11 +5,13 @@ using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace MWebBrowser.View
 {
@@ -35,6 +37,8 @@ namespace MWebBrowser.View
 
         private void FavoritesMenuUc_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.IsInDesignMode())
+                return;
             GetFavoritesInfo();
         }
 

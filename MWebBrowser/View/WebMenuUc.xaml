@@ -8,6 +8,11 @@
              d:DesignHeight="30" d:DesignWidth="40">
     <Grid>
         <controls:MMenu>
+            <controls:MMenu.Resources>
+                <Style TargetType="{x:Type controls:MMenuItem}">
+                    <EventSetter Event="Click" Handler="MenuItem_OnClick"/>
+                </Style>
+            </controls:MMenu.Resources>
             <controls:MMenuItem Header=". . ." Width="40" Height="30">
                 <controls:MMenuItem Tag="0" Header="新建标签页" Icon="&#xe600;"/>
                 <controls:MMenuItem Tag="1" Header="新建窗口" Icon="&#xe602;"/>
@@ -15,7 +20,7 @@
                 <controls:MMenuItem Tag="3" RoleEx="SubmenuItemEx" x:Name="ZoomMenuItem"/>
                 <controls:MMenuItem Tag="4" Header="收藏夹" Icon="&#xe6de;"/>
                 <controls:MMenuItem Tag="5" Header="历史记录" Icon="&#xe6f8;"/>
-                <controls:MMenuItem Tag="6" Header="下载" Icon="&#xe6d3;" Click="MenuItem_OnClick"/>
+                <controls:MMenuItem Tag="6" Header="下载" Icon="&#xe6d3;"/>
                 <controls:MMenuItem Tag="7" Header="应用" Icon="&#xe651;" PopupWidth="160">
                     <controls:MMenuItem Header="管理应用" Icon="&#xe600;"/>
                 </controls:MMenuItem>

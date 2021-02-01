@@ -8,13 +8,13 @@
              d:DesignHeight="450" d:DesignWidth="1000" 
              Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"
              Background="{DynamicResource WebBrowserBrushes.DefaultBackground}">
-    <Grid>
+    <Grid Margin="0,40,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Width="340" Margin="0,40,0,0">
+        <Grid Grid.Column="0" Width="340">
             <ScrollViewer Margin="50,30,30,0" Style="{DynamicResource ScrollViewer.MainMenu}">
                 <StackPanel>
                     <TextBlock Text="下载" Margin="10,0,0,0" FontSize="25" FontWeight="Bold"/>

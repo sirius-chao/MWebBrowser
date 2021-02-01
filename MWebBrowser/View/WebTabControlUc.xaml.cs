@@ -53,7 +53,7 @@ namespace MWebBrowser.View
         {
             WebMenu.ZoomInEvent += ZoomIn;
             WebMenu.ZoomOutEvent += ZoomOut;
-            WebMenu.MenuOpenNewTabEvent += MenuOpenNewTab;
+            WebMenu.ExecuteMenuEvent += ExecuteMenuFunction;
         }
         private void InitWebTabControl()
         {
@@ -143,14 +143,19 @@ namespace MWebBrowser.View
             }
         }
 
-        private void MenuOpenNewTab(string obj)
+        private void ExecuteMenuFunction(string obj)
         {
             switch (obj)
             {
+                case "0":
+                    TabItemAdd("http://www.baidu.com");
+                    break;
+                case "4":
+                    FavoritesMenu.FavoritesButton.IsChecked = true;
+                    break;
                 case "6":
                     ShowDownloadTab();
                     break;
-
             }
         }
         /// <summary>

@@ -88,7 +88,7 @@
                                 <TextBlock x:Name ="PART_Icon"  Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}" VerticalAlignment="Center" Margin="5,0"/>
                                 <Grid VerticalAlignment="Center" Height="35">
                                     <TextBlock x:Name="PART_Header" VerticalAlignment="Center" MaxWidth="{TemplateBinding TextMaxWidth}" TextTrimming="CharacterEllipsis" Text="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                    <TextBox Height="23" x:Name="PART_EditText" Width="{TemplateBinding TextMaxWidth}" FontSize="{TemplateBinding FontSize}" Style="{StaticResource MTreeViewItem.InputTextBox}" Visibility="Collapsed" HorizontalAlignment="Stretch" />
+                                    <TextBox Height="23" x:Name="PART_EditText" Width="{TemplateBinding TextMaxWidth}" FontSize="{TemplateBinding FontSize}" Style="{StaticResource MTreeViewItem.InputTextBox}" Visibility="Collapsed" HorizontalAlignment="Stretch" Text="{Binding RelativeSource={RelativeSource AncestorType=local:MTreeViewItem}, Path=EditText,UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </StackPanel>
                         </Border>

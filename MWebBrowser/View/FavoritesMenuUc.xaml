@@ -37,7 +37,7 @@
                         </StackPanel>
                     </Grid>
                     <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
-                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp">
+                    <controls:MTreeView Grid.Row="2" x:Name="FavoritesTree" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp" PreviewKeyDown="FavoritesTree_OnPreviewKeyDown">
                         <controls:MTreeView.ContextMenu>
                             <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
                                 <controls:MMenuItem Tag="0" x:Name="OpenAllFolder" Header="全部打开（16个）" Icon="&#xe600;"/>

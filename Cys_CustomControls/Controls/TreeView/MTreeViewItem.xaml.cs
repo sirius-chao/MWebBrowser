@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using Cys_Controls.Code;
 
 // ReSharper disable once CheckNamespace
 namespace Cys_CustomControls.Controls
@@ -94,11 +96,31 @@ namespace Cys_CustomControls.Controls
         /// <summary>
         /// IsEdit 
         /// </summary>
-        public static readonly DependencyProperty IsEditProperty = DependencyProperty.Register("IsEdit", typeof(bool), typeof(MTreeViewItem));
+        public static readonly DependencyProperty IsEditProperty = DependencyProperty.Register("IsEdit", typeof(bool), typeof(MTreeViewItem), new UIPropertyMetadata(IsEditUpdate));
         public bool IsEdit
         {
             get => (bool)GetValue(IsEditProperty);
             set => SetValue(IsEditProperty, value);
+        }
+
+        /// <summary>
+        /// EditText
+        /// </summary>
+        public static readonly DependencyProperty EditTextProperty = DependencyProperty.Register("EditText", typeof(string), typeof(MTreeViewItem));
+
+        private static void IsEditUpdate(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is MTreeViewItem item)) return;
+            if (!item.IsEdit) return;
+            var textBox = ControlHelper.FindVisualChild<TextBox>(d);
+            textBox.Focus();//不好用后期处理
+            FocusManager.SetFocusedElement(d,textBox);//不好用后期处理
+        }
+
+        public string EditText
+        {
+            get => (string)GetValue(EditTextProperty);
+            set => SetValue(EditTextProperty, value);
         }
         public int Type { get; set; }
 

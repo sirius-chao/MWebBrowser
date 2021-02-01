@@ -1,17 +1,16 @@
 ﻿using Cys_Common;
+using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Navigation;
 
 namespace MWebBrowser.View
 {
@@ -106,6 +105,9 @@ namespace MWebBrowser.View
         private void FavoritesButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
             FavoritesPop.IsOpen = false;
+            if (_currentRightItem == null)
+                return;
+            _currentRightItem.IsEdit = false;
         }
 
         /// <summary>
@@ -285,6 +287,21 @@ namespace MWebBrowser.View
             if (null == _currentRightItem) return;
             if (_currentRightItem.NodeId == 0) return;
             _currentRightItem.IsEdit = true;
+        }
+
+        private void FavoritesTree_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            if (_currentRightItem.IsEdit)
+            {
+                _currentRightItem.IsEdit = false;
+                _currentRightItem.Header = _currentRightItem.EditText;
+               
+                if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId)) return;
+                var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
+                treeNode.NodeName = _currentRightItem.EditText;
+                _currentRightItem.EditText = null;
+            }
         }
     }
 }

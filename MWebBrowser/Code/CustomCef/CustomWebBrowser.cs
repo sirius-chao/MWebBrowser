@@ -1,9 +1,9 @@
-﻿using CefSharp.Wpf;
+﻿using CefSharp;
+using CefSharp.Wpf;
+using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
-using MWebBrowser.Code.Helpers;
 using System;
 using System.Windows.Input;
-using CefSharp;
 
 namespace MWebBrowser.Code.CustomCef
 {

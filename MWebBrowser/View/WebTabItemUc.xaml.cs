@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Cys_Controls.Code;
 
 namespace MWebBrowser.View
 {
@@ -47,7 +48,8 @@ namespace MWebBrowser.View
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
                 && (e.Key == Key.D0 || e.Key == Key.NumPad0))
             {
-
+                var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
+                uc?.SearchText.ZoomResetCommand.Execute(null);
             }
         }
 
@@ -67,6 +69,7 @@ namespace MWebBrowser.View
             this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
             this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
             this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
+            var s = this.CefWebBrowser.ZoomLevel;
 
         }
 

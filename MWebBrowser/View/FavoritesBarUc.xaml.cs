@@ -1,10 +1,13 @@
 ﻿using Cys_Common;
+using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model;
 using MWebBrowser.Code.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MWebBrowser.View
@@ -13,7 +16,11 @@ namespace MWebBrowser.View
     /// Interaction logic for FavoritesBarUc.xaml
     /// </summary>
     public partial class FavoritesBarUc : UserControl
-    {
+    {  
+        /// <summary>
+        /// 记录当前右键选中的Item;
+        /// </summary>
+        private MFavoritesItem _currentRightItem;
         public FavoritesBarUc()
         {
             InitializeComponent();
@@ -76,6 +83,118 @@ namespace MWebBrowser.View
             {
                 MenuParent.Items.Add(favoritesItem);
             }
+        }
+
+        /// <summary>
+        /// 处理右键菜单打开前的行为
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FavoritesTree_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            _currentRightItem = ControlHelper.FindVisualParent<MFavoritesItem>(e.OriginalSource as DependencyObject);
+            if (null == _currentRightItem)
+            {
+                e.Handled = true;
+                return;
+            }
+            if (_currentRightItem.Type == 0)
+            {
+                OpenAllFolder.Visibility = Visibility.Collapsed;
+                OpenNewAllFolder.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                OpenAllFolder.Visibility = Visibility.Visible;
+                OpenNewAllFolder.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void FavoritesTree_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!(MenuParent.Items.CurrentItem is MFavoritesItem item)) return;
+            if (item.Type == 1) return;
+            if (item.IsEdit) return;
+            if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
+            var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
+            //OpenNewTabEvent?.Invoke(treeNode.Url);
+        }
+
+        private void FavoritesTree_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            if (_currentRightItem.IsEdit)
+            {
+                _currentRightItem.IsEdit = false;
+                _currentRightItem.Header = _currentRightItem.EditText;
+
+                if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId)) return;
+                var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
+                treeNode.NodeName = _currentRightItem.EditText;
+                _currentRightItem.EditText = null;
+            }
+        }
+
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        /// <param name="sender"></param> 
+        /// <param name="e"></param>
+        private void AddFavorites_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        /// <summary>
+        /// 添加文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddFolder_OnClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        /// <summary>
+        /// 删除当前节点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Delete_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_currentRightItem?.Parent == null) return;
+            for (int i = _currentRightItem.Items.Count; i > 0; i--)
+            {
+                _currentRightItem.Items.Remove(_currentRightItem.Items[^1]);
+                if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId))
+                    continue;
+            }
+
+            if (_currentRightItem.Parent is MFavoritesItem items)
+            {
+                if (GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId))
+                {
+                    var currentNode = (GlobalInfo.FavoritesSetting.FavoritesInfos.FirstOrDefault(x => x.NodeId == _currentRightItem.NodeId));
+                    GlobalInfo.FavoritesSetting.FavoritesInfos.Remove(currentNode);
+                }
+                items.Items.Remove(_currentRightItem);
+            }
+
+            if (_currentRightItem.Parent is MFavorites parent)
+            {
+                if (GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId))
+                {
+                    var currentNode = (GlobalInfo.FavoritesSetting.FavoritesInfos.FirstOrDefault(x => x.NodeId == _currentRightItem.NodeId));
+                    GlobalInfo.FavoritesSetting.FavoritesInfos.Remove(currentNode);
+                }
+                parent.Items.Remove(_currentRightItem);
+            }
+        }
+
+        private void ReName_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (null == _currentRightItem) return;
+            if (_currentRightItem.NodeId == 0) return;
+            _currentRightItem.IsEdit = true;
         }
     }
 }

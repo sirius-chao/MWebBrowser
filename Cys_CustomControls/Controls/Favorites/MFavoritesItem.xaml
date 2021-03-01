@@ -4,13 +4,13 @@
     <ControlTemplate x:Key="MTopLevelHeaderTemplate" TargetType="{x:Type local:MFavoritesItem}">
         <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="true">
             <Grid>
-                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="PART_TextGrid" Opacity="0.8">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="PART_TextGrid" Opacity="0.8" Margin="10,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Foreground="{TemplateBinding IconForeground}"/>
-                    <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="Icon" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Foreground="{TemplateBinding IconForeground}"/>
+                    <ContentPresenter Margin="10,0,0,0" ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
                    Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" PlacementTarget="{Binding ElementName=templateRoot}" Width="{TemplateBinding PopupWidth}">
@@ -55,13 +55,13 @@
 
     <ControlTemplate x:Key="MTopLevelItemTemplate" TargetType="{x:Type local:MFavoritesItem}">
         <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="true">
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="PART_TextGrid" Opacity="0.8">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="PART_TextGrid" Opacity="0.8" Margin="10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-                <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Icon" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                <ContentPresenter Margin="10,0,0,0" ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -76,19 +76,16 @@
     </ControlTemplate>
 
     <ControlTemplate  x:Key="MSubmenuHeaderTemplate" TargetType="{x:Type local:MFavoritesItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" 
-                BorderThickness="{TemplateBinding BorderThickness}"
-                BorderBrush="{TemplateBinding BorderBrush}" Height="35" 
-                SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="35" SnapsToDevicePixels="true">
             <Grid >
-                <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
+                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-                    <ContentPresenter Grid.Column="1" ContentSource="Header"  HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <ContentPresenter Margin="10,0,0,0" Grid.Column="1" ContentSource="Header"  HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
                 <Path x:Name="RightArrow" Data="M 0,0 L 7,7 L 0,14 Z" 
                       Fill="{TemplateBinding Foreground}" 
@@ -139,14 +136,14 @@
 
     <ControlTemplate x:Key="MSubmenuItemTemplate" TargetType="{x:Type local:MFavoritesItem}">
         <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Height="35" SnapsToDevicePixels="true">
-            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
+                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-                <ContentPresenter Grid.Column="1" x:Name="menuHeaderContainer"  HorizontalAlignment="Center" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                <ContentPresenter Margin="10,0,0,0" Grid.Column="1" x:Name="menuHeaderContainer"  HorizontalAlignment="Center" ContentSource="Header" RecognizesAccessKey="True" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
@@ -165,7 +162,8 @@
 
     <Style TargetType="{x:Type local:MFavoritesItem}">
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.WebMenuBackground}"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Background" Value="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.FontPrimaryColor}"/>
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>

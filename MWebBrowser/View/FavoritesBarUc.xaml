@@ -5,8 +5,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="800" Height="50" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
-    <Grid>
-        <controls:MFavorites x:Name="MenuParent"/>
+             d:DesignHeight="40" d:DesignWidth="800" Height="40" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
+    <Grid  VerticalAlignment="Center">
+        <controls:MFavorites x:Name="MenuParent" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp" PreviewKeyDown="FavoritesTree_OnPreviewKeyDown">
+            <controls:MFavorites.ContextMenu>
+                <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
+                    <controls:MMenuItem Tag="0" x:Name="OpenAllFolder" Header="全部打开（16个）" Icon="&#xe600;"/>
+                    <controls:MMenuItem Tag="1" x:Name="OpenNewAllFolder" Header="在新建窗口中全部打开（16个）" Icon="&#xe602;"/>
+                    <controls:MMenuItem Tag="2" Header="在新 InPrivate窗口全部打开（16个）" Icon="&#xe68c;"/>
+                    <controls:MMenuItem Tag="4" Header="按名称排序" Icon="&#xe606;"/>
+                    <controls:MMenuItem Tag="5" x:Name="ReName" Header="重命名" Icon="&#xe712;" Click="ReName_OnClick"/>
+                    <controls:MMenuItem Tag="6" x:Name="DeleteNode" Header="删除" Icon="&#xe74e;" IconFontSize="26" Click="Delete_OnClick"/>
+                    <controls:MMenuItem Tag="7" Header="将当前标签页添加到文件夹" Icon="&#xe659;" Click="AddFavorites_OnClick"/>
+                    <controls:MMenuItem Tag="8" Header="将所有标签页添加到文件夹" Visibility="Collapsed"/>
+                    <controls:MMenuItem Tag="9" Header="添加文件夹" Icon="&#xe652;" Click="AddFolder_OnClick"/>
+                </ContextMenu>
+            </controls:MFavorites.ContextMenu>
+        </controls:MFavorites>
     </Grid>
 </UserControl>

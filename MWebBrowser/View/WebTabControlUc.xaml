@@ -11,9 +11,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <controls:MTabControl Grid.Row="0" Grid.RowSpan="3"  x:Name="WebTabControl"/>
+        <controls:MTabControl Grid.Row="0" Grid.RowSpan="4"  x:Name="WebTabControl"/>
         <Grid Grid.Row="1" Margin="0,40,0,0" Height="40" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -36,7 +37,7 @@
                 <webBrowser:WebMenuUc Grid.Column="2" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </Grid>
-
-        <webBrowser:DownloadToolUc Grid.Row="0" Grid.RowSpan="3" x:Name="DownloadTool" Height="50" VerticalAlignment="Bottom"/>
+        <webBrowser:FavoritesBarUc Grid.Row="2"/>
+        <webBrowser:DownloadToolUc Grid.Row="0" Grid.RowSpan="4" x:Name="DownloadTool" Height="50" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 namespace Cys_CustomControls.Controls
@@ -68,6 +69,46 @@ namespace Cys_CustomControls.Controls
             set => SetValue(PopupWidthProperty, value);
         }
         #endregion
+
+        /// <summary>
+        /// IsExpanded
+        /// </summary>
+        public static readonly DependencyProperty IsExpandedIconProperty = DependencyProperty.Register("IsExpandedIcon", typeof(string), typeof(MFavoritesItem));
+        public string IsExpandedIcon
+        {
+            get => (string)GetValue(IsExpandedIconProperty);
+            set => SetValue(IsExpandedIconProperty, value);
+        }
+
+        /// <summary>
+        /// IconForeground 字体图标前景色
+        /// </summary>
+        public static readonly DependencyProperty IconForegroundProperty = DependencyProperty.Register("IconForeground", typeof(Brush), typeof(MFavoritesItem));
+        public Brush IconForeground
+        {
+            get => (Brush)GetValue(IconForegroundProperty);
+            set => SetValue(IconForegroundProperty, value);
+        }
+
+        /// <summary>
+        /// ItemMargin 
+        /// </summary>
+        public static readonly DependencyProperty ItemMarginProperty = DependencyProperty.Register("ItemMargin", typeof(Thickness), typeof(MFavoritesItem));
+        public Thickness ItemMargin
+        {
+            get => (Thickness)GetValue(ItemMarginProperty);
+            set => SetValue(ItemMarginProperty, value);
+        }
+
+        /// <summary>
+        /// ItemMargin 
+        /// </summary>
+        public static readonly DependencyProperty TextMaxWidthProperty = DependencyProperty.Register("TextMaxWidth", typeof(double), typeof(MFavoritesItem));
+        public double TextMaxWidth
+        {
+            get => (double)GetValue(TextMaxWidthProperty);
+            set => SetValue(TextMaxWidthProperty, value);
+        }
         #endregion
     }
 }

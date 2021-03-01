@@ -9,7 +9,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Foreground="{TemplateBinding IconForeground}"/>
                     <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
@@ -39,9 +39,9 @@
             <Trigger Property="IsSuspendingPopupAnimation" Value="true">
                 <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
             </Trigger>
-            <Trigger Property="Icon" Value="{x:Null}">
+            <!--<Trigger Property="Icon" Value="{x:Null}">
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="ScrollViewer.CanContentScroll" SourceName="SubMenuScrollViewer" Value="false">
                 <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}"/>
                 <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
@@ -60,7 +60,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Icon" FontSize="20" Margin="10,0" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
             </Grid>
         </Border>
@@ -86,7 +86,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                    <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                     <ContentPresenter Grid.Column="1" ContentSource="Header"  HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 </Grid>
@@ -144,7 +144,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}"
+                <TextBlock Grid.Column="0" x:Name="Icon" Width="20" Margin="10,0" FontSize="20" HorizontalAlignment="Center" Text="{TemplateBinding Icon}" Foreground="{TemplateBinding IconForeground}"
                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ContentPresenter Grid.Column="1" x:Name="menuHeaderContainer"  HorizontalAlignment="Center" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>

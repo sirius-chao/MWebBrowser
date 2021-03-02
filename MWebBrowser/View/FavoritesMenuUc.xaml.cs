@@ -22,6 +22,7 @@ namespace MWebBrowser.View
         public Func<WebTabControlViewModel> GetWebUrlEvent;
         public Action<string> OpenNewTabEvent;
 
+        public Action RefreshFavoritesBarEvent;
         /// <summary>
         /// 记录当前右键选中的Item;
         /// </summary>
@@ -172,6 +173,7 @@ namespace MWebBrowser.View
                     GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
                 }
             }
+            RefreshFavoritesBarEvent?.Invoke();
         }
         /// <summary>
         /// 添加文件夹
@@ -198,6 +200,7 @@ namespace MWebBrowser.View
                     GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
                 }
             }
+            RefreshFavoritesBarEvent?.Invoke();
         }
 
         /// <summary>
@@ -227,6 +230,7 @@ namespace MWebBrowser.View
                 }
                 items.Items.Remove(_currentRightItem);
             }
+            RefreshFavoritesBarEvent?.Invoke();
         }
         /// <summary>
         /// 创建新节点
@@ -302,6 +306,7 @@ namespace MWebBrowser.View
                 var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
                 treeNode.NodeName = _currentRightItem.EditText;
                 _currentRightItem.EditText = null;
+                RefreshFavoritesBarEvent?.Invoke();
             }
         }
     }

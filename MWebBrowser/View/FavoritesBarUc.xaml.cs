@@ -129,7 +129,7 @@ namespace MWebBrowser.View
         private void FavoritesTree_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var item = ControlHelper.FindVisualParent<MFavoritesItem>(e.OriginalSource as DependencyObject);
-            if (item.Type == 1) return;
+            if (item == null || item.Type == 1) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
             OpenNewTabEvent?.Invoke(treeNode.Url);
@@ -234,6 +234,8 @@ namespace MWebBrowser.View
 
             ReNamePop.HorizontalOffset = (this.ActualWidth - 320) / 2;
             ReNamePop.IsOpen = true;
+            FolderName.Text = (_currentRightItem.Header == null ? "" : _currentRightItem.Header.ToString())!;
+            FolderName.SelectAll();
         }
 
         private void ReCancel_OnClick(object sender, RoutedEventArgs e)
@@ -249,9 +251,12 @@ namespace MWebBrowser.View
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
             treeNode.NodeName = FolderName.Text;
         }
-
+        public void RefreshFavoritesBar()
+        {
+            MenuParent.Items.Clear();
+            GetFavoritesInfo();
+        }
         #endregion
-
         #endregion
     }
 }

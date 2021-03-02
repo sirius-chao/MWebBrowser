@@ -3,6 +3,7 @@ using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model;
 using MWebBrowser.Code.Helpers;
+using MWebBrowser.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MWebBrowser.ViewModel;
 
 namespace MWebBrowser.View
 {
@@ -19,7 +19,7 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class FavoritesBarUc : UserControl
     {
-        private const double _textMaxWidth = 300;
+        private readonly double _textMaxWidth = 300;
         /// <summary>
         /// 记录当前右键选中的Item;
         /// </summary>
@@ -126,27 +126,11 @@ namespace MWebBrowser.View
 
         private void FavoritesTree_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!(MenuParent.Items.CurrentItem is MFavoritesItem item)) return;
+            var item = ControlHelper.FindVisualParent<MFavoritesItem>(e.OriginalSource as DependencyObject);
             if (item.Type == 1) return;
-            if (item.IsEdit) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
-            //OpenNewTabEvent?.Invoke(treeNode.Url);
-        }
-
-        private void FavoritesTree_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            if (_currentRightItem.IsEdit)
-            {
-                _currentRightItem.IsEdit = false;
-                _currentRightItem.Header = _currentRightItem.EditText;
-
-                if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId)) return;
-                var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
-                treeNode.NodeName = _currentRightItem.EditText;
-                _currentRightItem.EditText = null;
-            }
+            OpenNewTabEvent?.Invoke(treeNode.Url);
         }
 
         /// <summary>
@@ -265,8 +249,24 @@ namespace MWebBrowser.View
         private void ReName_OnClick(object sender, RoutedEventArgs e)
         {
             if (null == _currentRightItem) return;
-            if (_currentRightItem.NodeId == 0) return;
-            _currentRightItem.IsEdit = true;
+            if (_currentRightItem.Type == 0) return;
+
+            ReNamePop.HorizontalOffset = (this.ActualWidth - 320) / 2;
+            ReNamePop.IsOpen = true;
+        }
+
+        private void ReCancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            ReNamePop.IsOpen = false;
+        }
+
+        private void ReSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            ReNamePop.IsOpen = false;
+            _currentRightItem.Header = FolderName.Text;
+            if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == _currentRightItem.NodeId)) return;
+            var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
+            treeNode.NodeName = FolderName.Text;
         }
     }
 }

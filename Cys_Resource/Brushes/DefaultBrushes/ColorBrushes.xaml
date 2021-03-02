@@ -165,4 +165,6 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.MTreeItemIsSelectedBackground" Color="#575757"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxForeground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxBorderBrush" Color="#A4A4A4"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.ReSaveBtnBackground" Color="#197AC4"/>
 </ResourceDictionary>

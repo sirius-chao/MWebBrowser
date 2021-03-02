@@ -6,8 +6,8 @@
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="800" Height="40" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
-    <Grid  VerticalAlignment="Center">
-        <controls:MFavorites x:Name="MenuParent" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp" PreviewKeyDown="FavoritesTree_OnPreviewKeyDown">
+    <Grid VerticalAlignment="Center">
+        <controls:MFavorites x:Name="MenuParent" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp">
             <controls:MFavorites.ContextMenu>
                 <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
                     <controls:MMenuItem Tag="0" x:Name="OpenAllFolder" Header="全部打开（16个）" Icon="&#xe600;"/>
@@ -22,5 +22,31 @@
                 </ContextMenu>
             </controls:MFavorites.ContextMenu>
         </controls:MFavorites>
+        <Popup x:Name="ReNamePop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=MenuParent}"
+               StaysOpen="False" AllowsTransparency="True" VerticalOffset="-40">
+            <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
+                </Border.Effect>
+                <Grid Width="320" Height="140">
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="编辑文件夹名称"  FontSize="18" Foreground="{DynamicResource ColorBrush.FontPrimaryColor}"/>
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="名称" Foreground="{DynamicResource ColorBrush.FontPrimaryColor}" VerticalAlignment="Center"/>
+                            <TextBox x:Name="FolderName" Height="30" Width="236" Margin="10,0,0,0" Style="{DynamicResource TextBox.ReName}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="保存" Width="65" Style="{DynamicResource Button.ReSave}" Height="35" Click="ReSave_OnClick"/>
+                            <Button Content="取消" Width="65" Style="{DynamicResource Button.ReCancel}" Height="35"  Click="ReCancel_OnClick" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>

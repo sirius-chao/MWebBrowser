@@ -101,36 +101,6 @@ namespace Cys_CustomControls.Controls
             get => (double)GetValue(TextMaxWidthProperty);
             set => SetValue(TextMaxWidthProperty, value);
         }
-
-        /// <summary>
-        /// IsEdit 
-        /// </summary>
-        public static readonly DependencyProperty IsEditProperty = DependencyProperty.Register("IsEdit", typeof(bool), typeof(MFavoritesItem), new UIPropertyMetadata(IsEditUpdate));
-        public bool IsEdit
-        {
-            get => (bool)GetValue(IsEditProperty);
-            set => SetValue(IsEditProperty, value);
-        }
-
-        /// <summary>
-        /// EditText
-        /// </summary>
-        public static readonly DependencyProperty EditTextProperty = DependencyProperty.Register("EditText", typeof(string), typeof(MFavoritesItem));
-
-        private static void IsEditUpdate(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(d is MFavoritesItem item)) return;
-            if (!item.IsEdit) return;
-            var textBox = ControlHelper.FindVisualChild<TextBox>(d);
-            textBox.Focus();//不好用后期处理
-            FocusManager.SetFocusedElement(d, textBox);//不好用后期处理
-        }
-
-        public string EditText
-        {
-            get => (string)GetValue(EditTextProperty);
-            set => SetValue(EditTextProperty, value);
-        }
         #endregion
 
         public int Type { get; set; }

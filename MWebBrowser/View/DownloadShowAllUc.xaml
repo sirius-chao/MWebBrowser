@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="1000" 
              Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"
              Background="{DynamicResource WebBrowserBrushes.DefaultBackground}">
-    <Grid Margin="0,40,0,0">
+    <Grid Margin="0,90,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>

@@ -84,7 +84,7 @@ namespace Cys_CustomControls.Controls
         }
 
         /// <summary>
-        /// ItemMargin 
+        /// TextMaxWidth 
         /// </summary>
         public static readonly DependencyProperty TextMaxWidthProperty = DependencyProperty.Register("TextMaxWidth", typeof(double), typeof(MTreeViewItem));
         public double TextMaxWidth

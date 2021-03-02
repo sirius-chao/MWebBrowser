@@ -56,11 +56,18 @@ namespace MWebBrowser.View
             return mainNodes;
         }
 
+        /// <summary>
+        /// 递归添加子集
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="treeNode"></param>
+        /// <param name="isRoot"></param>
         private void AddTreeViewItems(MTreeViewItem parent, TreeNode treeNode, bool isRoot)
         {
             double left = treeNode.Level * 10;
             var treeViewItem = new MTreeViewItem
             {
+                Header = treeNode.NodeName,
                 Type = treeNode.Type,
                 NodeId = treeNode.NodeId,
                 Level = treeNode.Level,
@@ -71,19 +78,13 @@ namespace MWebBrowser.View
             {
                 if (treeNode.Type == 0)
                 {
-                    treeViewItem.Header = treeNode.NodeName;
                     treeViewItem.Icon = "\ueb1e";
                     treeViewItem.IsExpandedIcon = "\ueb1e";
                     treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                 }
-                else
-                {
-                    treeViewItem.Header = treeNode.NodeName;
-                }
             }
             else
             {
-                treeViewItem.Header = treeNode.NodeName;
                 foreach (var child in treeNode.ChildNodes)
                 {
                     AddTreeViewItems(treeViewItem, child, false);

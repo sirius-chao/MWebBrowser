@@ -37,7 +37,7 @@
                 <webBrowser:WebMenuUc Grid.Column="2" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </Grid>
-        <webBrowser:FavoritesBarUc Grid.Row="2"/>
+        <webBrowser:FavoritesBarUc x:Name="FavoritesBar" Grid.Row="2"/>
         <webBrowser:DownloadToolUc Grid.Row="0" Grid.RowSpan="4" x:Name="DownloadTool" Height="50" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

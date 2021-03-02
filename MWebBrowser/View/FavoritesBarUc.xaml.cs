@@ -3,12 +3,14 @@ using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model;
 using MWebBrowser.Code.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MWebBrowser.ViewModel;
 
 namespace MWebBrowser.View
 {
@@ -16,11 +18,14 @@ namespace MWebBrowser.View
     /// Interaction logic for FavoritesBarUc.xaml
     /// </summary>
     public partial class FavoritesBarUc : UserControl
-    {  
+    {
+        private const double _textMaxWidth = 300;
         /// <summary>
         /// 记录当前右键选中的Item;
         /// </summary>
         private MFavoritesItem _currentRightItem;
+        public Func<WebTabControlViewModel> GetWebUrlEvent;
+        public Action<string> OpenNewTabEvent;
         public FavoritesBarUc()
         {
             InitializeComponent();
@@ -39,7 +44,7 @@ namespace MWebBrowser.View
             if (root == null || root.Count <= 0 || root[0].ChildNodes.Count <= 0) return;
             foreach (var child in root[0].ChildNodes)
             {
-                AddTreeViewItems(null, child, true);
+                AddFavoritesItem(null, child, true);
             }
         }
 
@@ -52,14 +57,23 @@ namespace MWebBrowser.View
             return mainNodes;
         }
 
-        private void AddTreeViewItems(MFavoritesItem parent, TreeNode treeNode, bool isRoot)
+        /// <summary>
+        /// 递归添加子集
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="treeNode"></param>
+        /// <param name="isRoot"></param>
+        private void AddFavoritesItem(MFavoritesItem parent, TreeNode treeNode, bool isRoot)
         {
             double left = treeNode.Level * 10;
             var favoritesItem = new MFavoritesItem
             {
-                Header = treeNode.NodeName
+                Header = treeNode.NodeName,
+                Type = treeNode.Type,
+                NodeId = treeNode.NodeId,
+                Level = treeNode.Level,
+                TextMaxWidth = _textMaxWidth
             };
-
             if (treeNode.Type == 0)
             {
                 favoritesItem.Icon = "\ueb1e";
@@ -74,7 +88,7 @@ namespace MWebBrowser.View
             {
                 foreach (var child in treeNode.ChildNodes)
                 {
-                    AddTreeViewItems(favoritesItem, child, false);
+                    AddFavoritesItem(favoritesItem, child, false);
                 }
             }
             if (!isRoot)
@@ -142,7 +156,12 @@ namespace MWebBrowser.View
         /// <param name="e"></param>
         private void AddFavorites_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var model = GetWebUrlEvent?.Invoke();
+            if (null == model) return;
+            if (_currentRightItem?.Type != 1) return;
+            var newTreeNode = GetNewTreeNodeInfo(false, 0, model.Title, model.CurrentUrl);
+            _currentRightItem.Items.Add(newTreeNode.Item2);
+            GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
         }
         /// <summary>
         /// 添加文件夹
@@ -151,7 +170,60 @@ namespace MWebBrowser.View
         /// <param name="e"></param>
         private void AddFolder_OnClick(object sender, RoutedEventArgs e)
         {
-           
+            var newTreeNode = GetNewTreeNodeInfo(false, 1, "新建文件夹", null);
+            if (_currentRightItem != null && _currentRightItem.Type == 1)
+            {
+                _currentRightItem.Items.Add(newTreeNode.Item2);
+                GlobalInfo.FavoritesSetting.FavoritesInfos.Add(newTreeNode.Item1);
+            }
+        }
+
+        private Tuple<TreeNode, MFavoritesItem> GetNewTreeNodeInfo(bool isRoot, int type, string nodeName, string url)
+        {
+            int parentId = 0;
+            int level = 1;
+            if (!isRoot)
+            {
+                parentId = _currentRightItem.NodeId;
+
+                if (parentId == -1)
+                {
+                    level = +1;
+                }
+                else
+                {
+                    level = _currentRightItem.Level + 1;
+                }
+            }
+            int nodeMax = GlobalInfo.FavoritesSetting.FavoritesInfos.Max(x => x.NodeId);
+            var treeNode = new TreeNode
+            {
+                Url = url,
+                ParentId = parentId,
+                NodeId = nodeMax + 1,
+                NodeName = nodeName,
+                Type = type,
+                Level = level,
+            };
+            var favoritesItem = new MFavoritesItem
+            {
+                Header = treeNode.NodeName,
+                Type = type,
+                NodeId = treeNode.NodeId,
+                Level = level,
+                TextMaxWidth = _textMaxWidth
+            };
+            if (type == 0)
+            {
+                favoritesItem.Icon = "\ueb1e";
+                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            }
+            else
+            {
+                favoritesItem.Icon = "\ue903";
+                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 205, 44));
+            }
+            return new Tuple<TreeNode, MFavoritesItem>(treeNode, favoritesItem);
         }
 
         /// <summary>

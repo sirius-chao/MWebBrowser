@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using Cys_Controls.Code;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Cys_Controls.Code;
 
 // ReSharper disable once CheckNamespace
 namespace Cys_CustomControls.Controls
@@ -73,16 +73,6 @@ namespace Cys_CustomControls.Controls
         #endregion
 
         /// <summary>
-        /// IsExpanded
-        /// </summary>
-        public static readonly DependencyProperty IsExpandedIconProperty = DependencyProperty.Register("IsExpandedIcon", typeof(string), typeof(MFavoritesItem));
-        public string IsExpandedIcon
-        {
-            get => (string)GetValue(IsExpandedIconProperty);
-            set => SetValue(IsExpandedIconProperty, value);
-        }
-
-        /// <summary>
         /// IconForeground 字体图标前景色
         /// </summary>
         public static readonly DependencyProperty IconForegroundProperty = DependencyProperty.Register("IconForeground", typeof(Brush), typeof(MFavoritesItem));
@@ -103,7 +93,7 @@ namespace Cys_CustomControls.Controls
         }
 
         /// <summary>
-        /// ItemMargin 
+        /// TextMaxWidth 
         /// </summary>
         public static readonly DependencyProperty TextMaxWidthProperty = DependencyProperty.Register("TextMaxWidth", typeof(double), typeof(MFavoritesItem));
         public double TextMaxWidth
@@ -144,6 +134,8 @@ namespace Cys_CustomControls.Controls
         #endregion
 
         public int Type { get; set; }
+
+        public int Level { get; set; }
         public int NodeId { get; set; }
     }
 }

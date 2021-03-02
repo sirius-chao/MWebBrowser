@@ -26,8 +26,7 @@ namespace MWebBrowser.View
         /// 记录当前右键选中的Item;
         /// </summary>
         private MTreeViewItem _currentRightItem;
-
-        private const double _textMaxWidth = 300;
+        private readonly double _textMaxWidth = 300;
         public FavoritesMenuUc()
         {
             InitializeComponent();
@@ -65,15 +64,7 @@ namespace MWebBrowser.View
         private void AddTreeViewItems(MTreeViewItem parent, TreeNode treeNode, bool isRoot)
         {
             double left = treeNode.Level * 10;
-            var treeViewItem = new MTreeViewItem
-            {
-                Header = treeNode.NodeName,
-                Type = treeNode.Type,
-                NodeId = treeNode.NodeId,
-                Level = treeNode.Level,
-                ItemMargin = new Thickness(left, 0, 0, 0),
-                TextMaxWidth = _textMaxWidth - left,
-            };
+            var treeViewItem = GetNewFavoritesItem(treeNode,left);
             if (treeNode.ChildNodes.Count <= 0)
             {
                 if (treeNode.Type == 0)
@@ -93,9 +84,27 @@ namespace MWebBrowser.View
             if (!isRoot)
                 parent.Items.Add(treeViewItem);
             else
-            {
                 FavoritesTree.Items.Add(treeViewItem);
-            }
+        }
+
+
+        /// <summary>
+        /// 获取FavoritesItem
+        /// </summary>
+        /// <param name="treeNode"></param>
+        /// <param name="left"></param>
+        /// <returns></returns>
+        private MTreeViewItem GetNewFavoritesItem(TreeNode treeNode, double left)
+        {
+            return new MTreeViewItem
+            {
+                Header = treeNode.NodeName,
+                Type = treeNode.Type,
+                NodeId = treeNode.NodeId,
+                Level = treeNode.Level,
+                ItemMargin = new Thickness(left, 0, 0, 0),
+                TextMaxWidth = _textMaxWidth - left,
+            };
         }
 
         private void FavoritesButton_OnChecked(object sender, RoutedEventArgs e)
@@ -255,21 +264,12 @@ namespace MWebBrowser.View
                 Level = level,
             };
             double left = treeNode.Level * 10;
-            var treeViewItem = new MTreeViewItem
-            {
-                Header = treeNode.NodeName,
-                Type = type,
-                NodeId = treeNode.NodeId,
-                ItemMargin = new Thickness(level*10, 0, 0, 0),
-                Level = level,
-                TextMaxWidth = _textMaxWidth - left,
-            };
-            if (type == 0)
-            {
-                treeViewItem.Icon = "\ueb1e";
-                treeViewItem.IsExpandedIcon = "\ueb1e";
-                treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            }
+            var treeViewItem = GetNewFavoritesItem(treeNode, left);
+            if (type != 0) return new Tuple<TreeNode, MTreeViewItem>(treeNode, treeViewItem);
+
+            treeViewItem.Icon = "\ueb1e";
+            treeViewItem.IsExpandedIcon = "\ueb1e";
+            treeViewItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             return new Tuple<TreeNode, MTreeViewItem>(treeNode, treeViewItem);
         }
         private void FavoritesTree_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

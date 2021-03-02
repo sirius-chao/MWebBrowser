@@ -166,5 +166,9 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxForeground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.InputTextBoxBorderBrush" Color="#A4A4A4"/>
 
-    <SolidColorBrush x:Key="WebBrowserBrushes.ReSaveBtnBackground" Color="#197AC4"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.ReSaveBtnBackground" Color="#006CBE"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.ReSaveBtnBackgroundOver" Color="#197AC4"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.ReCancelBtnBackground" Color="#5C5C5C"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.ReCancelBtnBackgroundOver" Color="#6F6F6F"/>
 </ResourceDictionary>

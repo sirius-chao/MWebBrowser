@@ -65,38 +65,38 @@ namespace MWebBrowser.View
         /// <param name="isRoot"></param>
         private void AddFavoritesItem(MFavoritesItem parent, TreeNode treeNode, bool isRoot)
         {
-            double left = treeNode.Level * 10;
-            var favoritesItem = new MFavoritesItem
+            var item = GetNewFavoritesItem(treeNode);
+            if (treeNode.ChildNodes.Count > 0)
+            {
+                foreach (var child in treeNode.ChildNodes)
+                {
+                    AddFavoritesItem(item, child, false);
+                }
+            }
+
+            if (!isRoot)
+                parent.Items.Add(item);
+            else
+                MenuParent.Items.Add(item);
+        }
+
+        /// <summary>
+        /// 获取FavoritesItem
+        /// </summary>
+        /// <param name="treeNode"></param>
+        /// <returns></returns>
+        private MFavoritesItem GetNewFavoritesItem(TreeNode treeNode)
+        {
+            return new MFavoritesItem
             {
                 Header = treeNode.NodeName,
                 Type = treeNode.Type,
                 NodeId = treeNode.NodeId,
                 Level = treeNode.Level,
-                TextMaxWidth = _textMaxWidth
+                TextMaxWidth = _textMaxWidth,
+                Icon = treeNode.Type == 0 ? "\ueb1e" : "\ue903",
+                IconForeground = treeNode.Type == 0 ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(255, 205, 44)),
             };
-            if (treeNode.Type == 0)
-            {
-                favoritesItem.Icon = "\ueb1e";
-                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            }
-            else
-            {
-                favoritesItem.Icon = "\ue903";
-                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 205, 44));
-            }
-            if (treeNode.ChildNodes.Count > 0)
-            {
-                foreach (var child in treeNode.ChildNodes)
-                {
-                    AddFavoritesItem(favoritesItem, child, false);
-                }
-            }
-            if (!isRoot)
-                parent.Items.Add(favoritesItem);
-            else
-            {
-                MenuParent.Items.Add(favoritesItem);
-            }
         }
 
         /// <summary>
@@ -116,11 +116,13 @@ namespace MWebBrowser.View
             {
                 OpenAllFolder.Visibility = Visibility.Collapsed;
                 OpenNewAllFolder.Visibility = Visibility.Collapsed;
+                ReName.Visibility = Visibility.Collapsed;
             }
             else
             {
                 OpenAllFolder.Visibility = Visibility.Visible;
                 OpenNewAllFolder.Visibility = Visibility.Visible;
+                ReName.Visibility = Visibility.Visible;
             }
         }
 
@@ -169,15 +171,7 @@ namespace MWebBrowser.View
             if (!isRoot)
             {
                 parentId = _currentRightItem.NodeId;
-
-                if (parentId == -1)
-                {
-                    level = +1;
-                }
-                else
-                {
-                    level = _currentRightItem.Level + 1;
-                }
+                level = parentId == -1 ? +1 : _currentRightItem.Level + 1;
             }
             int nodeMax = GlobalInfo.FavoritesSetting.FavoritesInfos.Max(x => x.NodeId);
             var treeNode = new TreeNode
@@ -189,26 +183,11 @@ namespace MWebBrowser.View
                 Type = type,
                 Level = level,
             };
-            var favoritesItem = new MFavoritesItem
-            {
-                Header = treeNode.NodeName,
-                Type = type,
-                NodeId = treeNode.NodeId,
-                Level = level,
-                TextMaxWidth = _textMaxWidth
-            };
-            if (type == 0)
-            {
-                favoritesItem.Icon = "\ueb1e";
-                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            }
-            else
-            {
-                favoritesItem.Icon = "\ue903";
-                favoritesItem.IconForeground = new SolidColorBrush(Color.FromRgb(255, 205, 44));
-            }
+            var favoritesItem = GetNewFavoritesItem(treeNode);
             return new Tuple<TreeNode, MFavoritesItem>(treeNode, favoritesItem);
         }
+
+        #region 右键菜单操作
 
         /// <summary>
         /// 删除当前节点
@@ -246,6 +225,8 @@ namespace MWebBrowser.View
             }
         }
 
+        #region 重命名
+
         private void ReName_OnClick(object sender, RoutedEventArgs e)
         {
             if (null == _currentRightItem) return;
@@ -268,5 +249,9 @@ namespace MWebBrowser.View
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == _currentRightItem.NodeId);
             treeNode.NodeName = FolderName.Text;
         }
+
+        #endregion
+
+        #endregion
     }
 }

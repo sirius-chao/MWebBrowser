@@ -27,7 +27,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="收藏夹栏" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
+                        <TextBlock Grid.Column="0" Text="收藏夹" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,10,0">
                             <Button Style="{DynamicResource Button.FontButton}" Content="&#xe659;" Click="AddFavorites_OnClick"/>
                             <Button Style="{DynamicResource Button.FontButton}" Content="&#xe652;" Click="AddFolder_OnClick"/>

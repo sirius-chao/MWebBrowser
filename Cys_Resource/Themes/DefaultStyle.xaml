@@ -10,6 +10,7 @@
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/ToggleButtonStyle.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/MenuStyle.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/TextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_Resource;component/Styles/ListBox.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="{x:Type TextElement }">
         <Setter Property="FontFamily" Value="pack://application:,,,/Cys_Resource;component/Fonts/#iconfont"/>

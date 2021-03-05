@@ -3,8 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:history="clr-namespace:MWebBrowser.View.History"
              mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="40">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="ListBoxTemplate">
+                <history:HistoryItemUc/>
+            </DataTemplate>
+        </Grid.Resources>
         <ToggleButton x:Name="HistoryButton" Style="{DynamicResource ToggleButton.FontButton}" Checked="HistoryButton_OnChecked"
                       Unchecked="HistoryButton_OnUnchecked" Content="&#xe786;" FontSize="32" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
         <Popup x:Name="FavoritesPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=FavoritesButton}"
@@ -28,6 +34,7 @@
                         <TextBlock Grid.Column="0" Text="历史记录" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
                     </Grid>
                     <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
+                    <ListBox Grid.Row="2" x:Name="HistoryListBox" ItemsSource="{Binding HistoryList}" Background="Transparent" ItemTemplate="{StaticResource ListBoxTemplate}" Style="{DynamicResource CustomListBox.HistoryListBox}"/>
                 </Grid>
             </Border>
         </Popup>

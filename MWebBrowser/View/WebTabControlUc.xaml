@@ -30,11 +30,13 @@
             <Grid Grid.Column="2" MinWidth="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <webBrowser:FavoritesMenuUc x:Name="FavoritesMenu"/>
-                <webBrowser:WebMenuUc Grid.Column="2" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <webBrowser:HistoryUc Grid.Column="1" x:Name="History"/>
+                <webBrowser:WebMenuUc Grid.Column="3" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </Grid>
         <webBrowser:FavoritesBarUc x:Name="FavoritesBar" Grid.Row="2"/>

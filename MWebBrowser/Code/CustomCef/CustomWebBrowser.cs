@@ -10,9 +10,18 @@ namespace MWebBrowser.Code.CustomCef
     public class CustomWebBrowser: ChromiumWebBrowser
     {
         public Action<bool, DownloadItem> DownloadCallBackEvent;
+
+        public Action AfterLoadEvent;
         public CustomWebBrowser()
         {
-            
+            this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
+        }
+
+        private void CustomWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (e.IsLoading)
+                return;
+            AfterLoadEvent?.Invoke();
         }
 
         public override void OnApplyTemplate()

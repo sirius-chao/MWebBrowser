@@ -2,6 +2,7 @@
 using Cys_Common;
 using Cys_CustomControls.Controls;
 using Cys_DataRepository;
+using Cys_Model.DataBase;
 using MWebBrowser.Code.Configure;
 using MWebBrowser.Code.Helpers;
 
@@ -28,6 +29,7 @@ namespace MWebBrowser
 
         private void InitGlobalInfo()
         {
+            DbSeed.InitData();
             GlobalInfo.DownloadSetting = DataRepositoryServer.Instance.DownloadData.GetDownloadSetting();
             GlobalInfo.FavoritesSetting = DataRepositoryServer.Instance.FavoritesData.GetFavoritesSetting();
         }

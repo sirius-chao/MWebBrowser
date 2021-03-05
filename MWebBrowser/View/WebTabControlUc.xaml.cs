@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Cys_Model.Tables;
+using Cys_Services;
 
 namespace MWebBrowser.View
 {
@@ -24,10 +26,13 @@ namespace MWebBrowser.View
         private WebTabItemUc _currentWebTabItem;
         private readonly System.Timers.Timer _zoomToolTimer = new System.Timers.Timer(1000);
         private int _zoomWaitingCount = -1;
+
+        private HistoryServices _historyServices;
         public WebTabControlUc()
         {
             InitializeComponent();
             InitWebTabControl();
+            _historyServices = new HistoryServices();
             _viewModel = new WebTabControlViewModel();
             this.DataContext = _viewModel;
             this.Loaded += MWebBrowserUc_Loaded;
@@ -126,6 +131,7 @@ namespace MWebBrowser.View
                 var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
                 uc.SetCurrentEvent += SetCurrentSelectedInfo;
                 uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
+                uc.CefWebBrowser.AfterLoadEvent += AddHistory;
                 uc.WebMouseWheelEvent += WebMouseWheel;
                 #region TabItem
 
@@ -138,7 +144,6 @@ namespace MWebBrowser.View
                 WebTabControl.SelectedItem = item;
                 WebTabControl.SetHeaderPanelWidth();
                 #endregion
-
             }
             catch (Exception ex)
             {
@@ -146,6 +151,17 @@ namespace MWebBrowser.View
             }
         }
 
+        private async void AddHistory()
+        {
+            try
+            {
+                var model = new HistoryModel { Url = _currentWebTabItem.ViewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = _currentWebTabItem.ViewModel.Title };
+                await _historyServices.AddHistory(model);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         private void ExecuteMenuFunction(string obj)
         {
             switch (obj)

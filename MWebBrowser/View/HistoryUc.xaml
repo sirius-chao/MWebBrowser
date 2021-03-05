@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="MWebBrowser.View.HistoryUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="40">
+    <Grid>
+        <ToggleButton x:Name="HistoryButton" Style="{DynamicResource ToggleButton.FontButton}" Checked="HistoryButton_OnChecked"
+                      Unchecked="HistoryButton_OnUnchecked" Content="&#xe786;" FontSize="32" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
+        <Popup x:Name="FavoritesPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=FavoritesButton}"
+               StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-330">
+            <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
+                </Border.Effect>
+                <Grid Width="360" Height="660">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="历史记录" VerticalAlignment="Center" FontSize="18" Margin="10,0,0,0" Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"/>
+                    </Grid>
+                    <Rectangle Grid.Row="1" Height="1" Fill="{DynamicResource WebBrowserBrushes.WebMenuDivideLine}"/>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

@@ -24,6 +24,11 @@ namespace Cys_Services
             return await _br.Add(model);
         }
 
+        public async Task<bool> DeleteHistory(int id)
+        {
+            return await _br.DeleteById(id);
+        }
+
         public async Task<PageModel<HistoryModel>> GetHistoryList(int pageNum = 1, int pageSize = 20)
         {
             QueryPageParam<HistoryModel> param = new QueryPageParam<HistoryModel>

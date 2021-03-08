@@ -15,7 +15,7 @@
                       Unchecked="HistoryButton_OnUnchecked" Content="&#xe786;" FontSize="32" Background="Transparent" IsChecked="{Binding ElementName=FavoritesPop,Path=IsOpen}"/>
         <Popup x:Name="FavoritesPop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=FavoritesButton}"
                StaysOpen="False" AllowsTransparency="True" HorizontalOffset="-330">
-            <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
+            <Border x:Name="PopBorder" Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
                 </Border.Effect>

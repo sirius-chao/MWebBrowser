@@ -9,7 +9,7 @@
         <!--<TextBlock Text="{Binding PublishTimeStr}" FontWeight="Bold" FontSize="16" Foreground="#FFFFFF" Visibility="{Binding GroupVisible}"/>-->
         <Grid>
             <Grid Margin="5,0">
-                <Border Margin="0,0,20,0" MaxWidth="350" CornerRadius="5" Background="{Binding BackColorBrush}"  MouseEnter="History_OnMouseEnter" MouseLeave="History_OnMouseLeave" MouseLeftButtonDown="History_OnMouseLeftButtonDown">
+                <Border Margin="0,0,20,0" MaxWidth="350" CornerRadius="5" Background="{Binding BackColorBrush}"  MouseEnter="History_OnMouseEnter" MouseLeave="History_OnMouseLeave" MouseLeftButtonDown="History_OnMouseLeftButtonDown" Cursor="Hand">
                     <Grid Margin="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -19,7 +19,7 @@
                         <Image Width="16" Height="16" Grid.Column="0" Source="{Binding Favicon}"/>
                         <TextBlock Margin="10,0,0,0" Grid.Column="1" FontSize="14" TextTrimming="CharacterEllipsis" Foreground="#FFFFFF" Text="{Binding Title}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <TextBlock TextTrimming="CharacterEllipsis" Margin="10,0,0,0" Visibility="{Binding DateVisible}" Grid.Column="2" Text="{Binding VisitTimeStr}" VerticalAlignment="Center" Foreground="#B9B9B9"/>
-                        <Button Visibility="{Binding CloseVisible}" Grid.Column="2" Margin="10,0,0,0" Style="{DynamicResource Button.DownloadCloseButton}" Click="Close_OnClick" VerticalAlignment="Center"/>
+                        <Button Visibility="{Binding CloseVisible}" Grid.Column="2" Margin="10,0,0,0" Style="{DynamicResource Button.DownloadCloseButton}" Click="Delete_OnClick" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
             </Grid>

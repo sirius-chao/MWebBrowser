@@ -59,6 +59,7 @@ namespace MWebBrowser.ViewModel
                         {
                             var viewModelItem = new HistoryItemViewModel
                             {
+                                Id = item.Id,
                                 GroupVisible = Visibility.Collapsed,
                                 Title = item.Title,
                                 Url = item.Url,
@@ -76,6 +77,14 @@ namespace MWebBrowser.ViewModel
             });
         }
 
+        public async void DeleteHistoryItem(HistoryItemViewModel item)
+        {
+            bool isSuccess = await _services.DeleteHistory(item.Id);
+            if (isSuccess)
+            {
+                HistoryList.Remove(item);
+            }
+        }
         private HistoryItemViewModel NewDayItem(DateTime date)
         {
             DateTime dt = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);

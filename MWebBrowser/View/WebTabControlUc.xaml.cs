@@ -124,7 +124,7 @@ namespace MWebBrowser.View
         /// 添加新的TabItem
         /// </summary>
         /// <param name="obj"></param>
-        private void TabItemAdd(object obj)
+        public void TabItemAdd(object obj)
         {
             try
             {

@@ -17,8 +17,8 @@ namespace MWebBrowser.Code.Helpers
         {
             try
             {
-                return string.IsNullOrEmpty(httpUrl) ? DefaultFavicon : 
-                    BitmapFrame.Create(new Uri(httpUrl), BitmapCreateOptions.None, BitmapCacheOption.Default);
+                return string.IsNullOrEmpty(httpUrl) ? DefaultFavicon :
+                    new BitmapImage(new Uri(httpUrl, UriKind.RelativeOrAbsolute));
             }
             catch
             {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MWebBrowser.Code.Helpers;
+using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace MWebBrowser.ViewModel
 {
@@ -86,5 +88,52 @@ namespace MWebBrowser.ViewModel
             get => _visitTime;
             set { _visitTime = value; OnPropertyChanged("VisitTime"); }
         }
+
+        public string VisitTimeStr
+        {
+            get
+            {
+                string ss = "上午";
+                if (VisitTime.Hour > 12)
+                {
+                    ss = "下午";
+                }
+
+                return $"{ss}:{VisitTime:HH:ss}";
+            }
+        }
+
+        private SolidColorBrush _backColorBrush;
+        /// <summary>
+        /// 是否显示条数
+        /// </summary>
+        public SolidColorBrush BackColorBrush
+        {
+            get => _backColorBrush;
+            set { _backColorBrush = value; OnPropertyChanged("BackColorBrush"); }
+        }
+
+        private Visibility _dateVisible = Visibility.Visible;
+        /// <summary>
+        /// 是否日期
+        /// </summary>
+        public Visibility DateVisible
+        {
+            get => _dateVisible;
+            set { _dateVisible = value; OnPropertyChanged("DateVisible"); }
+        }
+
+        private Visibility _closeVisible = Visibility.Collapsed;
+        /// <summary>
+        /// 是否显示关闭
+        /// </summary>
+        public Visibility CloseVisible
+        {
+            get => _closeVisible;
+            set { _closeVisible = value; OnPropertyChanged("CloseVisible"); }
+        }
+
+        private ImageSource _favicon = ImageHelper.DefaultFavicon;
+        public ImageSource Favicon { get => _favicon; set { _favicon = value; OnPropertyChanged("Favicon"); } }
     }
 }

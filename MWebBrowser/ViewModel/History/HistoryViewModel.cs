@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
+using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.ViewModel
 {
@@ -40,6 +41,7 @@ namespace MWebBrowser.ViewModel
         {
             if (!_hasMore) return;
             requestTime++;
+            Console.WriteLine(requestTime);
             var tempRequestTime = requestTime;
             Task.Factory.StartNew(() =>
             {
@@ -49,21 +51,24 @@ namespace MWebBrowser.ViewModel
                     {
                         return;
                     }
-                    ObservableCollection<HistoryItemViewModel> tempList = new ObservableCollection<HistoryItemViewModel>();
                     var result = _services.GetHistoryList(_pageNum, _pageSize);
-                    foreach (var item in result.Result.data)
+                    _pageNum++;
+                    DispatcherHelper.UIDispatcher.Invoke(() =>
                     {
-                        var viewModelItem = new HistoryItemViewModel
+                        foreach (var item in result.Result.data)
                         {
-                            GroupVisible = Visibility.Collapsed,
-                            Title = item.Title,
-                            Url = item.Url,
-                            VisitTime = item.VisitTime,
-                        };
-                        tempList.Add(viewModelItem);
-                    }
+                            var viewModelItem = new HistoryItemViewModel
+                            {
+                                GroupVisible = Visibility.Collapsed,
+                                Title = item.Title,
+                                Url = item.Url,
+                                Favicon = ImageHelper.GetFavicon(item.Url),
+                                VisitTime = item.VisitTime,
+                            };
+                            HistoryList.Add(viewModelItem);
+                        }
+                    });
                     _hasMore = result.Result.data.Count == _pageSize;
-                    HistoryList = tempList;
                 }
                 catch (Exception ex)
                 {

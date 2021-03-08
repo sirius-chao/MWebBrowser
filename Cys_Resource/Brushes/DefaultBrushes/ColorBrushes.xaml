@@ -171,4 +171,7 @@
 
     <SolidColorBrush x:Key="WebBrowserBrushes.ReCancelBtnBackground" Color="#5C5C5C"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.ReCancelBtnBackgroundOver" Color="#6F6F6F"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.HistoryBackgroundOver" Color="#575757"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.HistoryBackground" Color="Transparent"/>
 </ResourceDictionary>

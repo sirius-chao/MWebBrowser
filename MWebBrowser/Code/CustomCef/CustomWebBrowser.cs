@@ -30,6 +30,9 @@ namespace MWebBrowser.Code.CustomCef
             this.LifeSpanHandler = new CustomLifeSpanHandler();
             this.RequestHandler = new CustomRequestHandler();
             this.DownloadHandler = new CustomDownloadHandler(DownloadCallBackEvent);
+
+            //博客园友：【侠女多风尘】给出每个webBrowser单独缩放级别处理
+            this.RequestContext = new RequestContext();
         }
 
         public void OpenNewTab(string url)

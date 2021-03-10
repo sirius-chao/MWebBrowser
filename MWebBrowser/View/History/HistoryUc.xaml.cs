@@ -14,18 +14,10 @@ namespace MWebBrowser.View
         public HistoryUc()
         {
             InitializeComponent();
-            this.Loaded += HistoryUc_Loaded;
             _viewModel = new HistoryViewModel();
             this.DataContext = _viewModel;
             HistoryListBox.DataContext = _viewModel;
         }
-
-        private void HistoryUc_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ScrollViewer sv = ControlHelper.FindVisualChild<ScrollViewer>(HistoryListBox);
-            if (sv != null) sv.ScrollChanged += ScrollChanged;
-        }
-
         private void ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (!(sender is ScrollViewer scrollViewer)) return;

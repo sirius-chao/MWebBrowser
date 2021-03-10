@@ -17,8 +17,8 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Width="16" Height="16" Grid.Column="0" Source="{Binding Favicon}"/>
-                        <TextBlock Margin="10,0,0,0" Grid.Column="1" FontSize="14" TextTrimming="CharacterEllipsis" Foreground="#FFFFFF" Text="{Binding Title}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBlock TextTrimming="CharacterEllipsis" Margin="10,0,0,0" Visibility="{Binding DateVisible}" Grid.Column="2" Text="{Binding VisitTimeStr}" VerticalAlignment="Center" Foreground="#B9B9B9"/>
+                        <TextBlock Margin="10,0,0,0" Grid.Column="1" MaxWidth="240" FontSize="14" TextTrimming="CharacterEllipsis" Foreground="#FFFFFF" Text="{Binding Title}"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Margin="10,0,0,0" Visibility="{Binding DateVisible}" Grid.Column="2" Text="{Binding VisitTimeStr}" VerticalAlignment="Center" Foreground="{DynamicResource WebBrowserBrushes.HistoryDateForeground}"/>
                         <Button Visibility="{Binding CloseVisible}" Grid.Column="2" Margin="10,0,0,0" Style="{DynamicResource Button.DownloadCloseButton}" Click="Delete_OnClick" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>

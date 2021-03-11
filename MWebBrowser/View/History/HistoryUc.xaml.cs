@@ -30,14 +30,15 @@ namespace MWebBrowser.View
         }
         private void HistoryButton_OnChecked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _viewModel.ReSet();
-            _viewModel.GetHistoryList();
             ScrollViewer sv = ControlHelper.FindVisualChild<ScrollViewer>(HistoryListBox);
             if (sv != null)
             {
+                sv.ScrollToTop();
                 sv.ScrollChanged -= ScrollChanged;
                 sv.ScrollChanged += ScrollChanged;
             }
+            _viewModel.ReSet();
+            _viewModel.GetHistoryList();
         }
 
         private void HistoryButton_OnUnchecked(object sender, System.Windows.RoutedEventArgs e)

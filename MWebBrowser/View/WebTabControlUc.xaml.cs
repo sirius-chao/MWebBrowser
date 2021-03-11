@@ -32,7 +32,7 @@ namespace MWebBrowser.View
         {
             InitializeComponent();
             InitWebTabControl();
-            //_historyServices = new HistoryServices();
+            _historyServices = new HistoryServices();
             _viewModel = new WebTabControlViewModel();
             this.DataContext = _viewModel;
             this.Loaded += MWebBrowserUc_Loaded;
@@ -162,7 +162,7 @@ namespace MWebBrowser.View
                 });
 
                 var model = new HistoryModel { Url = _viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = _viewModel.Title };
-                //await _historyServices.AddHistory(model);
+                await _historyServices.AddHistory(model);
             }
             catch (Exception ex)
             {

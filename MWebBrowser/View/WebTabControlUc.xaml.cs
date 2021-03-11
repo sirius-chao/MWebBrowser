@@ -1,7 +1,9 @@
 ﻿using CefSharp;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
+using Cys_Model.Tables;
 using Cys_Resource.Code;
+using Cys_Services;
 using MWebBrowser.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
@@ -12,8 +14,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using Cys_Model.Tables;
-using Cys_Services;
 
 namespace MWebBrowser.View
 {
@@ -32,7 +32,7 @@ namespace MWebBrowser.View
         {
             InitializeComponent();
             InitWebTabControl();
-            _historyServices = new HistoryServices();
+            //_historyServices = new HistoryServices();
             _viewModel = new WebTabControlViewModel();
             this.DataContext = _viewModel;
             this.Loaded += MWebBrowserUc_Loaded;
@@ -131,7 +131,7 @@ namespace MWebBrowser.View
                 var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
                 uc.SetCurrentEvent += SetCurrentSelectedInfo;
                 uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
-                uc.CefWebBrowser.AfterLoadEvent += AddHistory;
+                uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
                 uc.WebMouseWheelEvent += WebMouseWheel;
                 #region TabItem
 
@@ -151,12 +151,18 @@ namespace MWebBrowser.View
             }
         }
 
-        private async void AddHistory()
+        private async void AfterLoad()
         {
             try
             {
-                var model = new HistoryModel { Url = _currentWebTabItem.ViewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = _currentWebTabItem.ViewModel.Title };
-                await _historyServices.AddHistory(model);
+                Dispatcher.Invoke(() =>
+                {
+                    _viewModel.Title = _currentWebTabItem.CefWebBrowser.Title;
+                    _viewModel.CurrentUrl = _currentWebTabItem.CefWebBrowser.Address;
+                });
+
+                var model = new HistoryModel { Url = _viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = _viewModel.Title };
+                //await _historyServices.AddHistory(model);
             }
             catch (Exception ex)
             {

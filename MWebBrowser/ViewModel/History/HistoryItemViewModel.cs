@@ -99,7 +99,7 @@ namespace MWebBrowser.ViewModel
                     ss = "下午";
                 }
 
-                return $"{ss}:{VisitTime:HH:ss}";
+                return $"{ss}:{VisitTime:HH:mm}";
             }
         }
 

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Cys_Model.DataBase;
-using SqlSugar;
-using System.Threading.Tasks;
+﻿using Cys_Model.DataBase;
 using Cys_Model.Model;
+using SqlSugar;
 using SqlSugar.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cys_DataRepository
 {
-    public class BaseRepository<T> where T : class, new()
+    public static class BaseRepository<T> where T : class, new()
     {
-        private readonly ISqlSugarClient _db;
-        public BaseRepository()
+        private static readonly ISqlSugarClient _db; 
+        static BaseRepository()
         {
             _db = new DbContext().Db;
         }
@@ -24,7 +24,7 @@ namespace Cys_DataRepository
         /// </summary>
         /// <param name="entity">实体类</param>
         /// <returns></returns>
-        public async Task<int> Add(T entity)
+        public static async Task<int> Add(T entity)
         {
             var insert = _db.Insertable(entity);
             return await insert.ExecuteReturnIdentityAsync();
@@ -39,7 +39,7 @@ namespace Cys_DataRepository
         /// </summary>
         /// <param name="entity">实体类</param>
         /// <returns></returns>
-        public async Task<bool> Delete(T entity)
+        public static async Task<bool> Delete(T entity)
         {
             return await _db.Deleteable(entity).ExecuteCommandHasChangeAsync();
         }
@@ -49,7 +49,7 @@ namespace Cys_DataRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteById(object id)
+        public static async Task<bool> DeleteById(object id)
         {
             return await _db.Deleteable<T>(id).ExecuteCommandHasChangeAsync();
         }
@@ -63,7 +63,7 @@ namespace Cys_DataRepository
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<List<T>> Query(QueryParam<T> param)
+        public static async Task<List<T>> Query(QueryParam<T> param)
         {
             var sqb = _db.Queryable<T>().Select(param.SelectExp)
                 .OrderByIF(param.IsOrderBy, param.OrderExp, param.OrderByType);
@@ -79,7 +79,7 @@ namespace Cys_DataRepository
         /// </summary>
         /// <param name="param">查询参数</param>
         /// <returns></returns>
-        public async Task<PageModel<T>> QueryPage(QueryPageParam<T> param)
+        public static async Task<PageModel<T>> QueryPage(QueryPageParam<T> param)
         {
             RefAsync<int> totalCount = 0;
             var list = await _db.Queryable<T>().Select(param.SelectExp)

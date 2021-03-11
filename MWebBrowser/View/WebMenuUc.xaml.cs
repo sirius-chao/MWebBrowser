@@ -44,5 +44,10 @@ namespace MWebBrowser.View
             if (menuItem.Tag == null) return;
             ExecuteMenuEvent?.Invoke(menuItem.Tag.ToString());
         }
+
+        public void ZoomCallBack(string zoomRatio)
+        {
+            ZoomMenuItem.ZoomRatio = zoomRatio;
+        }
     }
 }

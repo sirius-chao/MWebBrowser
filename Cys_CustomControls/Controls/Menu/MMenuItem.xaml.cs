@@ -82,6 +82,7 @@ namespace Cys_CustomControls.Controls
             set => SetValue(IconFontSizeProperty, value);
         }
         #endregion
+
         #region == RoleEx==
         public static readonly DependencyProperty RoleExProperty = DependencyProperty.Register("RoleEx", typeof(MenuItemRoleEx), typeof(MMenuItem),
             new PropertyMetadata(MenuItemRoleEx.None));
@@ -119,6 +120,18 @@ namespace Cys_CustomControls.Controls
         {
             get => (ICommand)GetValue(ZoomOutCommandProperty);
             set => SetValue(ZoomOutCommandProperty, value);
+        }
+        #endregion
+
+        #region == ZoomRatio 缩放比例 ==
+        public static readonly DependencyProperty ZoomRatioProperty = DependencyProperty.Register("ZoomRatio", typeof(string), typeof(MMenuItem));
+        /// <summary>
+        /// ZoomLevelType 缩放比例
+        /// </summary>
+        public string ZoomRatio
+        {
+            get => (string)GetValue(ZoomRatioProperty);
+            set => SetValue(ZoomRatioProperty, value);
         }
         #endregion
 

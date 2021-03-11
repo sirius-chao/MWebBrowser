@@ -380,6 +380,7 @@ namespace MWebBrowser.View
                 _viewModel.ZoomLevelType = ZoomType.None;
                 _viewModel.ZoomIsChecked = false;
             }
+            WebMenu.ZoomCallBack(_viewModel.ZoomRatio);
         }
         #endregion
     }

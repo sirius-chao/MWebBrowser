@@ -28,4 +28,17 @@
     <ProjectReference Include="..\Cys_Services\Cys_Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RefDLL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RefDLL\x64\pepflashplayer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RefDLL\x86\pepflashplayer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

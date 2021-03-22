@@ -15,6 +15,19 @@ namespace MWebBrowser.Code.CustomCef
         public CustomWebBrowser()
         {
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
+            this.IsBrowserInitializedChanged += CustomWebBrowser_IsBrowserInitializedChanged;
+        }
+
+        private void CustomWebBrowser_IsBrowserInitializedChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            if (!this.IsBrowserInitialized) return;
+            //this.ShowDevTools();
+            Cef.UIThreadTaskFactory.StartNew(() =>
+            {
+                string error = "";
+                var requestContext = this.GetBrowser().GetHost().RequestContext;
+                requestContext.SetPreference("profile.default_content_setting_values.plugins", 1, out error);
+            });
         }
 
         private void CustomWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)

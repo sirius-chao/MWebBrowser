@@ -189,6 +189,9 @@ namespace MWebBrowser.View
                 case "4":
                     FavoritesMenu.FavoritesButton.IsChecked = true;
                     break;
+                case "5":
+                    History.HistoryButton.IsChecked = true;
+                    break;
                 case "6":
                     ShowDownloadTab();
                     break;

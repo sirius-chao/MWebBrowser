@@ -41,4 +41,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="View\Download\DownloadShowAllUc.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>

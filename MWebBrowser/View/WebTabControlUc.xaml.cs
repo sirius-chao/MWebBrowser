@@ -105,6 +105,17 @@ namespace MWebBrowser.View
         }
         #endregion
 
+        #region SettingTool
+
+        private void ShowSettingTab()
+        {
+            SettingUc item = new SettingUc();
+            WebTabControl.Items.Add(item);
+            WebTabControl.SelectedItem = item;
+            WebTabControl.SetHeaderPanelWidth();
+        }
+
+        #endregion
         #region TabControl
 
         /// <summary>
@@ -180,6 +191,9 @@ namespace MWebBrowser.View
                     break;
                 case "6":
                     ShowDownloadTab();
+                    break;
+                case "15":
+                    ShowSettingTab();
                     break;
             }
         }

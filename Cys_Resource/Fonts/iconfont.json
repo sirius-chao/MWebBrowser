@@ -6,6 +6,90 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13015636",
+      "name": "22-默认布局",
+      "font_class": "-morenbuju",
+      "unicode": "e6d0",
+      "unicode_decimal": 59088
+    },
+    {
+      "icon_id": "6690009",
+      "name": "重置",
+      "font_class": "zhongzhi",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "9666182",
+      "name": "关于",
+      "font_class": "guanyu",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "9828823",
+      "name": "语言切换",
+      "font_class": "ziyuan",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "1053347",
+      "name": "个人资料",
+      "font_class": "gerenziliao",
+      "unicode": "e6d6",
+      "unicode_decimal": 59094
+    },
+    {
+      "icon_id": "4188407",
+      "name": "家庭关系",
+      "font_class": "jiatingguanxi",
+      "unicode": "e6ec",
+      "unicode_decimal": 59116
+    },
+    {
+      "icon_id": "5643539",
+      "name": "隐私策略",
+      "font_class": "yinsicelve",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "6742361",
+      "name": "清楚缓存",
+      "font_class": "qingchuhuancun",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "7987507",
+      "name": "系统",
+      "font_class": "xitong-",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "15859083",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "17755684",
+      "name": "颜色",
+      "font_class": "yanse",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "19163188",
+      "name": "铜钱",
+      "font_class": "tongqian",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
       "icon_id": "6695487",
       "name": "重命名",
       "font_class": "zhongmingming",

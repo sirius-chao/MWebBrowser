@@ -12,7 +12,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PersonToggleButton}">
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Ellipse x:Name="PART_Ellipse" Visibility="Collapsed"  Fill="Transparent" Stroke="{DynamicResource WebBrowserBrushes.PersonBtnEllipseColor}" StrokeThickness="3" Width="30" Height="30"/>
+                        <Ellipse x:Name="PART_Ellipse" Visibility="Collapsed" Fill="Transparent" Stroke="{DynamicResource WebBrowserBrushes.PersonBtnEllipseColor}" StrokeThickness="3" Width="30" Height="30"/>
                         <Image Source="{TemplateBinding ButtonImage}" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image.Clip>
                                 <EllipseGeometry Center="15,15" RadiusX="12" RadiusY="12" />

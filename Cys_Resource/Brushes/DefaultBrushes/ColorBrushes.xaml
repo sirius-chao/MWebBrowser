@@ -177,4 +177,5 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.HistoryDateForeground" Color="#B9B9B9"/>
 
     <SolidColorBrush x:Key="WebBrowserBrushes.PersonManageDataForeground" Color="#86BFEB"/>
+    <SolidColorBrush x:Key="WebBrowserBrushes.PersonBtnEllipseColor" Color="#717171"/>
 </ResourceDictionary>

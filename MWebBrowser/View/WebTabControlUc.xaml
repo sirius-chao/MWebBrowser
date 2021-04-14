@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
              xmlns:webBrowser="clr-namespace:MWebBrowser.View"
+             xmlns:person="clr-namespace:MWebBrowser.View.Setting.Person"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" PreviewKeyDown="WebTabControlUc_OnPreviewKeyDown">
     <Grid>
@@ -31,12 +32,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <webBrowser:FavoritesMenuUc x:Name="FavoritesMenu"/>
                 <webBrowser:HistoryUc Grid.Column="1" x:Name="History"/>
-                <webBrowser:WebMenuUc Grid.Column="3" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <person:PersonMenuUc Grid.Column="2" x:Name="Person"/>
+                <webBrowser:WebMenuUc Grid.Column="4" x:Name="WebMenu"  HorizontalAlignment="Right" Margin="10,0,10,0"/>
             </Grid>
         </Grid>
         <webBrowser:FavoritesBarUc x:Name="FavoritesBar" Grid.Row="2"/>

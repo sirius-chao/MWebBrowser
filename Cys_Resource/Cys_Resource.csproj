@@ -8,15 +8,20 @@
 
   <ItemGroup>
     <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="Images\Header.jpg" />
     <None Remove="Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Fonts\iconfont.ttf" />
+    <Resource Include="Images\Header.jpg" />
     <Resource Include="Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Brushes\ImageBrushes\ImageBrush.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Brushes\SecondBrushes\ColorBrushes.xaml">
       <SubType>Designer</SubType>
     </Page>

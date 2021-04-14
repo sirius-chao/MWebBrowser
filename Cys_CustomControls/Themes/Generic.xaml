@@ -14,6 +14,7 @@
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/CheckBox/MCheckBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/RadioButton/MRadioButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ToggleButton/MToggleButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ToggleButton/PersonToggleButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Carousel/MCarousel.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/Carousel/MMultiItemCarousel.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Cys_CustomControls;component/Controls/ComboBox/MComboBox.xaml"/>

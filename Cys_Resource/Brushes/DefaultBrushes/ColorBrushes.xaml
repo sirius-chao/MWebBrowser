@@ -175,4 +175,6 @@
     <SolidColorBrush x:Key="WebBrowserBrushes.HistoryBackgroundOver" Color="#575757"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.HistoryBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="WebBrowserBrushes.HistoryDateForeground" Color="#B9B9B9"/>
+
+    <SolidColorBrush x:Key="WebBrowserBrushes.PersonManageDataForeground" Color="#86BFEB"/>
 </ResourceDictionary>

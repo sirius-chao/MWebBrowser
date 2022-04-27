@@ -8,7 +8,8 @@ MWebBrowser基于CefSharp模仿[Edge](https://microsoft-edge.en.softonic.com/)�
 
 码云地址：[https://gitee.com/sirius_machao/mweb-browser](https://gitee.com/sirius_machao/mweb-browser)
 
-https://static.dingtalk.com/media/lQDPDhte5_7zcR_NBZXNBBmw5xR7-vu37SICbCrlnYDiAA_1049_1429.jpg_720x720q90g.jpg?bizType=im
+联系方式：
+(Screenshot_20220427_164459_com.tencent.mm_edit_218918935441595.jpg)
 
 项目目的：学习、交流、总结、进步。
 

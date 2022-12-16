@@ -1,4 +1,4 @@
-﻿using CefSharp;
+using CefSharp;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model.Tables;
@@ -109,10 +109,28 @@ namespace MWebBrowser.View
 
         private void ShowSettingTab()
         {
-            SettingUc item = new SettingUc();
-            WebTabControl.Items.Add(item);
-            WebTabControl.SelectedItem = item;
-            WebTabControl.SetHeaderPanelWidth();
+           bool having = false;
+            foreach (var temp in WebTabControl.Items)
+            {
+                if (temp is TabItem)
+                {
+                    if (((TabItem)temp).Content is SettingUc)
+                    {
+                        having = true;
+                        WebTabControl.SelectedItem = temp;
+                        break;
+                    }
+                }
+            }
+            if (!having)
+            {
+                SettingUc Setting = new SettingUc();
+                var item = new TabItem { Content = Setting };
+                item.SetValue(HeaderedContentControl.HeaderProperty, "设置");
+                WebTabControl.Items.Add(item);
+                WebTabControl.SelectedItem = item;
+                WebTabControl.SetHeaderPanelWidth();
+            }
         }
 
         #endregion

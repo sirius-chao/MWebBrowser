@@ -95,5 +95,11 @@ namespace MWebBrowser.View
         {
             CefWebBrowser.Load(url);
         }
+
+        public void Dispose() 
+        { 
+            CefWebBrowser?.Dispose();
+            CefWebBrowser = null;
+        }
     }
 }

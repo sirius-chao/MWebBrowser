@@ -1,4 +1,5 @@
 using CefSharp;
+using CefSharp.DevTools.WebAudio;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model.Tables;
@@ -87,6 +88,7 @@ namespace MWebBrowser.View
         private void InitCommand()
         {
             WebTabControl.TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
+            WebTabControl.TabItemRemoveCommand = new BaseCommand<object>(RemoveItemCommand);
         }
         #endregion
 
@@ -109,7 +111,7 @@ namespace MWebBrowser.View
 
         private void ShowSettingTab()
         {
-           bool having = false;
+            bool having = false;
             foreach (var temp in WebTabControl.Items)
             {
                 if (temp is TabItem)
@@ -179,7 +181,24 @@ namespace MWebBrowser.View
 
             }
         }
+        public void RemoveItemCommand(object obj)
+        {
+            if (obj is TabItem item)
+            {
+                WebTabControl.Items.Remove(item);
 
+                if(item.Content is WebTabItemUc webTabItem)
+                {
+                    webTabItem.Dispose();
+                }
+            }
+            WebTabControl.SetHeaderPanelWidth();
+
+            if (WebTabControl.Items.Count <= 0)
+            {
+                WebTabControl.CloseTabEvent?.Invoke();
+            }
+        }
         private async void AfterLoad()
         {
             try

@@ -57,6 +57,7 @@ namespace MWebBrowser.View
         {
             ViewModel.Title = CefWebBrowser.Title;
             ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
+            ViewModel.CurrentUrl = CefWebBrowser.Address;
             SetCurrentEvent?.Invoke();
         }
         private void InitWebBrowser()

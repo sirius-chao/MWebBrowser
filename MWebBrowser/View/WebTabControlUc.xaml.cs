@@ -315,7 +315,7 @@ namespace MWebBrowser.View
         private void Search_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            var pattern = @"^(http://|https://)?((?:[A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$";
+            var pattern = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
             var match = Regex.Match(_viewModel.CurrentUrl, pattern);
 
             if (!match.Success) return;

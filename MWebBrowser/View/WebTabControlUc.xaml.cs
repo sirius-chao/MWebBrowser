@@ -53,7 +53,7 @@ namespace MWebBrowser.View
             InitData();
             InitSearchCommand();
             InitWebMenu();
-            TabItemAdd("http://www.baidu.com");
+            TabItemAdd("https://www.cnblogs.com/mchao/p/14086441.html");
         }
 
         #region InitData
@@ -315,13 +315,7 @@ namespace MWebBrowser.View
         private void Search_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            var pattern = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
-            var match = Regex.Match(_viewModel.CurrentUrl, pattern);
-
-            if (!match.Success) return;
-            if (string.IsNullOrEmpty(_viewModel.CurrentUrl)) return;
             _currentWebTabItem.Load(_viewModel.CurrentUrl);
-
             DispatcherHelper.UIDispatcher.Invoke(() =>
             {
                 //使search框失去焦点

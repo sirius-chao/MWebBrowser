@@ -1,9 +1,10 @@
-﻿using System;
-using Cys_Controls.Code;
+﻿using Cys_Controls.Code;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 namespace Cys_CustomControls.Controls
@@ -49,6 +50,9 @@ namespace Cys_CustomControls.Controls
         private UniformGrid _partHeaderPanel;
         public Grid PartHeaderParentGrid;
         private ColumnDefinition _partHeaderPanelColumn;
+
+        private TabItem draggedItem;
+        private Point dropstartPoint;
         public Action CloseTabEvent;
         #region == StyleType 控件样式==
         /// <summary>
@@ -93,6 +97,7 @@ namespace Cys_CustomControls.Controls
             base.OnApplyTemplate();
             InitCommand();
             InitControl();
+            AllowDrop = true;
         }
         private void InitControl()
         {
@@ -133,5 +138,68 @@ namespace Cys_CustomControls.Controls
                 CloseTabEvent?.Invoke();
             }
         }
+
+        #region drap&drop
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseLeftButtonDown(e);
+            dropstartPoint = e.GetPosition(null);
+            draggedItem = e.Source as TabItem;
+        }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            if (e.LeftButton == MouseButtonState.Pressed && draggedItem != null)
+            {
+                Point mousePos = e.GetPosition(null);
+                Vector diff = dropstartPoint - mousePos;
+
+                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                    Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                {
+                    DragDrop.DoDragDrop(draggedItem, draggedItem, DragDropEffects.Move);
+                }
+            }
+        }
+        protected override void OnDrop(DragEventArgs e)
+        {
+            base.OnDrop(e);
+            if (e.Data.GetDataPresent(typeof(TabItem)))
+            {
+                TabItem droppedItem = e.Data.GetData(typeof(TabItem)) as TabItem;
+                if (droppedItem != null)
+                {
+                    int oldIndex = Items.IndexOf(droppedItem);
+                    if (oldIndex != -1)
+                    {
+                        Items.RemoveAt(oldIndex);
+                        Point mousePos = e.GetPosition(this);
+                        UIElement target = VisualTreeHelper.HitTest(this, mousePos).VisualHit as UIElement;
+                        TabItem newTabItem = FindParentTabItem<TabItem>(target);
+
+                        if (newTabItem != null)
+                        {
+                            int newIndex = Items.IndexOf(newTabItem);
+
+                            if (newIndex != -1)
+                            {
+                                Items.Insert(newIndex, droppedItem);
+                            }
+                        }
+                    }
+                }
+            }
+            draggedItem = null;
+        }
+        private T FindParentTabItem<T>(UIElement element) where T : UIElement
+        {
+            while (element != null && !(element is T))
+            {
+                element = VisualTreeHelper.GetParent(element) as UIElement;
+            }
+            return element as T;
+        }
+        #endregion
     }
 }

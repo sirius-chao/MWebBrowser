@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x86</Platforms>
+    <Platforms>AnyCPU;x86;x64</Platforms>
 	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
 	<ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf" Version="86.0.241" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="120.1.110">
+      <GeneratePathProperty>True</GeneratePathProperty>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 

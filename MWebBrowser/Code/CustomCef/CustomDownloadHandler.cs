@@ -13,6 +13,11 @@ namespace MWebBrowser.Code.CustomCef
             _downloadCallBackEvent = downloadCallBackEvent;
         }
 
+        public bool CanDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, string url, string requestMethod)
+        {
+            return true;
+        }
+
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
             IBeforeDownloadCallback callback)
         {

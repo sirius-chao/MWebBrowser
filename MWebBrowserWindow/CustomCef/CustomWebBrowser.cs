@@ -5,20 +5,20 @@ using Cys_CustomControls.Controls;
 using System;
 using System.Windows.Input;
 
-namespace MWebBrowser.Code.CustomCef
+namespace MWebBrowserWindow.Code.CustomCef
 {
-    public class CustomWebBrowser: ChromiumWebBrowser
+    public class CustomWindowWebBrowser: ChromiumWebBrowser
     {
         public Action<bool, DownloadItem> DownloadCallBackEvent;
 
         public Action AfterLoadEvent;
-        public CustomWebBrowser()
+        public CustomWindowWebBrowser()
         {
-            this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
-            this.IsBrowserInitializedChanged += CustomWebBrowser_IsBrowserInitializedChanged;
+            this.LoadingStateChanged += CustomWindowWebBrowser_LoadingStateChanged;
+            this.IsBrowserInitializedChanged += CustomWindowWebBrowser_IsBrowserInitializedChanged;
         }
 
-        private void CustomWebBrowser_IsBrowserInitializedChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        private void CustomWindowWebBrowser_IsBrowserInitializedChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
             if (!this.IsBrowserInitialized) return;
             //this.ShowDevTools();
@@ -30,7 +30,7 @@ namespace MWebBrowser.Code.CustomCef
             });
         }
 
-        private void CustomWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        private void CustomWindowWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             if (e.IsLoading)
                 return;

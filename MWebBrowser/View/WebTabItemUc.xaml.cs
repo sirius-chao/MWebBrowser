@@ -1,12 +1,12 @@
 ﻿using CefSharp;
-using MWebBrowser.Code.CustomCef;
+using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
+using MWebBrowserWindow.Code.CustomCef;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Cys_Controls.Code;
 
 namespace MWebBrowser.View
 {
@@ -15,7 +15,7 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class WebTabItemUc : UserControl
     {
-        public CustomWebBrowser CefWebBrowser;
+        public CustomWindowWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
         public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
 
@@ -62,7 +62,7 @@ namespace MWebBrowser.View
         }
         private void InitWebBrowser()
         {
-            CefWebBrowser = new CustomWebBrowser();
+            CefWebBrowser = new CustomWindowWebBrowser();
             //NavigationStackPanel.DataContext = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             WebParentGrid.Children.Add(CefWebBrowser);

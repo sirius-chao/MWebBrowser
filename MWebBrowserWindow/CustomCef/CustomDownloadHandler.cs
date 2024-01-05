@@ -1,8 +1,8 @@
 ﻿using CefSharp;
-using MWebBrowser.Code.Configure;
+using Cys_Common.Code.Configure;
 using System;
 
-namespace MWebBrowser.Code.CustomCef
+namespace MWebBrowserWindow.Code.CustomCef
 {
     public class CustomDownloadHandler : IDownloadHandler
     {

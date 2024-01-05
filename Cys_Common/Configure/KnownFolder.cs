@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace MWebBrowser.Code.Configure
+namespace Cys_Common.Code.Configure
 {
     public static class KnownFolder
     {

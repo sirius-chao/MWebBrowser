@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using System;
 
-namespace MWebBrowser.Code.CustomCef
+namespace MWebBrowserWindow.Code.CustomCef
 {
     public class CustomLifeSpanHandler : ILifeSpanHandler
     {
@@ -9,7 +9,7 @@ namespace MWebBrowser.Code.CustomCef
             string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures,
             IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
         {
-            if (chromiumWebBrowser is CustomWebBrowser webBrowser)
+            if (chromiumWebBrowser is CustomWindowWebBrowser webBrowser)
             {
                 //Cef.UIThreadTaskFactory.StartNew(() =>
                 //{

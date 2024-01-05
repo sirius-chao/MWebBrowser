@@ -1,4 +1,4 @@
-﻿namespace MWebBrowser.Code.Configure
+﻿namespace Cys_Common.Code.Configure
 {
     public class ConfigEntity
     {

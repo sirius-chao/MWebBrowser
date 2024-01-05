@@ -1,8 +1,8 @@
 ﻿using CefSharp;
-using MWebBrowser.Code.Helpers;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 
-namespace MWebBrowser.Code.CustomCef
+namespace MWebBrowserWindow.Code.CustomCef
 {
     public class CustomRequestHandler: IRequestHandler
     {
@@ -20,8 +20,8 @@ namespace MWebBrowser.Code.CustomCef
         public bool OnOpenUrlFromTab(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl,
             WindowOpenDisposition targetDisposition, bool userGesture)
         {
-   
-            DispatcherHelper.UIDispatcher.Invoke(() =>
+
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 var s = chromiumWebBrowser.Address;
             });

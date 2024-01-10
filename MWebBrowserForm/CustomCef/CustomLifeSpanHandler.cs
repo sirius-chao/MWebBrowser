@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using MWebBrowserWindow.Code.CustomCef;
 
 namespace MWebBrowserForm.Code.CustomCef
 {
@@ -8,13 +9,9 @@ namespace MWebBrowserForm.Code.CustomCef
             string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures,
             IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser)
         {
-            if (chromiumWebBrowser is CustomWinformWebBrowser webBrowser)
+            if (chromiumWebBrowser is CustomWebBrowser webBrowser)
             {
-                //Cef.UIThreadTaskFactory.StartNew(() =>
-                //{
-                    
-                //});
-                //webBrowser.OpenNewTab(targetUrl);
+                webBrowser.OpenNewTabEvent?.Invoke(targetUrl);
             }
             newBrowser = null;
             return true;

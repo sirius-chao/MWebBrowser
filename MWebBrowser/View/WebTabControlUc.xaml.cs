@@ -157,21 +157,25 @@ namespace MWebBrowser.View
         {
             try
             {
-                var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
-                uc.SetCurrentEvent += SetCurrentSelectedInfo;
-                uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
-                uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
-                uc.WebMouseWheelEvent += WebMouseWheel;
-                #region TabItem
+                DispatcherHelper.UIDispatcher.Invoke(() =>
+                {
+                    var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
+                    uc.SetCurrentEvent += SetCurrentSelectedInfo;
+                    uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
+                    uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
+                    uc.CefWebBrowser.OpenNewTabEvent += TabItemAdd;
+                    uc.WebMouseWheelEvent += WebMouseWheel;
+                    #region TabItem
 
-                var item = new TabItem { Content = uc };
-                var titleBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Title") };
-                item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
-                var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
-                item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
-                WebTabControl.Items.Add(item);
-                WebTabControl.SelectedItem = item;
-                WebTabControl.SetHeaderPanelWidth();
+                    var item = new TabItem { Content = uc };
+                    var titleBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Title") };
+                    item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
+                    var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
+                    item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
+                    WebTabControl.Items.Add(item);
+                    WebTabControl.SelectedItem = item;
+                    WebTabControl.SetHeaderPanelWidth();
+                });
                 #endregion
             }
             catch (Exception ex)
@@ -185,7 +189,7 @@ namespace MWebBrowser.View
             {
                 WebTabControl.Items.Remove(item);
 
-                if(item.Content is WebTabItemUc webTabItem)
+                if (item.Content is WebTabItemUc webTabItem)
                 {
                     webTabItem.Dispose();
                 }
@@ -324,7 +328,7 @@ namespace MWebBrowser.View
         #endregion
 
         #region 缩放
-        private void WebMouseWheel(object sender, MouseWheelEventArgs e)
+        private void WebMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
             {
@@ -346,7 +350,6 @@ namespace MWebBrowser.View
                 _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
                 _zoomToolTimer.AutoReset = true;
                 _zoomToolTimer.Enabled = true;
-                e.Handled = true;
             }
             catch (Exception ex)
             {

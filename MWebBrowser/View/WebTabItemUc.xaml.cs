@@ -2,7 +2,6 @@
 using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
-using MWebBrowserForm;
 using MWebBrowserWindow.Code.CustomCef;
 using System;
 using System.Windows.Forms;
@@ -17,7 +16,7 @@ namespace MWebBrowser.View
     {
         public CustomWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
-        public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
+        public Action<object, System.Windows.Forms.MouseEventArgs> WebMouseWheelEvent;
 
         public Action SetCurrentEvent;
         private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
@@ -32,11 +31,11 @@ namespace MWebBrowser.View
         }
 
 
-        private void CefWebBrowser_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void CefWebBrowser_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            WebMouseWheelEvent?.Invoke(sender,e);
+            WebMouseWheelEvent?.Invoke(sender, e);
         }
-      
+
 
         private void CefWebBrowser_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
         {
@@ -66,25 +65,28 @@ namespace MWebBrowser.View
         }
         private void InitWebBrowser()
         {
-            CustomWebBrowser customWebBrowser = new CustomWebBrowser();
-            formsHost.Child = customWebBrowser;
-            CefWebBrowser = customWebBrowser;
-            CefWebBrowser.Load("https://www.baidu.com");
+            CefWebBrowser = new CustomWebBrowser();
+            formsHost.Child = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            //this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+           // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
+            this.CefWebBrowser.MouseWheel += CefWebBrowser_MouseWheel;
         }
 
         private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
             try
             {
-                if (!CefWebBrowser.IsBrowserInitialized) return;
-                CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
-                if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                DispatcherHelper.UIDispatcher.Invoke(() =>
                 {
-                    Load(ViewModel.CurrentUrl);
-                }
+                    if (!CefWebBrowser.IsBrowserInitialized) return;
+                    CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
+                    if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                    {
+                        Load(ViewModel.CurrentUrl);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -97,8 +99,8 @@ namespace MWebBrowser.View
             CefWebBrowser.Load(url);
         }
 
-        public void Dispose() 
-        { 
+        public void Dispose()
+        {
             CefWebBrowser?.Dispose();
             CefWebBrowser = null;
         }

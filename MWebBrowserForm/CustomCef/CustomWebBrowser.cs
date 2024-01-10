@@ -9,6 +9,8 @@ namespace MWebBrowserWindow.Code.CustomCef
         public Action<bool, DownloadItem> DownloadCallBackEvent;
 
         public Action AfterLoadEvent;
+
+        public Action<string> OpenNewTabEvent;
         public CustomWebBrowser()
         {
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
@@ -38,15 +40,6 @@ namespace MWebBrowserWindow.Code.CustomCef
             if (e.IsLoading)
                 return;
             AfterLoadEvent?.Invoke();
-        }
-
-        public void OpenNewTab(string url)
-        {
-            //Dispatcher.Invoke(() =>
-            //{
-            //    var tabControl = ControlHelper.FindVisualParent<MTabControl>(this);
-            //    tabControl?.TabItemAddCommand?.Execute(url);
-            //});
         }
     }
 }

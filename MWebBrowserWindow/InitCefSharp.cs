@@ -5,7 +5,7 @@ using System.IO;
 
 namespace MWebBrowserWindow
 {
-    public class InitWindow
+    public class InitCefSharp
     {
         public static void InitializeCefSharp()
         {

@@ -6,11 +6,15 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <BaseOutputPath>$(SolutionDir)$(Platform)\$(Configuration)\</BaseOutputPath>
+    <BaseOutputPath>$(SolutionDir)Output\$(Platform)\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CefSharp.WinForms.NETCore" Version="120.1.110" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
   </ItemGroup>
 
 </Project>

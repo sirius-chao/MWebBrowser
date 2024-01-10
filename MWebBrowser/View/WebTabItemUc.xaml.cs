@@ -2,10 +2,10 @@
 using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
+using MWebBrowserForm;
 using MWebBrowserWindow.Code.CustomCef;
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace MWebBrowser.View
@@ -13,9 +13,9 @@ namespace MWebBrowser.View
     /// <summary>
     /// Interaction logic for WebTabItem.xaml
     /// </summary>
-    public partial class WebTabItemUc : UserControl
+    public partial class WebTabItemUc : System.Windows.Controls.UserControl
     {
-        public CustomWindowWebBrowser CefWebBrowser;
+        public CustomWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
         public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
 
@@ -38,47 +38,47 @@ namespace MWebBrowser.View
         }
       
 
-        private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void CefWebBrowser_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
         {
-            if (e.Key == Key.F5)
+            if (e.KeyCode == Keys.F5)
             {
                 this.CefWebBrowser.Reload();
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
-                && (e.Key == Key.D0 || e.Key == Key.NumPad0))
+                && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
             {
                 var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
                 uc?.SearchText.ZoomResetCommand.Execute(null);
             }
         }
 
-        private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void CefWebBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            ViewModel.Title = CefWebBrowser.Title;
-            ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
-            ViewModel.CurrentUrl = CefWebBrowser.Address;
+            string address = CefWebBrowser.Address;
+            ViewModel.Title = e.Title;
+            DispatcherHelper.UIDispatcher.Invoke(() =>
+            {
+                ViewModel.Favicon = ImageHelper.GetFavicon(address);
+            });
+            ViewModel.CurrentUrl = address;
             SetCurrentEvent?.Invoke();
         }
         private void InitWebBrowser()
         {
-            CefWebBrowser = new CustomWindowWebBrowser();
-            //NavigationStackPanel.DataContext = CefWebBrowser;
+            CustomWebBrowser customWebBrowser = new CustomWebBrowser();
+            formsHost.Child = customWebBrowser;
+            CefWebBrowser = customWebBrowser;
+            CefWebBrowser.Load("https://www.baidu.com");
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
-            WebParentGrid.Children.Add(CefWebBrowser);
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
-            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
-            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
-            var s = this.CefWebBrowser.ZoomLevel;
-
+            //this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
         }
 
-        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
             try
             {
-
                 if (!CefWebBrowser.IsBrowserInitialized) return;
                 CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
                 if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))

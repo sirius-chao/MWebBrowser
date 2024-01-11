@@ -3,7 +3,7 @@ using CefSharp.Wpf;
 using System;
 using System.IO;
 
-namespace MWebBrowserWindow
+namespace MWPFCore
 {
     public class InitCefSharp
     {

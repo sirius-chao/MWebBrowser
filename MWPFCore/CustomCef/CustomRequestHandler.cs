@@ -2,7 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 
-namespace MWebBrowserForm.Code.CustomCef
+namespace MWPFCore.Code.CustomCef
 {
     public class CustomRequestHandler: IRequestHandler
     {
@@ -20,6 +20,11 @@ namespace MWebBrowserForm.Code.CustomCef
         public bool OnOpenUrlFromTab(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, string targetUrl,
             WindowOpenDisposition targetDisposition, bool userGesture)
         {
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var s = chromiumWebBrowser.Address;
+            });
             return false;
         }
 

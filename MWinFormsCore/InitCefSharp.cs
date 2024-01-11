@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 
-namespace MWebBrowserForm
+namespace MWinFormsCore
 {
     public class InitCefSharp
     {

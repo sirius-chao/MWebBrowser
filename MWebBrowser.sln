@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cys_Model", "Cys_Model\Cys_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cys_Services", "Cys_Services\Cys_Services.csproj", "{4D840FD3-3DB7-47B9-88FE-524F538223B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWebBrowserForm", "MWebBrowserForm\MWebBrowserForm.csproj", "{2A71CEEA-C0BD-4DE7-93DB-0F4E971C6682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MWinFormsCore", "MWinFormsCore\MWinFormsCore.csproj", "{2A71CEEA-C0BD-4DE7-93DB-0F4E971C6682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWebBrowserWindow", "MWebBrowserWindow\MWebBrowserWindow.csproj", "{8E54DF10-5C9D-44B3-A0E6-F30C2268CC24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MWPFCore", "MWPFCore\MWPFCore.csproj", "{8E54DF10-5C9D-44B3-A0E6-F30C2268CC24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cys", "Cys", "{D01C5D35-0DBB-4B5C-994F-C4A132A627FD}"
 EndProject

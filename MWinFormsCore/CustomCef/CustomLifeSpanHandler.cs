@@ -1,7 +1,7 @@
 ﻿using CefSharp;
-using MWebBrowserWindow.Code.CustomCef;
+using MWPFCore.Code.CustomCef;
 
-namespace MWebBrowserForm.Code.CustomCef
+namespace MWinFormsCore.Code.CustomCef
 {
     public class CustomLifeSpanHandler : ILifeSpanHandler
     {

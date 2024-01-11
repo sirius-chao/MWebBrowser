@@ -1,8 +1,8 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
-using MWebBrowserForm.Code.CustomCef;
+using MWinFormsCore.Code.CustomCef;
 
-namespace MWebBrowserWindow.Code.CustomCef
+namespace MWPFCore.Code.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {

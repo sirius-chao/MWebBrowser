@@ -5,7 +5,7 @@ using Cys_CustomControls.Controls;
 using System;
 using System.Windows.Input;
 
-namespace MWebBrowserWindow.Code.CustomCef
+namespace MWPFCore.Code.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {

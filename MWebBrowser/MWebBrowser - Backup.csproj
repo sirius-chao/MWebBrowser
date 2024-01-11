@@ -26,7 +26,7 @@
     <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
     <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
     <ProjectReference Include="..\Cys_Services\Cys_Services.csproj" />
-    <ProjectReference Include="..\MWebBrowserWindow\MWebBrowserWindow.csproj" />
+    <ProjectReference Include="..\MWPFCore\MWPFCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

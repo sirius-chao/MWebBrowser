@@ -2,7 +2,7 @@
 using Cys_Common.Code.Configure;
 using System;
 
-namespace MWebBrowserForm.Code.CustomCef
+namespace MWPFCore.Code.CustomCef
 {
     public class CustomDownloadHandler : IDownloadHandler
     {

@@ -16,7 +16,6 @@ namespace MWebBrowser.View
     {
         public CustomWebBrowser CefWebBrowser;
         public WebTabItemViewModel ViewModel;
-        public Action<object, System.Windows.Forms.MouseEventArgs> WebMouseWheelEvent;
 
         public Action SetCurrentEvent;
         private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
@@ -28,12 +27,6 @@ namespace MWebBrowser.View
             this.DataContext = ViewModel;
             InitializeComponent();
             InitWebBrowser();
-        }
-
-
-        private void CefWebBrowser_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            WebMouseWheelEvent?.Invoke(sender, e);
         }
 
 
@@ -71,7 +64,6 @@ namespace MWebBrowser.View
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
             this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
            // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
-            this.CefWebBrowser.MouseWheel += CefWebBrowser_MouseWheel;
         }
 
         private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)

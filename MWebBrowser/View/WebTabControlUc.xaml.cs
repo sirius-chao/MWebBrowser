@@ -164,7 +164,7 @@ namespace MWebBrowser.View
                     uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
                     uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
                     uc.CefWebBrowser.OpenNewTabEvent += TabItemAdd;
-                    uc.WebMouseWheelEvent += WebMouseWheel;
+                    uc.CefWebBrowser.MouseWheelEvent += WebMouseWheel;
                     #region TabItem
 
                     var item = new TabItem { Content = uc };
@@ -328,7 +328,7 @@ namespace MWebBrowser.View
         #endregion
 
         #region 缩放
-        private void WebMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void WebMouseWheel(int delta)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
             {
@@ -337,11 +337,11 @@ namespace MWebBrowser.View
             }
             try
             {
-                if (e.Delta > 0)
+                if (delta > 0)
                 {
                     ZoomIn();
                 }
-                else if (e.Delta < 0)
+                else if (delta < 0)
                 {
                     ZoomOut();
                 }
@@ -373,63 +373,65 @@ namespace MWebBrowser.View
             }
         }
 
-        private void ZoomIn()
+        private async void ZoomIn()
         {
-            //if (_currentWebTabItem.CefWebBrowser.ZoomLevel < 4)
-            //{
-            //    _currentWebTabItem.CefWebBrowser.ZoomInCommand.Execute(null);
-            //}
+            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            if (ZoomLevel < 6)
+            {
+                _currentWebTabItem.CefWebBrowser.SetZoomLevel(0);
+            }
             _viewModel.ZoomStaysOpen = true;
             SetSearchZoomStatus();
         }
 
-        private void ZoomOut()
+        private async void ZoomOut()
         {
-            //if (_currentWebTabItem.CefWebBrowser.ZoomLevel > -4)
-            //{
-            //    _currentWebTabItem.CefWebBrowser.ZoomOutCommand.Execute(null);
-            //}
+            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            if (ZoomLevel > -6)
+            {
+                _currentWebTabItem.CefWebBrowser.SetZoomLevel(0);
+            }
             _viewModel.ZoomStaysOpen = true;
             SetSearchZoomStatus();
         }
 
-        private void ZoomReset()
+        private async void ZoomReset()
         {
-            //_currentWebTabItem.CefWebBrowser.ZoomResetCommand.Execute(null);
-            // CefWebBrowser.SetZoomLevel(0);
+            _currentWebTabItem.CefWebBrowser.SetZoomLevel(0);
             SetSearchZoomStatus();
         }
 
-        private void SetSearchZoomStatus()
+        private async void SetSearchZoomStatus()
         {
-            //if (null == _currentWebTabItem) return;
-            //if (_currentWebTabItem.CefWebBrowser.ZoomLevel < 0)
-            //{
-            //    _viewModel.ZoomLevelType = ZoomType.Out;
-            //    _viewModel.ZoomIsChecked = true;
-            //    if (_currentWebTabItem.CefWebBrowser.ZoomLevel > -1)
-            //    {
-            //        _viewModel.ZoomRatio = "90%";
-            //    }
-            //    else if (_currentWebTabItem.CefWebBrowser.ZoomLevel <= 1)
-            //    {
-            //        var radio = Math.Round((_currentWebTabItem.CefWebBrowser.ZoomLevel + 5) / 5 * 100);
-            //        _viewModel.ZoomRatio = $"{radio}%";
-            //    }
-            //}
-            //else if (_currentWebTabItem.CefWebBrowser.ZoomLevel > 0)
-            //{
-            //    _viewModel.ZoomLevelType = ZoomType.In;
-            //    _viewModel.ZoomIsChecked = true;
-            //    var radio = Math.Round((1 + _currentWebTabItem.CefWebBrowser.ZoomLevel) * 100, 2);
-            //    _viewModel.ZoomRatio = $"{radio}%";
-            //}
-            //else
-            //{
-            //    _viewModel.ZoomLevelType = ZoomType.None;
-            //    _viewModel.ZoomIsChecked = false;
-            //}
-            //WebMenu.ZoomCallBack(_viewModel.ZoomRatio);
+            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            if (null == _currentWebTabItem) return;
+            if (ZoomLevel < 0)
+            {
+                _viewModel.ZoomLevelType = ZoomType.Out;
+                _viewModel.ZoomIsChecked = true;
+                if (ZoomLevel > -1)
+                {
+                    _viewModel.ZoomRatio = "90%";
+                }
+                else if (ZoomLevel <= 1)
+                {
+                    var radio = Math.Round((ZoomLevel + 5) / 5 * 100);
+                    _viewModel.ZoomRatio = $"{radio}%";
+                }
+            }
+            else if (ZoomLevel > 0)
+            {
+                _viewModel.ZoomLevelType = ZoomType.In;
+                _viewModel.ZoomIsChecked = true;
+                var radio = Math.Round((1 + ZoomLevel) * 100, 2);
+                _viewModel.ZoomRatio = $"{radio}%";
+            }
+            else
+            {
+                _viewModel.ZoomLevelType = ZoomType.None;
+                _viewModel.ZoomIsChecked = false;
+            }
+            WebMenu.ZoomCallBack(_viewModel.ZoomRatio);
         }
         #endregion
     }

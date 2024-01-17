@@ -173,7 +173,6 @@ namespace Cys_CustomControls.Controls
                     int oldIndex = Items.IndexOf(droppedItem);
                     if (oldIndex != -1)
                     {
-                        Items.RemoveAt(oldIndex);
                         Point mousePos = e.GetPosition(this);
                         UIElement target = VisualTreeHelper.HitTest(this, mousePos).VisualHit as UIElement;
                         TabItem newTabItem = FindParentTabItem<TabItem>(target);
@@ -181,9 +180,10 @@ namespace Cys_CustomControls.Controls
                         if (newTabItem != null)
                         {
                             int newIndex = Items.IndexOf(newTabItem);
-
                             if (newIndex != -1)
                             {
+                                if (oldIndex == newIndex) return;
+                                Items.RemoveAt(oldIndex);
                                 Items.Insert(newIndex, droppedItem);
                             }
                         }

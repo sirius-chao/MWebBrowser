@@ -12,7 +12,6 @@ namespace MWPFCore.Code.CustomCef
         public Action AfterLoadEvent;
         public Action<string> OpenNewTabEvent;
         public Action<int> MouseWheelEvent;
-
         private ChromiumWidgetNativeWindow messageInterceptor;
 
         public CustomWebBrowser()
@@ -23,6 +22,7 @@ namespace MWPFCore.Code.CustomCef
             this.RequestHandler = new CustomRequestHandler();
             this.DownloadHandler = new CustomDownloadHandler(DownloadCallBackEvent);
             this.RequestContext = new RequestContext();
+            this.KeyboardHandler = new CustomKeyboardHandler();
             this.MouseWheel += CustomWebBrowser_MouseWheel;
         }
 

@@ -2,6 +2,7 @@
 using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
+using MWinFormsCore.Code.CustomCef;
 using MWPFCore.Code.CustomCef;
 using System;
 using System.Windows.Forms;
@@ -30,15 +31,16 @@ namespace MWebBrowser.View
         }
 
 
-        private void CefWebBrowser_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
+        private void CefWebBrowser_PreviewKeyDown(int keyCode)
         {
-            if (e.KeyCode == Keys.F5)
+            Keys key = (Keys)Enum.Parse(typeof(Keys), keyCode.ToString());
+            if (key == Keys.F5)
             {
                 this.CefWebBrowser.Reload();
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
-                && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
+                && (key == Keys.D0 || key == Keys.NumPad0))
             {
                 var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
                 uc?.SearchText.ZoomResetCommand.Execute(null);
@@ -62,7 +64,11 @@ namespace MWebBrowser.View
             formsHost.Child = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+            if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)
+            {
+                handler.KeyboardCallBack += CefWebBrowser_PreviewKeyDown;
+            }
+
            // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
         }
 

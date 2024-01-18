@@ -2,6 +2,7 @@
 using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
+using MWinFormsCore;
 using MWinFormsCore.Code.CustomCef;
 using MWPFCore.Code.CustomCef;
 using System;
@@ -16,6 +17,7 @@ namespace MWebBrowser.View
     public partial class WebTabItemUc : System.Windows.Controls.UserControl
     {
         public CustomWebBrowser CefWebBrowser;
+        BrowserUserControl BrowserUserControl;
         public WebTabItemViewModel ViewModel;
 
         public Action SetCurrentEvent;
@@ -39,6 +41,16 @@ namespace MWebBrowser.View
                 this.CefWebBrowser.Reload();
             }
 
+            if (key == Keys.F11)
+            {
+                
+            }
+
+            if (key == Keys.F12)
+            {
+                this.BrowserUserControl.ShowDevTools();
+            }
+
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
                 && (key == Keys.D0 || key == Keys.NumPad0))
             {
@@ -60,8 +72,9 @@ namespace MWebBrowser.View
         }
         private void InitWebBrowser()
         {
-            CefWebBrowser = new CustomWebBrowser();
-            formsHost.Child = CefWebBrowser;
+            BrowserUserControl = new BrowserUserControl();
+            CefWebBrowser = BrowserUserControl.Browser;
+            formsHost.Child = BrowserUserControl;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
             if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)

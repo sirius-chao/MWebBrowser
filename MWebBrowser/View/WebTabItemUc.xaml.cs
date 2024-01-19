@@ -5,6 +5,7 @@ using MWebBrowser.ViewModel;
 using MWinFormsCore;
 using MWinFormsCore.CustomCef;
 using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -16,7 +17,7 @@ namespace MWebBrowser.View
     public partial class WebTabItemUc : System.Windows.Controls.UserControl
     {
         public CustomWebBrowser CefWebBrowser;
-        BrowserUserControl BrowserUserControl;
+        BrowserUserControl browserUserControl;
         public WebTabItemViewModel ViewModel;
 
         public Action SetCurrentEvent;
@@ -30,9 +31,7 @@ namespace MWebBrowser.View
             InitializeComponent();
             InitWebBrowser();
         }
-
-
-        private void CefWebBrowser_PreviewKeyDown(int keyCode)
+        public void CefWebBrowser_PreviewKeyDown(int keyCode)
         {
             Keys key = (Keys)Enum.Parse(typeof(Keys), keyCode.ToString());
             if (key == Keys.F5)
@@ -42,12 +41,12 @@ namespace MWebBrowser.View
 
             if (key == Keys.F11)
             {
-                
+                F11Helper.F11(browserUserControl, formsHost);
             }
 
             if (key == Keys.F12)
             {
-                this.BrowserUserControl.ShowDevToolsDocked();
+                this.browserUserControl.ShowDevToolsDocked();
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
@@ -71,9 +70,9 @@ namespace MWebBrowser.View
         }
         private void InitWebBrowser()
         {
-            BrowserUserControl = new BrowserUserControl();
-            CefWebBrowser = BrowserUserControl.CefWebBrowser;
-            formsHost.Child = BrowserUserControl;
+            browserUserControl = new BrowserUserControl();
+            CefWebBrowser = browserUserControl.CefWebBrowser;
+            formsHost.Child = browserUserControl;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
             if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)

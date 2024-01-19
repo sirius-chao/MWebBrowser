@@ -148,10 +148,10 @@ namespace MWebBrowser.View
         /// <param name="e"></param>
         private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.F5) return;
             if (!(WebTabControl.SelectedItem is TabItem item)) return;
             if (!(item.Content is WebTabItemUc webTabItemUc)) return;
-            webTabItemUc.CefWebBrowser?.Reload();
+            int virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
+            webTabItemUc.CefWebBrowser_PreviewKeyDown(virtualKey);
         }
 
         /// <summary>

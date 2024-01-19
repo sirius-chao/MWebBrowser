@@ -22,9 +22,8 @@ namespace MWinFormsCore.CustomCef
             this.RequestHandler = new CustomRequestHandler();
             this.DownloadHandler = new CustomDownloadHandler(DownloadCallBackEvent);
             this.RequestContext = new RequestContext();
-            this.KeyboardHandler = new CustomKeyboardHandler();
-            this.MouseWheel += CustomWebBrowser_MouseWheel;
             this.MenuHandler = new CustomMenuHandler();
+            this.KeyboardHandler = new CustomKeyboardHandler();
             InitLifeSpanHandler();
         }
 
@@ -75,12 +74,6 @@ namespace MWinFormsCore.CustomCef
                  })
                 .Build();
         }
-
-        private void CustomWebBrowser_MouseWheel(object? sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void CustomWebBrowser_IsBrowserInitializedChanged(object? sender, EventArgs e)
         {
             if (!this.IsBrowserInitialized) return;

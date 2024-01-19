@@ -8,7 +8,10 @@ namespace MWinFormsCore.CustomCef
         public Action<int> KeyboardCallBack;
         protected override bool OnKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey)
         {
-            KeyboardCallBack?.Invoke(windowsKeyCode);
+            if (chromiumWebBrowser.IsBrowserInitialized)
+            {
+                KeyboardCallBack?.Invoke(windowsKeyCode);
+            }
             return base.OnKeyEvent(chromiumWebBrowser, browser, type, windowsKeyCode, nativeKeyCode, modifiers, isSystemKey);
         }
     }

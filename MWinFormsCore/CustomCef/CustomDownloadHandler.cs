@@ -1,8 +1,7 @@
 ﻿using CefSharp;
 using Cys_Common.Code.Configure;
-using System;
 
-namespace MWinFormsCore.Code.CustomCef
+namespace MWinFormsCore.CustomCef
 {
     public class CustomDownloadHandler : IDownloadHandler
     {

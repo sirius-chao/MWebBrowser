@@ -3,8 +3,7 @@ using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using MWinFormsCore;
-using MWinFormsCore.Code.CustomCef;
-using MWPFCore.Code.CustomCef;
+using MWinFormsCore.CustomCef;
 using System;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -48,7 +47,7 @@ namespace MWebBrowser.View
 
             if (key == Keys.F12)
             {
-                this.BrowserUserControl.ShowDevTools();
+                this.BrowserUserControl.ShowDevToolsDocked();
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
@@ -73,7 +72,7 @@ namespace MWebBrowser.View
         private void InitWebBrowser()
         {
             BrowserUserControl = new BrowserUserControl();
-            CefWebBrowser = BrowserUserControl.Browser;
+            CefWebBrowser = BrowserUserControl.CefWebBrowser;
             formsHost.Child = BrowserUserControl;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;

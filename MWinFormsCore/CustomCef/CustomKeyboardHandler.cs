@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.Handler;
 
-namespace MWinFormsCore.Code.CustomCef
+namespace MWinFormsCore.CustomCef
 {
     public class CustomKeyboardHandler: KeyboardHandler
     {

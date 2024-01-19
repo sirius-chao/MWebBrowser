@@ -1,12 +1,11 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
-using MWPFCore.Code.CustomCef;
+﻿using CefSharp.WinForms;
+using MWinFormsCore.CustomCef;
 
 namespace MWinFormsCore
 {
     public partial class BrowserUserControl : UserControl
     {
-        public CustomWebBrowser Browser;
+        public CustomWebBrowser CefWebBrowser;
         public BrowserUserControl()
         {
             InitializeComponent();
@@ -15,28 +14,10 @@ namespace MWinFormsCore
 
         private void InitData()
         {
-            Browser = new CustomWebBrowser();
-            Browser.Dock = DockStyle.Fill;
-            browserSplitContainer.Panel1.Controls.Add(Browser);
-            browserSplitContainer.SplitterMoved += BrowserSplitContainer_SplitterMoved;
+            CefWebBrowser = new CustomWebBrowser();
+            CefWebBrowser.Dock = DockStyle.Fill;
+            browserSplitContainer.Panel1.Controls.Add(CefWebBrowser);
         }
-
-        private void BrowserSplitContainer_SplitterMoved(object? sender, SplitterEventArgs e)
-        {
-            if (!browserSplitContainer.Panel2Collapsed)
-            {
-                if (browserSplitContainer.Panel2.Controls.Count <= 0) return;
-
-                var devToolsControl = browserSplitContainer.Panel2.Controls[0];
-                if (devToolsControl != null)
-                {
-                    devToolsControl.Width = browserSplitContainer.Panel2.Width;
-                    devToolsControl.Height = browserSplitContainer.Panel2.Height;
-                    devToolsControl.Dock = DockStyle.Fill;
-                }
-            }
-        }
-
         public void ShowDevToolsDocked()
         {
             this.Invoke(() =>
@@ -45,31 +26,27 @@ namespace MWinFormsCore
                 {
                     browserSplitContainer.Panel2Collapsed = false;
                 }
-
-                //Find devToolsControl in Controls collection
-                Control devToolsControl = null;
-                devToolsControl = browserSplitContainer.Panel2.Controls.Find(nameof(devToolsControl), false).FirstOrDefault();
+                Control devToolsControl = GetDevToolsControl();
                 if (devToolsControl == null || devToolsControl.IsDisposed)
                 {
-                    devToolsControl = Browser.ShowDevToolsDocked(browserSplitContainer.Panel2, nameof(devToolsControl), DockStyle.Fill);
-
-                    EventHandler devToolsPanelDisposedHandler = null;
-                    devToolsPanelDisposedHandler = (s, e) =>
-                    {
-                        browserSplitContainer.Panel2.Controls.Remove(devToolsControl);
-                        browserSplitContainer.Panel2Collapsed = true;
-                        devToolsControl.Disposed -= devToolsPanelDisposedHandler;
-                    };
-
-                    //Subscribe for devToolsPanel dispose event
-                    devToolsControl.Disposed += devToolsPanelDisposedHandler;
+                    CefWebBrowser.ShowDevToolsDocked(browserSplitContainer.Panel2, nameof(devToolsControl), DockStyle.Fill);
                 }
             });
         }
-
-        public void ShowDevTools()
+        public void CloseDevToolsDocked()
         {
-            ShowDevToolsDocked();
+            Control devToolsControl = GetDevToolsControl();
+            browserSplitContainer.Panel2.Controls.Remove(devToolsControl);
+            devToolsControl?.Dispose();
+            if (!browserSplitContainer.Panel2Collapsed)
+            {
+                browserSplitContainer.Panel2Collapsed = true;
+            }
+        }
+        private Control GetDevToolsControl()
+        {
+            Control devToolsControl = browserSplitContainer.Panel2.Controls.Find(nameof(devToolsControl), false).FirstOrDefault();
+            return devToolsControl;
         }
     }
 }

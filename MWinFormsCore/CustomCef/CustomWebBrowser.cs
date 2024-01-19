@@ -1,10 +1,11 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Experimental;
-using MWinFormsCore.Code.CustomCef;
+using CefSharp.WinForms.Handler;
+using MWinFormsCore.CustomCef;
 using System.Runtime.InteropServices;
 
-namespace MWPFCore.Code.CustomCef
+namespace MWinFormsCore.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {
@@ -18,12 +19,61 @@ namespace MWPFCore.Code.CustomCef
         {
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
             this.IsBrowserInitializedChanged += CustomWebBrowser_IsBrowserInitializedChanged;
-            this.LifeSpanHandler = new CustomLifeSpanHandler();
             this.RequestHandler = new CustomRequestHandler();
             this.DownloadHandler = new CustomDownloadHandler(DownloadCallBackEvent);
             this.RequestContext = new RequestContext();
             this.KeyboardHandler = new CustomKeyboardHandler();
             this.MouseWheel += CustomWebBrowser_MouseWheel;
+            this.MenuHandler = new CustomMenuHandler();
+            InitLifeSpanHandler();
+        }
+
+        public void InitLifeSpanHandler()
+        {
+            this.LifeSpanHandler = CefSharp.WinForms.Handler.LifeSpanHandler
+                .Create()
+                .OnBeforePopupCreated((chromiumWebBrowser, b, frame, targetUrl, targetFrameName, targetDisposition, userGesture, browserSettings) =>
+                {
+                    return PopupCreation.Continue;
+                })
+                .OnPopupCreated((ctrl, targetUrl) =>
+                {
+                    this.OpenNewTabEvent?.Invoke(targetUrl);
+                })
+                .OnPopupBrowserCreated((ctrl, popupBrowser) =>
+                {
+                    //The host control maybe null if the popup was hosted in a native Window e.g. Devtools by default
+                    if (ctrl == null)
+                    {
+                        return;
+                    }
+
+                    //You can access all the core browser functionality via IBrowser
+                    //frames, browwser host, etc.
+                    var isPopup = popupBrowser.IsPopup;
+                })
+                 .OnPopupDestroyed((ctrl, popupBrowser) =>
+                 {
+                     //If we docked  DevTools (hosted it ourselves rather than the default popup)
+                     //Used when the BrowserTabUserControl.ShowDevToolsDocked method is called
+                     if (popupBrowser.MainFrame.Url.Equals("devtools://devtools/devtools_app.html"))
+                     {
+                         //Dispose of the parent control we used to host DevTools, this will release the DevTools window handle
+                         //and the ILifeSpanHandler.OnBeforeClose() will be call after.
+                         ctrl.Dispose();
+                     }
+                     else
+                     {
+                         //If browser is disposed or the handle has been released then we don't
+                         //need to remove the tab in this example. The user likely used the
+                         // File -> Close Tab menu option which also calls BrowserForm.RemoveTab
+                         if (!ctrl.IsDisposed && ctrl.IsHandleCreated)
+                         {
+                             ctrl.Dispose();
+                         }
+                     }
+                 })
+                .Build();
         }
 
         private void CustomWebBrowser_MouseWheel(object? sender, MouseEventArgs e)

@@ -8,6 +8,7 @@ using MWebBrowser.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,6 +26,7 @@ namespace MWebBrowser.View
         private WebTabItemUc _currentWebTabItem;
         private readonly System.Timers.Timer _zoomToolTimer = new System.Timers.Timer(1000);
         private int _zoomWaitingCount = -1;
+        private readonly double _zoomLevelIncrement = 0.1;
 
         private HistoryServices _historyServices;
         public WebTabControlUc()
@@ -383,10 +385,26 @@ namespace MWebBrowser.View
 
         private async void ZoomIn()
         {
-            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
-            if (ZoomLevel < 6)
+            double zoomLevel = (int)await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            if (zoomLevel < 8)
             {
-                _currentWebTabItem.CefWebBrowser.SetZoomLevel(0);
+                var task = _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+                await task.ContinueWith(previous =>
+                {
+                    if (previous.Status == TaskStatus.RanToCompletion)
+                    {
+                        var currentLevel = previous.Result;
+                        _currentWebTabItem.CefWebBrowser.SetZoomLevel(currentLevel + _zoomLevelIncrement);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Unexpected failure of calling CEF->GetZoomLevelAsync", previous.Exception);
+                    }
+                }, TaskContinuationOptions.ExecuteSynchronously); 
+            }
+            else
+            {
+                _currentWebTabItem.CefWebBrowser.SetZoomLevel(8);
             }
             _viewModel.ZoomStaysOpen = true;
             SetSearchZoomStatus();
@@ -394,11 +412,27 @@ namespace MWebBrowser.View
 
         private async void ZoomOut()
         {
-            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
-            if (ZoomLevel > -6)
+            double zoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            if (zoomLevel > -7.6)
             {
-                _currentWebTabItem.CefWebBrowser.SetZoomLevel(0);
+                var task = _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+                await task.ContinueWith(previous =>
+                {
+                    if (previous.Status == TaskStatus.RanToCompletion)
+                    {
+                        var currentLevel = previous.Result;
+                        _currentWebTabItem.CefWebBrowser.SetZoomLevel(currentLevel - _zoomLevelIncrement);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Unexpected failure of calling CEF->GetZoomLevelAsync", previous.Exception);
+                    }
+                }, TaskContinuationOptions.ExecuteSynchronously);
             }
+            else
+            {
+                _currentWebTabItem.CefWebBrowser.SetZoomLevel(-7.6);
+            } 
             _viewModel.ZoomStaysOpen = true;
             SetSearchZoomStatus();
         }
@@ -411,27 +445,30 @@ namespace MWebBrowser.View
 
         private async void SetSearchZoomStatus()
         {
-            double ZoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
+            double zoomLevel = await _currentWebTabItem.CefWebBrowser.GetZoomLevelAsync();
             if (null == _currentWebTabItem) return;
-            if (ZoomLevel < 0)
+            if (zoomLevel < 0)
             {
                 _viewModel.ZoomLevelType = ZoomType.Out;
                 _viewModel.ZoomIsChecked = true;
-                if (ZoomLevel > -1)
-                {
-                    _viewModel.ZoomRatio = "90%";
-                }
-                else if (ZoomLevel <= 1)
-                {
-                    var radio = Math.Round((ZoomLevel + 5) / 5 * 100);
-                    _viewModel.ZoomRatio = $"{radio}%";
-                }
+                double minZoomLevel = -7.6;
+                double maxZoomLevel = 1;
+                double minPercentage = 25;
+                double maxPercentage = 100;
+                double percentage = minPercentage + (maxPercentage - minPercentage) * (zoomLevel - minZoomLevel) / (maxZoomLevel - minZoomLevel);
+                _viewModel.ZoomRatio = $"{Math.Round(percentage, 2)}%";
             }
-            else if (ZoomLevel > 0)
+            else if(zoomLevel==0)
+            {
+                _viewModel.ZoomLevelType = ZoomType.None;
+                _viewModel.ZoomIsChecked = true;
+                _viewModel.ZoomRatio = $"{100}%";
+            }
+            else if (zoomLevel > 0)
             {
                 _viewModel.ZoomLevelType = ZoomType.In;
                 _viewModel.ZoomIsChecked = true;
-                var radio = Math.Round((1 + ZoomLevel) * 100, 2);
+                var radio = Math.Round((1 + zoomLevel) * 100, 2);
                 _viewModel.ZoomRatio = $"{radio}%";
             }
             else

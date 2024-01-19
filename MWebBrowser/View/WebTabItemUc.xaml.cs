@@ -21,7 +21,6 @@ namespace MWebBrowser.View
         public WebTabItemViewModel ViewModel;
 
         public Action SetCurrentEvent;
-        private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
 
 
         public WebTabItemUc()
@@ -52,8 +51,11 @@ namespace MWebBrowser.View
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
                 && (key == Keys.D0 || key == Keys.NumPad0))
             {
-                var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
-                uc?.SearchText.ZoomResetCommand.Execute(null);
+                DispatcherHelper.UIDispatcher.Invoke(() =>
+                {
+                    var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
+                    uc?.SearchText.ZoomResetCommand.Execute(null);
+                });
             }
         }
 

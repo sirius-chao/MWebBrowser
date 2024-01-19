@@ -105,6 +105,11 @@ namespace MWebBrowser.View
         }
         #endregion
 
+        private void Print()
+        {
+            _currentWebTabItem.CefWebBrowser.Print();
+        }
+
         #region SettingTool
 
         private void ShowSettingTab()
@@ -233,6 +238,9 @@ namespace MWebBrowser.View
                     break;
                 case "6":
                     ShowDownloadTab();
+                    break;
+                case "10":
+                    Print();
                     break;
                 case "15":
                     ShowSettingTab();

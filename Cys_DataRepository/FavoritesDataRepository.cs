@@ -1,5 +1,5 @@
-﻿using Cys_Common;
-using Cys_Common.Enum;
+﻿using Cys_Common.Enum;
+using Cys_Common.Settings;
 using Cys_Model;
 using System;
 using System.Collections.Generic;

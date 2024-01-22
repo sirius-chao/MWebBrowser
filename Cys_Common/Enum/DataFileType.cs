@@ -14,5 +14,9 @@ namespace Cys_Common.Enum
         /// 收藏夹设置
         /// </summary>
         Favorites,
+        /// <summary>
+        /// 搜索引擎
+        /// </summary>
+        SearchEngine,
     }
 }

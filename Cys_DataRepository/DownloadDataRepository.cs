@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cys_Common;
 using Cys_Common.Enum;
+using Cys_Common.Settings;
 
 namespace Cys_DataRepository
 {

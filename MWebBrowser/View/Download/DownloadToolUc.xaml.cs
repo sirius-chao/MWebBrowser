@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using Cys_Common;
+using Cys_Common.Settings;
 
 namespace MWebBrowser.View
 {

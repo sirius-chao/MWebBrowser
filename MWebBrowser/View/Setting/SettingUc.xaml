@@ -4,10 +4,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+             xmlns:local="clr-namespace:Cys_CustomControls.Code;assembly=Cys_CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1000" 
              Foreground="{DynamicResource WebBrowserBrushes.DefaultForeground}"
              Background="{DynamicResource WebBrowserBrushes.DefaultBackground}">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type controls:MMenuItem}">
+            <Setter Property="Command" Value="{Binding MenuItemCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=(local:MenuItemProperties.SettingEnumValue)}" />
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="0,90,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -19,21 +26,22 @@
                 <StackPanel>
                     <TextBlock Text="设置" Margin="10,0,0,0" FontSize="25" FontWeight="Bold"/>
                     <controls:MTextBox Watermark="搜索设置" Margin="0,10,20,0"/>
-                    <controls:MMenuItem Header="个人资料" Icon="&#xe6d6;"/>
-                    <controls:MMenuItem Header="隐私、搜索和服务" Icon="&#xe60f;"/>
-                    <controls:MMenuItem Header="外观" Icon="&#xe60b;"/>
-                    <controls:MMenuItem Header="启动时" Icon="&#xe7dc;"/>
-                    <controls:MMenuItem Header="新标签页" Icon="&#xe600;"/>
-                    <controls:MMenuItem Header="Cookie和网站权限" Icon="&#xe688;"/>
-                    <controls:MMenuItem Header="默认浏览器" Icon="&#xe6d0;"/>
-                    <controls:MMenuItem Header="下载" Icon="&#xe6d3;"/>
-                    <controls:MMenuItem Header="家庭安全" Icon="&#xe6ec;"/>
-                    <controls:MMenuItem Header="语言" Icon="&#xe622;"/>
-                    <controls:MMenuItem Header="打印机" Icon="&#xe621;"/>
-                    <controls:MMenuItem Header="系统" Icon="&#xe607;"/>
-                    <controls:MMenuItem Header="重置设置" Icon="&#xe63b;"/>
-                    <controls:MMenuItem Header="手机和其他设置" Icon="&#xe608;"/>
-                    <controls:MMenuItem Header="关于MEdge" Icon="&#xe609;"/>
+                    <controls:MMenuItem Header="个人资料" Icon="&#xe6d6;" local:MenuItemProperties.SettingEnumValue="PersonalProfile"/>
+                    <controls:MMenuItem Header="隐私、搜索和服务" Icon="&#xe60f;" local:MenuItemProperties.SettingEnumValue="PrivacySearchAndServices"/>
+                    <controls:MMenuItem Header="外观" Icon="&#xe60b;" local:MenuItemProperties.SettingEnumValue="Appearance"/>
+                    <controls:MMenuItem Header="启动时" Icon="&#xe7dc;" local:MenuItemProperties.SettingEnumValue="Startup"/>
+                    <controls:MMenuItem Header="新标签页" Icon="&#xe600;" local:MenuItemProperties.SettingEnumValue="NewTabPage"/>
+                    <controls:MMenuItem Header="Cookie和网站权限" Icon="&#xe688;" local:MenuItemProperties.SettingEnumValue="CookieAndSitePermissions"/>
+                    <controls:MMenuItem Header="默认浏览器" Icon="&#xe6d0;" local:MenuItemProperties.SettingEnumValue="DefaultBrowser"/>
+                    <controls:MMenuItem Header="搜索引擎" Icon="&#xe6d0;" local:MenuItemProperties.SettingEnumValue="SearchEngine"/>
+                    <controls:MMenuItem Header="下载" Icon="&#xe6d3;" local:MenuItemProperties.SettingEnumValue="Download"/>
+                    <controls:MMenuItem Header="家庭安全" Icon="&#xe6ec;" local:MenuItemProperties.SettingEnumValue="FamilySafety"/>
+                    <controls:MMenuItem Header="语言" Icon="&#xe622;" local:MenuItemProperties.SettingEnumValue="Language"/>
+                    <controls:MMenuItem Header="打印机" Icon="&#xe621;" local:MenuItemProperties.SettingEnumValue="Printer"/>
+                    <controls:MMenuItem Header="系统" Icon="&#xe607;" local:MenuItemProperties.SettingEnumValue="System"/>
+                    <controls:MMenuItem Header="重置设置" Icon="&#xe63b;" local:MenuItemProperties.SettingEnumValue="ResetSettings"/>
+                    <controls:MMenuItem Header="手机和其他设置" Icon="&#xe608;" local:MenuItemProperties.SettingEnumValue="PhoneAndOtherSettings"/>
+                    <controls:MMenuItem Header="关于MEdge" Icon="&#xe609;" local:MenuItemProperties.SettingEnumValue="AboutMEdge"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

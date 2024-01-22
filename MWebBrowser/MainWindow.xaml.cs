@@ -1,5 +1,5 @@
-﻿using Cys_Common;
-using Cys_Common.Code.Configure;
+﻿using Cys_Common.Code.Configure;
+using Cys_Common.Settings;
 using Cys_CustomControls.Controls;
 using Cys_DataRepository;
 using Cys_Model.DataBase;
@@ -38,12 +38,14 @@ namespace MWebBrowser
             DbSeed.InitData();
             GlobalInfo.DownloadSetting = DataRepositoryServer.Instance.DownloadData.GetDownloadSetting();
             GlobalInfo.FavoritesSetting = DataRepositoryServer.Instance.FavoritesData.GetFavoritesSetting();
+            GlobalInfo.SearchEngineSetting = DataRepositoryServer.Instance.SearchEngineData.GetSearchEngineSetting();
         }
 
         private void SaveGlobalInfo()
         {
             DataRepositoryServer.Instance.DownloadData.SaveDownloadSetting();
             DataRepositoryServer.Instance.FavoritesData.SaveFavoritesSetting();
+            DataRepositoryServer.Instance.SearchEngineData.SaveSearchEngineSetting();
         }
     }
 }

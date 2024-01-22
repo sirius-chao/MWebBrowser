@@ -13,6 +13,7 @@ namespace Cys_DataRepository
             {
                 DataFileType.Download => $"{baseFilePath}Download.json",
                 DataFileType.Favorites => $"{baseFilePath}Favorites.json",
+                DataFileType.SearchEngine => $"{baseFilePath}SearchEngine.json",
                 _ => null,
             };
             return filePath;

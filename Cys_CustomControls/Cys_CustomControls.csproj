@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
     <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
   </ItemGroup>
 

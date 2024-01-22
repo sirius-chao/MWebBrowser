@@ -1,36 +1,33 @@
 # MWebBrowser
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
 
-#### Software Architecture
-Software architecture description
+#### Introduction
 
-#### Installation
+MWebBrowser is a WPF project developed based on CefSharp, mimicking the [Edge](https://microsoft-edge.en.softonic.com/) browser.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+CefSharp version has been updated to CefSharp.WinForms.NETCore 120.1.110.
 
-#### Instructions
+Blog address: https://www.cnblogs.com/mchao
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+Gitee address: https://gitee.com/sirius_machao/mweb-browser
 
-#### Contribution
+WeChat: m1217303210
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+Project purpose: Learning, communication, summarization, and progress.
 
+### Features and Progress
 
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+Framework modules:
+- [x] Use TabControl for multiple web page openings;
+- [x] Add a URL input box;
+- [x] Browser window dragging;
+- [x] Web page forward, backward, refresh;
+- [x] Simple data download;
+- [x] Web page zoom;
+- [x] Favorites menu;
+- [x] Favorites bar;
+- [x] Context menu;
+- [x] History records popup;
+- [x] F11 fullscreen;
+- [x] F12 developer tools;
+- [x] Add tab page drag and switch;

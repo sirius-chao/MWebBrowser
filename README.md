@@ -4,6 +4,8 @@
 #### 介绍
 MWebBrowser基于CefSharp模仿[Edge](https://microsoft-edge.en.softonic.com/)浏览器开发的WPF项目。
 
+CefSharp 版本已更新至CefSharp.WinForms.NETCore 120.1.110
+
 博客地址：[https://www.cnblogs.com/mchao](https://www.cnblogs.com/mchao)
 
 码云地址：[https://gitee.com/sirius_machao/mweb-browser](https://gitee.com/sirius_machao/mweb-browser)
@@ -25,4 +27,6 @@ MWebBrowser基于CefSharp模仿[Edge](https://microsoft-edge.en.softonic.com/)�
 - [x] 收藏夹栏；
 - [x] 菜单右键；
 - [x] 历史记录弹窗；
-- [x] Flash播放；
+- [x] F11全屏；
+- [x] F12开发者工具；
+- [x] 增加tab页拖拽切换；

@@ -30,7 +30,15 @@ namespace Cys_DataRepository
             var fileName = FileDataPath.GetFilePath(DataFileType.SearchEngine);
             var setting = CommonOperator.GetDataJson<SearchEngineSetting>(fileName);
             setting ??= new SearchEngineSetting();
-            setting.SearchEngineItemInfos ??= new List<SearchEngineItemInfo>();
+            if (setting.SearchEngineItemInfos == null || setting.SearchEngineItemInfos.Count <= 0)
+            {
+                setting.SearchEngineItemInfos = new List<SearchEngineItemInfo>()
+                {
+                    new SearchEngineItemInfo() {Name="baidu",ChineseName = "百度",Url="https://www.baidu.com/",Default=false,Describe="百度搜索"},
+                    new SearchEngineItemInfo() {Name="bing",ChineseName = "必应",Url="https://www.bing.com/",Default=true,Describe="必应搜索"},
+                    new SearchEngineItemInfo() {Name="google",ChineseName = "谷歌",Url="https://www.google.com.hk/",Default=false,Describe="谷歌香港搜索"}
+                };
+            }
             return setting;
         }
     }

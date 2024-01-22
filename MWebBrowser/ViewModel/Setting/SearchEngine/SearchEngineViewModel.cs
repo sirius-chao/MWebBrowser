@@ -12,15 +12,6 @@ namespace MWebBrowser.ViewModel.Setting.SearchEngine
         public SearchEngineViewModel()
         {
             SearchEngineItemInfos = GlobalInfo.SearchEngineSetting.SearchEngineItemInfos;
-            if (searchEngineItemInfos.Count <= 0)
-            {
-                SearchEngineItemInfos = new List<SearchEngineItemInfo>()
-                {
-                    new SearchEngineItemInfo() {Name="baidu",ChineseName = "百度",Url="https://www.baidu.com/",Default=false,Describe="百度搜索"},
-                    new SearchEngineItemInfo() {Name="bing",ChineseName = "必应",Url="https://www.bing.com/",Default=true,Describe="必应搜索"},
-                    new SearchEngineItemInfo() {Name="google",ChineseName = "谷歌",Url="https://www.google.com.hk/",Default=false,Describe="谷歌香港搜索"}
-                };
-            }
             SelectedItem = SearchEngineItemInfos.FirstOrDefault(x => x.Default);
             saveCommand = new RelayCommand(SaveDefault);
         }

@@ -24,7 +24,7 @@ namespace MWinFormsCore
             //禁用GPU
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("no-proxy-server", "1");
-
+            settings.IgnoreCertificateErrors = true;
             Cef.Initialize(settings, performDependencyCheck: true, browserProcessHandler: null);
         }
     }

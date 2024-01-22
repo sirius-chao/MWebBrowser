@@ -1,5 +1,7 @@
 ﻿using Cys_Common.Common;
 using Cys_Common.Enum;
+using MWebBrowser.View.Setting.SearchEngine;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MWebBrowser.ViewModel.Setting
@@ -17,6 +19,21 @@ namespace MWebBrowser.ViewModel.Setting
             get
             {
                 return menuItemCommand;
+            }
+        }
+
+        private UserControl _currentView;
+
+        public UserControl CurrentView
+        {
+            get { return _currentView; }
+            set
+            {
+                if (_currentView != value)
+                {
+                    _currentView = value;
+                    OnPropertyChanged(nameof(CurrentView));
+                }
             }
         }
         private void MenuItemClick(object para)
@@ -40,6 +57,7 @@ namespace MWebBrowser.ViewModel.Setting
                     case SettingEnum.DefaultBrowser:
                         break;
                     case SettingEnum.SearchEngine:
+                        CurrentView = new SearchEngineUc();
                         break;
                     case SettingEnum.Download:
                         break;

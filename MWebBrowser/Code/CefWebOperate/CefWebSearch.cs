@@ -58,11 +58,6 @@ namespace MWebBrowser.Code.CefWebOperate
         {
             if (e.Key != Key.Enter) return;
             currentWebTabItem.Load(viewModel.CurrentUrl);
-            DispatcherHelper.UIDispatcher.Invoke(() =>
-            {
-                //使search框失去焦点
-                currentWebTabItem.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-            });
         }
         #endregion
     }

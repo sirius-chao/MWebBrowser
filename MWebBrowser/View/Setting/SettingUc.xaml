@@ -50,7 +50,7 @@
         </Grid>
         <Grid Grid.Column="2">
             <Grid Margin="50,30,30,0" MaxWidth="800" HorizontalAlignment="Left" x:Name="SettingContent">
-              
+                <ContentControl Content="{Binding CurrentView}" />
             </Grid>
         </Grid>
     </Grid>

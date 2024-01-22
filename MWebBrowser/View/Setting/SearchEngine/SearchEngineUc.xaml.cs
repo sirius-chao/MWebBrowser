@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using MWebBrowser.ViewModel.Setting.SearchEngine;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MWebBrowser.View.Setting.SearchEngine
 {
@@ -20,9 +8,12 @@ namespace MWebBrowser.View.Setting.SearchEngine
     /// </summary>
     public partial class SearchEngineUc : UserControl
     {
+        private readonly SearchEngineViewModel viewModel;
         public SearchEngineUc()
         {
             InitializeComponent();
+            viewModel= new SearchEngineViewModel();
+            this.DataContext = viewModel;
         }
     }
 }

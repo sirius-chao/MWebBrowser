@@ -49,7 +49,7 @@ namespace MWebBrowser.View
                 return;
             InitCommand();
             InitData();
-            TabItemAdd("https://www.cnblogs.com/mchao/p/14086441.html");
+            TabItemAdd("https://www.cnblogs.com/mchao/p/14086441.html", false);
         }
 
         #region InitData
@@ -146,17 +146,21 @@ namespace MWebBrowser.View
             webTabItemUc.CefWebBrowser_PreviewKeyDown(virtualKey);
         }
 
+        public void TabItemAdd(object obj)
+        {
+            TabItemAdd(obj, true);
+        }
         /// <summary>
         /// 添加新的TabItem
         /// </summary>
         /// <param name="obj"></param>
-        public void TabItemAdd(object obj)
+        public void TabItemAdd(object obj, bool firstNew)
         {
             try
             {
                 DispatcherHelper.UIDispatcher.Invoke(() =>
                 {
-                    var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
+                    var uc = new WebTabItemUc { ViewModel = { FirstNew = firstNew, CurrentUrl = firstNew ? null : obj?.ToString() } };
                     uc.SetCurrentEvent += SetCurrentSelectedInfo;
                     uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
                     uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
@@ -220,7 +224,7 @@ namespace MWebBrowser.View
             switch (obj)
             {
                 case "0":
-                    TabItemAdd("http://www.baidu.com");
+                    TabItemAdd(null, true);
                     break;
                 case "4":
                     FavoritesMenu.FavoritesButton.IsChecked = true;

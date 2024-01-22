@@ -11,7 +11,7 @@ namespace MWinFormsCore.CustomCef
     {
         public Action<bool, DownloadItem> DownloadCallBackEvent;
         public Action AfterLoadEvent;
-        public Action<string> OpenNewTabEvent;
+        public Action<string,bool> OpenNewTabEvent;
         public Action<int> MouseWheelEvent;
         private ChromiumWidgetNativeWindow messageInterceptor;
 
@@ -37,7 +37,7 @@ namespace MWinFormsCore.CustomCef
                 })
                 .OnPopupCreated((ctrl, targetUrl) =>
                 {
-                    this.OpenNewTabEvent?.Invoke(targetUrl);
+                    this.OpenNewTabEvent?.Invoke(targetUrl,true);
                 })
                 .OnPopupBrowserCreated((ctrl, popupBrowser) =>
                 {

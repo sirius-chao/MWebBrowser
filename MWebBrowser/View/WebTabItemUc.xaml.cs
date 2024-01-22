@@ -93,7 +93,12 @@ namespace MWebBrowser.View
                 {
                     if (!CefWebBrowser.IsBrowserInitialized) return;
                     CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
-                    if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+
+                    if (ViewModel.FirstNew)
+                    {
+                        Load(ViewModel.FirstNewUrl);
+                    }
+                    else if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
                     {
                         Load(ViewModel.CurrentUrl);
                     }

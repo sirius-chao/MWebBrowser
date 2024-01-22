@@ -1,8 +1,7 @@
 ﻿using CefSharp;
-using MWebBrowser.Code.Configure;
-using System;
+using Cys_Common.Code.Configure;
 
-namespace MWebBrowser.Code.CustomCef
+namespace MWinFormsCore.CustomCef
 {
     public class CustomDownloadHandler : IDownloadHandler
     {
@@ -11,6 +10,11 @@ namespace MWebBrowser.Code.CustomCef
         public CustomDownloadHandler(Action<bool, DownloadItem> downloadCallBackEvent)
         {
             _downloadCallBackEvent = downloadCallBackEvent;
+        }
+
+        public bool CanDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, string url, string requestMethod)
+        {
+            return true;
         }
 
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,

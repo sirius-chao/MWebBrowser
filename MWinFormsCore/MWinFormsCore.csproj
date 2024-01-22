@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BaseOutputPath>$(SolutionDir)Output\$(Platform)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="120.1.110" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cys_Common;
+using Cys_Common.Code.Configure;
+using MWebBrowser.ViewModel;
+using System;
 using System.Diagnostics;
 using System.Linq;
-using Cys_Common;
-using MWebBrowser.ViewModel;
 using System.Windows.Controls;
-using MWebBrowser.Code.Configure;
 
 namespace MWebBrowser.View
 {

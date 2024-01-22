@@ -8,7 +8,7 @@
     <Style TargetType="{x:Type local:MMainWindow}">
         <Setter Property="WindowStyle" Value="None" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="AllowsTransparency" Value="False" />
         <Setter Property="ResizeMode" Value="CanMinimize"/>
         <Setter Property="Foreground" Value="{DynamicResource ColorBrush.WindowForeground}"/>
         <Setter Property="Template">

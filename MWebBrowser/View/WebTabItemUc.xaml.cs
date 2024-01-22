@@ -1,26 +1,26 @@
 ﻿using CefSharp;
-using MWebBrowser.Code.CustomCef;
+using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
+using MWinFormsCore;
+using MWinFormsCore.CustomCef;
 using System;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
-using Cys_Controls.Code;
 
 namespace MWebBrowser.View
 {
     /// <summary>
     /// Interaction logic for WebTabItem.xaml
     /// </summary>
-    public partial class WebTabItemUc : UserControl
+    public partial class WebTabItemUc : System.Windows.Controls.UserControl
     {
         public CustomWebBrowser CefWebBrowser;
+        BrowserUserControl browserUserControl;
         public WebTabItemViewModel ViewModel;
-        public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
 
         public Action SetCurrentEvent;
-        private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
 
 
         public WebTabItemUc()
@@ -30,61 +30,74 @@ namespace MWebBrowser.View
             InitializeComponent();
             InitWebBrowser();
         }
-
-
-        private void CefWebBrowser_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        public void CefWebBrowser_PreviewKeyDown(int keyCode)
         {
-            WebMouseWheelEvent?.Invoke(sender,e);
-        }
-      
-
-        private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F5)
+            Keys key = (Keys)Enum.Parse(typeof(Keys), keyCode.ToString());
+            if (key == Keys.F5)
             {
                 this.CefWebBrowser.Reload();
             }
 
-            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
-                && (e.Key == Key.D0 || e.Key == Key.NumPad0))
+            if (key == Keys.F11)
             {
-                var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
-                uc?.SearchText.ZoomResetCommand.Execute(null);
+                F11Helper.F11(browserUserControl, formsHost);
+            }
+
+            if (key == Keys.F12)
+            {
+                this.browserUserControl.ShowDevToolsDocked();
+            }
+
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
+                && (key == Keys.D0 || key == Keys.NumPad0))
+            {
+                DispatcherHelper.UIDispatcher.Invoke(() =>
+                {
+                    var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
+                    uc?.SearchText.ZoomResetCommand.Execute(null);
+                });
             }
         }
 
-        private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void CefWebBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            ViewModel.Title = CefWebBrowser.Title;
-            ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
-            ViewModel.CurrentUrl = CefWebBrowser.Address;
+            string address = CefWebBrowser.Address;
+            ViewModel.Title = e.Title;
+            DispatcherHelper.UIDispatcher.Invoke(() =>
+            {
+                ViewModel.Favicon = ImageHelper.GetFavicon(address);
+            });
+            ViewModel.CurrentUrl = address;
             SetCurrentEvent?.Invoke();
         }
         private void InitWebBrowser()
         {
-            CefWebBrowser = new CustomWebBrowser();
-            //NavigationStackPanel.DataContext = CefWebBrowser;
+            browserUserControl = new BrowserUserControl();
+            CefWebBrowser = browserUserControl.CefWebBrowser;
+            formsHost.Child = browserUserControl;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
-            WebParentGrid.Children.Add(CefWebBrowser);
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
-            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
-            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
-            var s = this.CefWebBrowser.ZoomLevel;
+            if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)
+            {
+                handler.KeyboardCallBack += CefWebBrowser_PreviewKeyDown;
+            }
 
+           // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
         }
 
-        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
         {
             try
             {
-
-                if (!CefWebBrowser.IsBrowserInitialized) return;
-                CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
-                if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                DispatcherHelper.UIDispatcher.Invoke(() =>
                 {
-                    Load(ViewModel.CurrentUrl);
-                }
+                    if (!CefWebBrowser.IsBrowserInitialized) return;
+                    CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
+                    if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                    {
+                        Load(ViewModel.CurrentUrl);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -97,8 +110,8 @@ namespace MWebBrowser.View
             CefWebBrowser.Load(url);
         }
 
-        public void Dispose() 
-        { 
+        public void Dispose()
+        {
             CefWebBrowser?.Dispose();
             CefWebBrowser = null;
         }

@@ -42,6 +42,7 @@ namespace Cys_CustomControls.Controls
         private Rect _rect = new Rect();
         private HwndSource _hwndSource;
         public WindowState WinState = WindowState.Normal;
+        public bool isFirstScreen = true;
         #endregion
         static MMainWindow()
         {
@@ -124,11 +125,28 @@ namespace Cys_CustomControls.Controls
 
         #region 屏幕最大最小化
 
+        private void FirstScreen()
+        {
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            // 计算屏幕中心位置
+            double centerX = screenWidth / 2;
+            double centerY = screenHeight / 2;
+            _rect = new Rect(centerX - centerX / 2, centerY - centerY / 2, centerX, centerY);
+            ExitFullscreen();
+        }
+
         /// <summary>
         /// 双击切换窗口
         /// </summary>
         public void DoubleClickHeader()
         {
+            if (isFirstScreen)
+            {
+                isFirstScreen = false;
+                FirstScreen();
+                return;
+            }
             if (WinState != WindowState.Maximized)
             {
                 Fullscreen();

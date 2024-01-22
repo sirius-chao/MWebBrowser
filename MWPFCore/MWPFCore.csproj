@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+	<Platforms>AnyCPU;x86;x64</Platforms>
+	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <BaseOutputPath>$(SolutionDir)Output\$(Platform)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="120.1.110" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
+    <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
+  </ItemGroup>
+
+</Project>

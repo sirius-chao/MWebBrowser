@@ -20,6 +20,7 @@
 
   <ItemGroup>
 	<PackageReference Include="CefSharp.WinForms.NETCore" Version="120.1.110" />
+	<PackageReference Include="log4net" Version="2.0.15" />
 	<PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
@@ -36,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="RefDLL\x64\pepflashplayer.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -19,10 +19,17 @@ namespace MWebBrowser
             ConfigHelper.LoadLocalConfig();
             InitGlobalInfo();
             this.Closing += MainWindow_Closing;
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MLogger.Info("Main Window Show Success!");
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            
             SaveGlobalInfo();
         }
 

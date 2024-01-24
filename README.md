@@ -10,6 +10,8 @@ CefSharp 版本已更新至CefSharp.WinForms.NETCore 120.1.110
 
 码云地址：[https://gitee.com/sirius_machao/mweb-browser](https://gitee.com/sirius_machao/mweb-browser)
 
+码云地址：[https://github.com/sirius-chao/MWebBrowser](https://github.com/sirius-chao/MWebBrowser)
+
 微信：m1217303210
 
 项目目的：学习、交流、总结、进步。

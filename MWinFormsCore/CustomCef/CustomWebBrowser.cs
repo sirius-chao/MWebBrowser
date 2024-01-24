@@ -37,7 +37,7 @@ namespace MWinFormsCore.CustomCef
                 })
                 .OnPopupCreated((ctrl, targetUrl) =>
                 {
-                    this.OpenNewTabEvent?.Invoke(targetUrl,true);
+                    this.OpenNewTabEvent?.Invoke(targetUrl,false);
                 })
                 .OnPopupBrowserCreated((ctrl, popupBrowser) =>
                 {

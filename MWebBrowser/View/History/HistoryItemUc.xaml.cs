@@ -40,13 +40,13 @@ namespace MWebBrowser.View.History
         {
             if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
             try
-            { 
-               var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
-               uc.TabItemAdd(viewModel.Url);
+            {
+                var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
+                uc.OpenUrl(viewModel.Url);
             }
             catch (Exception ex)
             {
-            
+                MLogger.Info($"history mouse left button down exception:{ex}");
             }
         }
 

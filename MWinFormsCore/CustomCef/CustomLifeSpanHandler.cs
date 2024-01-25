@@ -10,7 +10,7 @@ namespace MWinFormsCore.CustomCef
         {
             if (chromiumWebBrowser is CustomWebBrowser webBrowser)
             {
-                webBrowser.OpenNewTabEvent?.Invoke(targetUrl, false);
+                webBrowser.OpenUrlEvent?.Invoke(targetUrl);
             }
             newBrowser = null;
             return true;

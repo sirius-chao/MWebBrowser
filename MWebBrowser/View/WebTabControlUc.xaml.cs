@@ -37,10 +37,10 @@ namespace MWebBrowser.View
             this.Loaded += MWebBrowserUc_Loaded;
             WebTabControl.SelectionChanged += WebTabControl_SelectionChanged;
             FavoritesMenu.GetWebUrlEvent += () => viewModel;
-            FavoritesMenu.OpenNewTabEvent += TabItemAdd;
+            FavoritesMenu.OpenUrlEvent += OpenUrl;
             FavoritesMenu.RefreshFavoritesBarEvent += FavoritesBar.RefreshFavoritesBar;
             FavoritesBar.GetWebUrlEvent += () => viewModel;
-            FavoritesBar.OpenNewTabEvent += TabItemAdd;
+            FavoritesBar.OpenUrlEvent += OpenUrl;
         }
 
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace MWebBrowser.View
                 return;
             InitCommand();
             InitData();
-            TabItemAdd("https://www.cnblogs.com/mchao/p/14086441.html", false);
+            OpenUrl("https://www.cnblogs.com/mchao/p/14086441.html");
         }
 
         #region InitData
@@ -79,8 +79,8 @@ namespace MWebBrowser.View
 
         private void InitCommand()
         {
-            WebTabControl.TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
-            WebTabControl.TabItemRemoveCommand = new BaseCommand<object>(RemoveItemCommand);
+            WebTabControl.TabItemAddCommand = new BaseCommand<object>(OpenDefault);
+            WebTabControl.TabItemRemoveCommand = new BaseCommand<object>(RemoveCurrentItem);
         }
         #endregion
 
@@ -146,15 +146,20 @@ namespace MWebBrowser.View
             webTabItemUc.CefWebBrowser_PreviewKeyDown(virtualKey);
         }
 
-        public void TabItemAdd(object obj)
+        public void OpenUrl(object obj)
         {
-            TabItemAdd(obj, true);
+            AddNewTabItem(obj, false);
+        }
+
+        public void OpenDefault(object obj)
+        {
+            AddNewTabItem(obj, true);
         }
         /// <summary>
         /// 添加新的TabItem
         /// </summary>
         /// <param name="obj"></param>
-        public void TabItemAdd(object obj, bool firstNew)
+        private void AddNewTabItem(object obj, bool firstNew)
         {
             try
             {
@@ -164,7 +169,7 @@ namespace MWebBrowser.View
                     uc.SetCurrentEvent += SetCurrentSelectedInfo;
                     uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
                     uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
-                    uc.CefWebBrowser.OpenNewTabEvent += TabItemAdd;
+                    uc.CefWebBrowser.OpenUrlEvent += OpenUrl;
                     uc.CefWebBrowser.MouseWheelEvent += WebMouseWheel;
                     #region TabItem
 
@@ -184,7 +189,7 @@ namespace MWebBrowser.View
 
             }
         }
-        public void RemoveItemCommand(object obj)
+        public void RemoveCurrentItem(object obj)
         {
             if (obj is TabItem item)
             {
@@ -224,7 +229,7 @@ namespace MWebBrowser.View
             switch (obj)
             {
                 case "0":
-                    TabItemAdd(null, true);
+                    OpenDefault(null);
                     break;
                 case "4":
                     FavoritesMenu.FavoritesButton.IsChecked = true;

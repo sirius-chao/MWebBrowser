@@ -44,9 +44,9 @@ namespace MWebBrowser.Code.Helpers
         {
             f11Window.WebFormsHost.Child.Controls.Remove(browserUserControl);
             orgWebFormsHost.Child = browserUserControl;
+            Application.Current.MainWindow.Show();
             f11Window.Close();
             f11Window = null;
-            Application.Current.MainWindow.Show();
         }
     }
 }

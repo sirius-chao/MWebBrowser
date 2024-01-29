@@ -25,7 +25,7 @@ namespace MWebBrowser.View
         /// </summary>
         private MFavoritesItem _currentRightItem;
         public Func<WebTabControlViewModel> GetWebUrlEvent;
-        public Action<string> OpenUrlEvent;
+        public Action<string> OpenUrlCurrentEvent;
         public FavoritesBarUc()
         {
             InitializeComponent();
@@ -132,7 +132,7 @@ namespace MWebBrowser.View
             if (item == null || item.Type == 1) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
-            OpenUrlEvent?.Invoke(treeNode.Url);
+            OpenUrlCurrentEvent?.Invoke(treeNode.Url);
         }
 
         /// <summary>

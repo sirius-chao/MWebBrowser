@@ -37,10 +37,10 @@ namespace MWebBrowser.View
             this.Loaded += MWebBrowserUc_Loaded;
             WebTabControl.SelectionChanged += WebTabControl_SelectionChanged;
             FavoritesMenu.GetWebUrlEvent += () => viewModel;
-            FavoritesMenu.OpenUrlEvent += OpenUrl;
+            FavoritesMenu.OpenUrlCurrentEvent += OpenUrlByCurrentTab;
             FavoritesMenu.RefreshFavoritesBarEvent += FavoritesBar.RefreshFavoritesBar;
             FavoritesBar.GetWebUrlEvent += () => viewModel;
-            FavoritesBar.OpenUrlEvent += OpenUrl;
+            FavoritesBar.OpenUrlCurrentEvent += OpenUrlByCurrentTab;
         }
 
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace MWebBrowser.View
                 return;
             InitCommand();
             InitData();
-            OpenUrl("https://www.cnblogs.com/mchao/p/14086441.html");
+            OpenUrl("https://www.cnblogs.com/mchao/p/17987011.html");
         }
 
         #region InitData
@@ -144,6 +144,11 @@ namespace MWebBrowser.View
             if (!(item.Content is WebTabItemUc webTabItemUc)) return;
             int virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
             webTabItemUc.CefWebBrowser_PreviewKeyDown(virtualKey);
+        }
+
+        public void OpenUrlByCurrentTab(object obj)
+        {
+            currentWebTabItem.Load(obj?.ToString());
         }
 
         public void OpenUrl(object obj)

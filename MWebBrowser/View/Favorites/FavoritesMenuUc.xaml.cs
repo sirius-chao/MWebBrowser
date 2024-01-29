@@ -20,7 +20,7 @@ namespace MWebBrowser.View
     public partial class FavoritesMenuUc : UserControl
     {
         public Func<WebTabControlViewModel> GetWebUrlEvent;
-        public Action<string> OpenUrlEvent;
+        public Action<string> OpenUrlCurrentEvent;
 
         public Action RefreshFavoritesBarEvent;
         /// <summary>
@@ -284,7 +284,7 @@ namespace MWebBrowser.View
             if (item.IsEdit) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
-            OpenUrlEvent?.Invoke(treeNode.Url);
+            OpenUrlCurrentEvent?.Invoke(treeNode.Url);
         }
 
         private void ReName_OnClick(object sender, RoutedEventArgs e)

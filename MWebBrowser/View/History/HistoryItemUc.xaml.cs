@@ -41,8 +41,8 @@ namespace MWebBrowser.View.History
             if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
             try
             {
-                var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
-                uc.OpenUrl(viewModel.Url);
+                ControlHelper.FindVisualChild<HistoryUc>(Application.Current.MainWindow).FavoritesPop.IsOpen = false;
+                ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow).OpenUrl(viewModel.Url);
             }
             catch (Exception ex)
             {

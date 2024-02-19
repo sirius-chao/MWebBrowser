@@ -43,6 +43,10 @@ namespace MWebBrowser.View
             FavoritesBar.OpenUrlCurrentEvent += OpenUrlByCurrentTab;
         }
 
+        public void SetCurrentWebTabItemSize(bool setHeight)
+        {
+            currentWebTabItem.RowBottom.Height = new GridLength(setHeight ? 40 : 0);
+        }
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
         {
             if (this.IsInDesignMode())
@@ -172,7 +176,7 @@ namespace MWebBrowser.View
                 {
                     var uc = new WebTabItemUc { ViewModel = { FirstNew = firstNew, CurrentUrl = firstNew ? null : obj?.ToString() } };
                     uc.SetCurrentEvent += SetCurrentSelectedInfo;
-                    uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
+                    uc.CefWebBrowser.SetDownloadHandler(DownloadTool.DownloadFile);
                     uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
                     uc.CefWebBrowser.OpenUrlEvent += OpenUrl;
                     uc.CefWebBrowser.MouseWheelEvent += WebMouseWheel;

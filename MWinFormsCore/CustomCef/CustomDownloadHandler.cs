@@ -21,7 +21,6 @@ namespace MWinFormsCore.CustomCef
             IBeforeDownloadCallback callback)
         {
             if (callback.IsDisposed) return;
-            _downloadCallBackEvent?.Invoke(false, downloadItem);
             downloadItem.IsInProgress = true;
             var path = GetDownloadFullPath(downloadItem.SuggestedFileName);
             callback.Continue(path, false);
@@ -31,7 +30,7 @@ namespace MWinFormsCore.CustomCef
         public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
             IDownloadItemCallback callback)
         {
-            _downloadCallBackEvent?.Invoke(true, downloadItem);
+            _downloadCallBackEvent?.Invoke(downloadItem.PercentComplete != 0, downloadItem);
         }
 
 

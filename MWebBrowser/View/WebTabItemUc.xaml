@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0" x:Name="RowBottom"/>
         </Grid.RowDefinitions>
         <wfi:WindowsFormsHost Grid.Row="1" Name="formsHost"/>
     </Grid>

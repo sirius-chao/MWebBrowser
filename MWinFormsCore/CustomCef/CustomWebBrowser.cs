@@ -2,14 +2,12 @@
 using CefSharp.WinForms;
 using CefSharp.WinForms.Experimental;
 using CefSharp.WinForms.Handler;
-using MWinFormsCore.CustomCef;
 using System.Runtime.InteropServices;
 
 namespace MWinFormsCore.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {
-        public Action<bool, DownloadItem> DownloadCallBackEvent;
         public Action AfterLoadEvent;
         public Action<string> OpenUrlEvent;
         public Action<int> MouseWheelEvent;
@@ -20,11 +18,15 @@ namespace MWinFormsCore.CustomCef
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
             this.IsBrowserInitializedChanged += CustomWebBrowser_IsBrowserInitializedChanged;
             this.RequestHandler = new CustomRequestHandler();
-            this.DownloadHandler = new CustomDownloadHandler(DownloadCallBackEvent);
             this.RequestContext = new RequestContext();
             this.MenuHandler = new CustomMenuHandler();
             this.KeyboardHandler = new CustomKeyboardHandler();
             InitLifeSpanHandler();
+        }
+
+        public void SetDownloadHandler(Action<bool, DownloadItem> downloadCallBackEvent)
+        {
+            this.DownloadHandler = new CustomDownloadHandler(downloadCallBackEvent);
         }
 
         public void InitLifeSpanHandler()

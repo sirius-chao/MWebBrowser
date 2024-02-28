@@ -55,7 +55,6 @@ namespace MWebBrowser.View
                 
                 this.Dispatcher.Invoke(new Action(() =>
                 {
-                    //this.Visibility = Visibility.Visible;
                     DisplayTool();
                     var item = new DownloadToolItemUc { DataContext = viewModel };
                     ItemsParent.Children.Insert(0, item);

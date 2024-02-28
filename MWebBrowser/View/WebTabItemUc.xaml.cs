@@ -1,10 +1,12 @@
 ﻿using CefSharp;
+using CefSharp.WinForms;
 using Cys_Controls.Code;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using MWinFormsCore;
 using MWinFormsCore.CustomCef;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -117,8 +119,23 @@ namespace MWebBrowser.View
 
         public void Dispose()
         {
-            CefWebBrowser?.Dispose();
-            CefWebBrowser = null;
+           
+            DisposeBrowserAsync();
+        }
+
+        /// <summary>
+        ///  Synchronously disposing resources across threads might lead to crashes, so here we adopt asynchronous disposal.
+        /// </summary>
+        private async void DisposeBrowserAsync()
+        {
+            if (CefWebBrowser != null && !CefWebBrowser.IsDisposed)
+            {
+                await Task.Run(() =>
+                {
+                    CefWebBrowser.Dispose();
+                    CefWebBrowser = null;
+                });
+            }
         }
     }
 }

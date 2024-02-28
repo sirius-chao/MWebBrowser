@@ -8,7 +8,8 @@ namespace MWinFormsCore.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {
-        public Action AfterLoadEvent;
+        public bool firstLoad = true;
+        public Action<bool> AfterLoadEvent;
         public Action<string> OpenUrlEvent;
         public Action<int> MouseWheelEvent;
         private ChromiumWidgetNativeWindow messageInterceptor;
@@ -91,9 +92,11 @@ namespace MWinFormsCore.CustomCef
 
         private void CustomWebBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
+            
             if (e.IsLoading)
                 return;
-            AfterLoadEvent?.Invoke();
+            AfterLoadEvent?.Invoke(firstLoad);
+            firstLoad = false;
         }
 
 

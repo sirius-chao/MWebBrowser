@@ -227,7 +227,9 @@ namespace MWebBrowser.View
                     }
                 });
                 currentWebTabItem.CefWebBrowser.SetDownloadHandler(DownloadTool.DownloadFile);
+                currentWebTabItem.CefWebBrowser.OpenUrlEvent -= OpenUrl;
                 currentWebTabItem.CefWebBrowser.OpenUrlEvent += OpenUrl;
+                currentWebTabItem.CefWebBrowser.MouseWheelEvent -= WebMouseWheel;
                 currentWebTabItem.CefWebBrowser.MouseWheelEvent += WebMouseWheel;
                 var model = new HistoryModel { Url = viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = viewModel.Title };
                 await historyServices.AddHistory(model);

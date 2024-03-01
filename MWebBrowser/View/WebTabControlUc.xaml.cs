@@ -53,7 +53,7 @@ namespace MWebBrowser.View
                 return;
             InitCommand();
             InitData();
-            OpenUrl("https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd=%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95&fenlei=256&rsv_pq=0xa88a560e000d9ff0&rsv_t=d67ai6Q9iEfzJfak294KtSxhI5eqP%2F0dHPREfZ2%2BeoZwwZQaIOzg2k%2FUUrCb&rqlang=en&rsv_enter=1&rsv_dl=ts_1&rsv_sug3=5&rsv_sug1=4&rsv_sug7=100&rsv_sug2=1&rsv_btype=i&prefixsug=sou%2526%252339%253Bg&rsp=1&inputT=6684&rsv_sug4=7511");
+            OpenUrl("https://www.cnblogs.com/mchao/collections/12168");
         }
 
         #region InitData

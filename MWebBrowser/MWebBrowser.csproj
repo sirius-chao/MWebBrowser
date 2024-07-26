@@ -22,7 +22,7 @@
 	<PackageReference Include="CefSharp.WinForms.NETCore" Version="120.1.110" />
 	<PackageReference Include="log4net" Version="2.0.15" />
 	<PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
-	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />

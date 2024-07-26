@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
 	<Platforms>AnyCPU;x86;x64</Platforms>
 	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Nullable>enable</Nullable>

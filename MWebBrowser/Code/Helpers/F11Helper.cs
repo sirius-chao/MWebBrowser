@@ -1,49 +1,42 @@
-﻿using MWebBrowser.View;
-using MWinFormsCore;
+﻿using MWebBrowser.Code.CustomCef;
+using MWebBrowser.Code.Helpers;
+using MWebBrowser.View;
 using System.Windows;
-using System.Windows.Forms.Integration;
+using System.Windows.Controls;
 
-namespace MWebBrowser.Code.Helpers
+namespace MWinFormsBrowser.Code.Helpers
 {
     public static class F11Helper
     {
         private static F11Window f11Window;
-        private static Rect originalBounds;
-
-        public static void F11(BrowserUserControl browserUserControl, WindowsFormsHost orgWebFormsHost)
+        public static void F11(Grid parent, CustomWebBrowser CefWebBrowser)
         {
             DispatcherHelper.UIDispatcher.Invoke(() =>
             {
                 if (f11Window != null)
                 {
-                    ExitFullscreen(browserUserControl, orgWebFormsHost);
+                    ExitFullscreen(CefWebBrowser);
+                    parent.Children.Add(CefWebBrowser);
                 }
                 else
                 {
-                    EnterFullscreen(browserUserControl, orgWebFormsHost);
+                    parent.Children.Remove(CefWebBrowser);
+                    EnterFullscreen(CefWebBrowser);
                 }
             });
         }
 
-        private static void EnterFullscreen(BrowserUserControl browserUserControl, WindowsFormsHost orgWebFormsHost)
+        private static void EnterFullscreen(CustomWebBrowser CefWebBrowser)
         {
-            originalBounds = new Rect(
-                browserUserControl.CefWebBrowser.Margin.Left,
-                browserUserControl.CefWebBrowser.Margin.Top,
-                browserUserControl.CefWebBrowser.Width,
-                browserUserControl.CefWebBrowser.Height
-                );
             f11Window = new F11Window();
-            orgWebFormsHost.Child.Controls.Remove(browserUserControl);
-            f11Window.WebFormsHost.Child = browserUserControl;
+            f11Window.Parent.Children.Add(CefWebBrowser);
             f11Window.Show();
             Application.Current.MainWindow.Hide();
         }
 
-        private static void ExitFullscreen(BrowserUserControl browserUserControl, WindowsFormsHost orgWebFormsHost)
+        private static void ExitFullscreen(CustomWebBrowser CefWebBrowser)
         {
-            f11Window.WebFormsHost.Child.Controls.Remove(browserUserControl);
-            orgWebFormsHost.Child = browserUserControl;
+            f11Window.Parent.Children.Remove(CefWebBrowser);
             Application.Current.MainWindow.Show();
             f11Window.Close();
             f11Window = null;

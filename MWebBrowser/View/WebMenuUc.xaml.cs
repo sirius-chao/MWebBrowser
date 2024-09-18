@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
-using MWebBrowser.Code.Helpers;
 
 namespace MWebBrowser.View
 {
@@ -48,10 +47,7 @@ namespace MWebBrowser.View
 
         public void ZoomCallBack(string zoomRatio)
         {
-            DispatcherHelper.UIDispatcher.Invoke(() =>
-            {
-                ZoomMenuItem.ZoomRatio = zoomRatio;
-            });
+            ZoomMenuItem.ZoomRatio = zoomRatio;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cys_Common.Settings;
-using MWebBrowser.Code.Helpers;
+﻿using MWebBrowser.Code.Helpers;
 using System.Windows.Media;
 
 namespace MWebBrowser.ViewModel
@@ -14,10 +13,5 @@ namespace MWebBrowser.ViewModel
 
         private string _currentUrl;
         public string CurrentUrl { get => _currentUrl; set { _currentUrl = value; OnPropertyChanged("CurrentUrl"); } }
-
-        private bool _firstNews;
-        public bool FirstNew { get => _firstNews; set { _firstNews = value; OnPropertyChanged("FirstNews"); } }
-
-        public string FirstNewUrl { get => GlobalInfo.SearchEngineSetting.GetDefaultSearchEngineItemInfo().Url; } 
     }
 }

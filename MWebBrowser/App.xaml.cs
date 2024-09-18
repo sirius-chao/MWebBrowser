@@ -1,4 +1,4 @@
-﻿using MWinFormsCore;
+﻿using MWPFCore;
 using System.Windows;
 
 namespace MWebBrowser

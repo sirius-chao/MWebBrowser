@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="MWinFormsBrowser.View.FavoritesBarUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="800" Height="40" Background="{DynamicResource WebBrowserBrushes.TabHeaderIsSelectedBackground}">
+    <Grid VerticalAlignment="Center">
+        <controls:MFavorites x:Name="MenuParent" ContextMenuOpening="FavoritesTree_OnContextMenuOpening" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseLeftButtonUp="FavoritesTree_OnPreviewMouseLeftButtonUp">
+            <controls:MFavorites.ContextMenu>
+                <ContextMenu x:Name="FavoritesContextMenu" Style="{DynamicResource WebCustomMenus.DefaultContextMenu}">
+                    <controls:MMenuItem Tag="0" x:Name="OpenAllFolder" Header="全部打开（16个）" Icon="&#xe600;"/>
+                    <controls:MMenuItem Tag="1" x:Name="OpenNewAllFolder" Header="在新建窗口中全部打开（16个）" Icon="&#xe602;"/>
+                    <controls:MMenuItem Tag="2" Header="在新 InPrivate窗口全部打开（16个）" Icon="&#xe68c;"/>
+                    <controls:MMenuItem Tag="4" Header="按名称排序" Icon="&#xe606;"/>
+                    <controls:MMenuItem Tag="5" x:Name="ReName" Header="重命名" Icon="&#xe712;" Click="ReName_OnClick"/>
+                    <controls:MMenuItem Tag="6" x:Name="DeleteNode" Header="删除" Icon="&#xe74e;" IconFontSize="26" Click="Delete_OnClick"/>
+                    <controls:MMenuItem Tag="7" Header="将当前标签页添加到文件夹" Icon="&#xe659;" Click="AddFavorites_OnClick"/>
+                    <controls:MMenuItem Tag="8" Header="将所有标签页添加到文件夹" Visibility="Collapsed"/>
+                    <controls:MMenuItem Tag="9" Header="添加文件夹" Icon="&#xe652;" Click="AddFolder_OnClick"/>
+                </ContextMenu>
+            </controls:MFavorites.ContextMenu>
+        </controls:MFavorites>
+        <Popup x:Name="ReNamePop" PopupAnimation="Fade" Placement="Bottom"  PlacementTarget="{Binding ElementName=MenuParent}"
+               StaysOpen="False" AllowsTransparency="True" VerticalOffset="-40">
+            <Border Background="{DynamicResource WebBrowserBrushes.WebMenuBackground}" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource Color.MenuItemDropShadowBrush}" Opacity="0.3" ShadowDepth="3"/>
+                </Border.Effect>
+                <Grid Width="320" Height="140">
+                    <Grid Margin="20,20,20,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="编辑文件夹名称" FontSize="18" Foreground="{DynamicResource ColorBrush.FontPrimaryColor}"/>
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="名称" Foreground="{DynamicResource ColorBrush.FontPrimaryColor}" VerticalAlignment="Center"/>
+                            <TextBox x:Name="FolderName" Height="30" Width="236" Margin="10,0,0,0" Style="{DynamicResource TextBox.ReName}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="保存" Style="{DynamicResource Button.ReSave}" Click="ReSave_OnClick"/>
+                            <Button Content="取消" Style="{DynamicResource Button.ReCancel}" Click="ReCancel_OnClick" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

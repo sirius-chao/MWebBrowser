@@ -1,14 +1,15 @@
 using CefSharp;
+using CefSharp.DevTools.WebAudio;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model.Tables;
 using Cys_Resource.Code;
 using Cys_Services;
 using MWebBrowser.Code;
-using MWebBrowser.Code.CefWebOperate;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,42 +23,47 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class WebTabControlUc : UserControl
     {
-        private readonly WebTabControlViewModel viewModel;
-        private WebTabItemUc currentWebTabItem;
-        private HistoryServices historyServices;
-        private CefWebZoom cefWebZoom;
-        private CefWebSearch cefWebSearch;
+        private readonly WebTabControlViewModel _viewModel;
+        private WebTabItemUc _currentWebTabItem;
+        private readonly System.Timers.Timer _zoomToolTimer = new System.Timers.Timer(1000);
+        private int _zoomWaitingCount = -1;
+
+        private HistoryServices _historyServices;
         public WebTabControlUc()
         {
             InitializeComponent();
             InitWebTabControl();
-            historyServices = new HistoryServices();
-            viewModel = new WebTabControlViewModel();
-            this.DataContext = viewModel;
+            _historyServices = new HistoryServices();
+            _viewModel = new WebTabControlViewModel();
+            this.DataContext = _viewModel;
             this.Loaded += MWebBrowserUc_Loaded;
             WebTabControl.SelectionChanged += WebTabControl_SelectionChanged;
-            FavoritesMenu.GetWebUrlEvent += () => viewModel;
-            FavoritesMenu.OpenUrlCurrentEvent += OpenUrlByCurrentTab;
+            FavoritesMenu.GetWebUrlEvent += () => _viewModel;
+            FavoritesMenu.OpenNewTabEvent += TabItemAdd;
             FavoritesMenu.RefreshFavoritesBarEvent += FavoritesBar.RefreshFavoritesBar;
-            FavoritesBar.GetWebUrlEvent += () => viewModel;
-            FavoritesBar.OpenUrlCurrentEvent += OpenUrlByCurrentTab;
+            FavoritesBar.GetWebUrlEvent += () => _viewModel;
+            FavoritesBar.OpenNewTabEvent += TabItemAdd;
         }
 
-        public void SetCurrentWebTabItemSize(bool setHeight)
-        {
-            currentWebTabItem.RowBottom.Height = new GridLength(setHeight ? 40 : 0);
-        }
         private void MWebBrowserUc_Loaded(object sender, RoutedEventArgs e)
         {
             if (this.IsInDesignMode())
                 return;
             InitCommand();
             InitData();
-            OpenUrl("https://www.cnblogs.com/mchao/collections/12168");
+            InitSearchCommand();
+            InitWebMenu();
+            TabItemAdd("http://www.baidu.com");
         }
 
         #region InitData
 
+        private void InitWebMenu()
+        {
+            WebMenu.ZoomInEvent += ZoomIn;
+            WebMenu.ZoomOutEvent += ZoomOut;
+            WebMenu.ExecuteMenuEvent += ExecuteMenuFunction;
+        }
         private void InitWebTabControl()
         {
             WebTabControl.CloseTabEvent += () =>
@@ -75,16 +81,14 @@ namespace MWebBrowser.View
             {
                 WebTabControl.PartHeaderParentGrid.MouseLeftButtonDown += mw.HeaderClickOrDragMove;
             }
-            cefWebZoom = new CefWebZoom(WebMenu, viewModel, SearchText);
-            cefWebSearch = new CefWebSearch(viewModel);
+
             DownloadTool.ShowDownloadTabEvent += ShowDownloadTab;
-            WebMenu.ExecuteMenuEvent += ExecuteMenuFunction;
         }
 
         private void InitCommand()
         {
-            WebTabControl.TabItemAddCommand = new BaseCommand<object>(OpenDefault);
-            WebTabControl.TabItemRemoveCommand = new BaseCommand<object>(RemoveCurrentItem);
+            WebTabControl.TabItemAddCommand = new BaseCommand<object>(TabItemAdd);
+            WebTabControl.TabItemRemoveCommand = new BaseCommand<object>(RemoveItemCommand);
         }
         #endregion
 
@@ -102,8 +106,6 @@ namespace MWebBrowser.View
             WebTabControl.SetHeaderPanelWidth();
         }
         #endregion
-
-        private void Print() => currentWebTabItem.CefWebBrowser.Print();
 
         #region SettingTool
 
@@ -134,7 +136,6 @@ namespace MWebBrowser.View
         }
 
         #endregion
-
         #region TabControl
 
         /// <summary>
@@ -144,50 +145,35 @@ namespace MWebBrowser.View
         /// <param name="e"></param>
         private void WebTabControlUc_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key != Key.F5) return;
             if (!(WebTabControl.SelectedItem is TabItem item)) return;
             if (!(item.Content is WebTabItemUc webTabItemUc)) return;
-            int virtualKey = KeyInterop.VirtualKeyFromKey(e.Key);
-            webTabItemUc.CefWebBrowser_PreviewKeyDown(virtualKey);
+            webTabItemUc.CefWebBrowser?.Reload();
         }
 
-        public void OpenUrlByCurrentTab(object obj)
-        {
-            currentWebTabItem.Load(obj?.ToString());
-        }
-
-        public void OpenUrl(object obj)
-        {
-            AddNewTabItem(obj, false);
-        }
-
-        public void OpenDefault(object obj)
-        {
-            AddNewTabItem(obj, true);
-        }
         /// <summary>
         /// 添加新的TabItem
         /// </summary>
         /// <param name="obj"></param>
-        private void AddNewTabItem(object obj, bool firstNew)
+        public void TabItemAdd(object obj)
         {
             try
             {
-                DispatcherHelper.UIDispatcher.Invoke(() =>
-                {
-                    var uc = new WebTabItemUc { ViewModel = { FirstNew = firstNew, CurrentUrl = firstNew ? null : obj?.ToString() } };
-                    uc.SetCurrentEvent += SetCurrentSelectedInfo;
-                    uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
-                    #region TabItem
+                var uc = new WebTabItemUc { ViewModel = { CurrentUrl = obj?.ToString() } };
+                uc.SetCurrentEvent += SetCurrentSelectedInfo;
+                uc.CefWebBrowser.DownloadCallBackEvent += DownloadTool.DownloadFile;
+                uc.CefWebBrowser.AfterLoadEvent += AfterLoad;
+                uc.WebMouseWheelEvent += WebMouseWheel;
+                #region TabItem
 
-                    var item = new TabItem { Content = uc };
-                    var titleBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Title") };
-                    item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
-                    var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
-                    item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
-                    WebTabControl.Items.Add(item);
-                    WebTabControl.SelectedItem = item;
-                    WebTabControl.SetHeaderPanelWidth();
-                });
+                var item = new TabItem { Content = uc };
+                var titleBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Title") };
+                item.SetBinding(HeaderedContentControl.HeaderProperty, titleBind);
+                var faviconBind = new Binding { Source = uc.DataContext, Path = new PropertyPath("Favicon") };
+                item.SetBinding(AttachedPropertyClass.ImageSourceProperty, faviconBind);
+                WebTabControl.Items.Add(item);
+                WebTabControl.SelectedItem = item;
+                WebTabControl.SetHeaderPanelWidth();
                 #endregion
             }
             catch (Exception ex)
@@ -195,13 +181,13 @@ namespace MWebBrowser.View
 
             }
         }
-        public void RemoveCurrentItem(object obj)
+        public void RemoveItemCommand(object obj)
         {
             if (obj is TabItem item)
             {
                 WebTabControl.Items.Remove(item);
 
-                if (item.Content is WebTabItemUc webTabItem)
+                if(item.Content is WebTabItemUc webTabItem)
                 {
                     webTabItem.Dispose();
                 }
@@ -213,26 +199,18 @@ namespace MWebBrowser.View
                 WebTabControl.CloseTabEvent?.Invoke();
             }
         }
-        private async void AfterLoad(bool isFirstLoad)
+        private async void AfterLoad()
         {
             try
             {
                 Dispatcher.Invoke(() =>
                 {
-                    viewModel.CurrentUrl = currentWebTabItem.CefWebBrowser.Address;
-                    if (string.IsNullOrEmpty(currentWebTabItem.CefWebBrowser.Address) && isFirstLoad)
-                    {
-                        RemoveCurrentItem(this.WebTabControl.SelectedValue);
-                        return;
-                    }
+                    _viewModel.Title = _currentWebTabItem.CefWebBrowser.Title;
+                    _viewModel.CurrentUrl = _currentWebTabItem.CefWebBrowser.Address;
                 });
-                currentWebTabItem.CefWebBrowser.SetDownloadHandler(DownloadTool.DownloadFile);
-                currentWebTabItem.CefWebBrowser.OpenUrlEvent -= OpenUrl;
-                currentWebTabItem.CefWebBrowser.OpenUrlEvent += OpenUrl;
-                currentWebTabItem.CefWebBrowser.MouseWheelEvent -= WebMouseWheel;
-                currentWebTabItem.CefWebBrowser.MouseWheelEvent += WebMouseWheel;
-                var model = new HistoryModel { Url = viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = viewModel.Title };
-                await historyServices.AddHistory(model);
+
+                var model = new HistoryModel { Url = _viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = _viewModel.Title };
+                await _historyServices.AddHistory(model);
             }
             catch (Exception ex)
             {
@@ -243,7 +221,7 @@ namespace MWebBrowser.View
             switch (obj)
             {
                 case "0":
-                    OpenDefault(null);
+                    TabItemAdd("http://www.baidu.com");
                     break;
                 case "4":
                     FavoritesMenu.FavoritesButton.IsChecked = true;
@@ -253,9 +231,6 @@ namespace MWebBrowser.View
                     break;
                 case "6":
                     ShowDownloadTab();
-                    break;
-                case "10":
-                    Print();
                     break;
                 case "15":
                     ShowSettingTab();
@@ -269,13 +244,10 @@ namespace MWebBrowser.View
         /// <param name="e"></param>
         private void WebTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (WebTabControl.SelectedItem is TabItem { Content: WebTabItemUc webTabItemUc })
-            {
-                currentWebTabItem = webTabItemUc;
-                cefWebZoom.SetWebTabItem(currentWebTabItem);
-                cefWebSearch.SetWebTabItem(currentWebTabItem);
-                SetCurrentSelectedInfo();
-            }
+            if (!(WebTabControl.SelectedItem is TabItem item)) return;
+            if (!(item.Content is WebTabItemUc webTabItemUc)) return;
+            _currentWebTabItem = webTabItemUc;
+            SetCurrentSelectedInfo();
         }
 
         /// <summary>
@@ -283,19 +255,187 @@ namespace MWebBrowser.View
         /// </summary>
         private void SetCurrentSelectedInfo()
         {
-            viewModel.CurrentUrl = currentWebTabItem.ViewModel.CurrentUrl;
-            viewModel.Title = currentWebTabItem.ViewModel.Title;
+            _viewModel.CurrentUrl = _currentWebTabItem.ViewModel.CurrentUrl;
+            _viewModel.Title = _currentWebTabItem.ViewModel.Title;
         }
 
         #endregion
 
-        private void WebMouseWheel(int delta) => cefWebZoom.WebMouseWheelZoom(delta);
+        #region 搜索框
+        private void InitSearchCommand()
+        {
+            SearchText.ZoomInCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomIn();
+            });
+            SearchText.ZoomOutCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomOut();
+            });
+            SearchText.ZoomResetCommand = new BaseCommand<object>((obj) =>
+            {
+                ZoomReset();
+            });
+        }
 
-        #region search box
-        private void NavigationBack_OnClick(object sender, RoutedEventArgs e) => cefWebSearch.NavigationBack();
-        private void NavigationForward_OnClick(object sender, RoutedEventArgs e) => cefWebSearch.NavigationForward();
-        private void NavigationRefresh_OnClick(object sender, RoutedEventArgs e) => cefWebSearch.NavigationRefresh();
-        private void Search_OnKeyDown(object sender, KeyEventArgs e) => cefWebSearch.SearchOnKeyDown(e);
+        /// <summary>
+        /// 前进
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavigationBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentWebTabItem?.CefWebBrowser.Back();
+        }
+        /// <summary>
+        /// 后退
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavigationForward_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentWebTabItem?.CefWebBrowser.Forward();
+        }
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavigationRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentWebTabItem?.CefWebBrowser.Reload();
+        }
+
+        /// <summary>
+        /// 搜索框KeyDown事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Search_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            var pattern = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
+            var match = Regex.Match(_viewModel.CurrentUrl, pattern);
+
+            if (!match.Success) return;
+            if (string.IsNullOrEmpty(_viewModel.CurrentUrl)) return;
+            _currentWebTabItem.Load(_viewModel.CurrentUrl);
+
+            DispatcherHelper.UIDispatcher.Invoke(() =>
+            {
+                //使search框失去焦点
+                this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            });
+        }
+
+        #endregion
+
+        #region 缩放
+        private void WebMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
+            {
+                _viewModel.ZoomStaysOpen = false;
+                return;
+            }
+            try
+            {
+                if (e.Delta > 0)
+                {
+                    ZoomIn();
+                }
+                else if (e.Delta < 0)
+                {
+                    ZoomOut();
+                }
+                _zoomWaitingCount = 0;
+                _zoomToolTimer.Elapsed -= ZoomToolTimer_Elapsed;
+                _zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
+                _zoomToolTimer.AutoReset = true;
+                _zoomToolTimer.Enabled = true;
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ZoomToolTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (_zoomWaitingCount > 2)
+            {
+                _zoomToolTimer?.Stop();
+                _viewModel.ZoomIsChecked = false;
+                _viewModel.ZoomStaysOpen = false;
+                _zoomWaitingCount = -1;
+                return;
+            }
+
+            if (_zoomWaitingCount > -1)
+            {
+                _zoomWaitingCount++;
+            }
+        }
+
+        private void ZoomIn()
+        {
+            if (_currentWebTabItem.CefWebBrowser.ZoomLevel < 4)
+            {
+                _currentWebTabItem.CefWebBrowser.ZoomInCommand.Execute(null);
+            }
+            _viewModel.ZoomStaysOpen = true;
+            SetSearchZoomStatus();
+        }
+
+        private void ZoomOut()
+        {
+            if (_currentWebTabItem.CefWebBrowser.ZoomLevel > -4)
+            {
+                _currentWebTabItem.CefWebBrowser.ZoomOutCommand.Execute(null);
+            }
+            _viewModel.ZoomStaysOpen = true;
+            SetSearchZoomStatus();
+        }
+
+        private void ZoomReset()
+        {
+            _currentWebTabItem.CefWebBrowser.ZoomResetCommand.Execute(null);
+            // CefWebBrowser.SetZoomLevel(0);
+            SetSearchZoomStatus();
+        }
+
+        private void SetSearchZoomStatus()
+        {
+            if (null == _currentWebTabItem) return;
+            if (_currentWebTabItem.CefWebBrowser.ZoomLevel < 0)
+            {
+                _viewModel.ZoomLevelType = ZoomType.Out;
+                _viewModel.ZoomIsChecked = true;
+                if (_currentWebTabItem.CefWebBrowser.ZoomLevel > -1)
+                {
+                    _viewModel.ZoomRatio = "90%";
+                }
+                else if (_currentWebTabItem.CefWebBrowser.ZoomLevel <= 1)
+                {
+                    var radio = Math.Round((_currentWebTabItem.CefWebBrowser.ZoomLevel + 5) / 5 * 100);
+                    _viewModel.ZoomRatio = $"{radio}%";
+                }
+            }
+            else if (_currentWebTabItem.CefWebBrowser.ZoomLevel > 0)
+            {
+                _viewModel.ZoomLevelType = ZoomType.In;
+                _viewModel.ZoomIsChecked = true;
+                var radio = Math.Round((1 + _currentWebTabItem.CefWebBrowser.ZoomLevel) * 100, 2);
+                _viewModel.ZoomRatio = $"{radio}%";
+            }
+            else
+            {
+                _viewModel.ZoomLevelType = ZoomType.None;
+                _viewModel.ZoomIsChecked = false;
+            }
+            WebMenu.ZoomCallBack(_viewModel.ZoomRatio);
+        }
         #endregion
     }
 }

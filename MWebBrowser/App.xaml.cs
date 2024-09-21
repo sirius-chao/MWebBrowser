@@ -1,4 +1,4 @@
-﻿using MWPFCore;
+﻿using MWebBrowser;
 using System.Windows;
 
 namespace MWebBrowser

@@ -1,9 +1,9 @@
 ﻿using CefSharp;
-using MWPFCore.Code.CustomCef;
+using MWebBrowser.Code.CustomCef;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MWPFCore
+namespace MWebBrowser
 {
     /// <summary>
     /// Interaction logic for BrowserUserControl.xaml

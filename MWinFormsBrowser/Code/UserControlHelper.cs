@@ -1,4 +1,6 @@
-﻿namespace MWinFormsCore.Code
+﻿using System.Windows.Forms;
+
+namespace MWinFormsCore.Code
 {
     public class UserControlHelper
     {

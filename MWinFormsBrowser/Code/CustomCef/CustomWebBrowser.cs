@@ -2,7 +2,9 @@
 using CefSharp.WinForms;
 using CefSharp.WinForms.Experimental;
 using CefSharp.WinForms.Handler;
+using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace MWinFormsCore.CustomCef
 {

@@ -1,4 +1,5 @@
-﻿namespace MWinFormsCore
+﻿using System.Windows.Forms;
+namespace MWinFormsCore
 {
     partial class BrowserUserControl
     {

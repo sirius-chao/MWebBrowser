@@ -29,11 +29,12 @@
     <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
     <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
     <ProjectReference Include="..\Cys_Services\Cys_Services.csproj" />
-    <ProjectReference Include="..\MWinFormsCore\MWinFormsCore.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="RefDLL\" />
+    <Compile Update="BrowserUserControl.cs" />
+    <Compile Update="Code\CustomCef\CustomWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

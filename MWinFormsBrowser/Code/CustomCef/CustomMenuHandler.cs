@@ -1,7 +1,7 @@
 ﻿using CefSharp;
-using MWinFormsCore.Code;
+using MWinFormsBrowser.Code;
 
-namespace MWinFormsCore.CustomCef
+namespace MWinFormsBrowser.CustomCef
 {
     public class CustomMenuHandler : IContextMenuHandler
     {

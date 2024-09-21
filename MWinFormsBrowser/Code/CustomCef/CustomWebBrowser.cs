@@ -6,7 +6,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace MWinFormsCore.CustomCef
+namespace MWinFormsBrowser.CustomCef
 {
     public class CustomWebBrowser: ChromiumWebBrowser
     {

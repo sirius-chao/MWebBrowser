@@ -3,7 +3,7 @@ using CefSharp.WinForms;
 using System;
 using System.IO;
 
-namespace MWinFormsCore
+namespace MWinFormsBrowser
 {
     public class InitCefSharp
     {

@@ -1,6 +1,6 @@
 ﻿using CefSharp;
 
-namespace MWinFormsCore.CustomCef
+namespace MWinFormsBrowser.CustomCef
 {
     public class CustomLifeSpanHandler : ILifeSpanHandler
     {

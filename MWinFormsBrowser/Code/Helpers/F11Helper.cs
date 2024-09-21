@@ -1,5 +1,5 @@
 ﻿using MWinFormsBrowser.View;
-using MWinFormsCore;
+using MWinFormsBrowser;
 using System.Windows;
 using System.Windows.Forms.Integration;
 

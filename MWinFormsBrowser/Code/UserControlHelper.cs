@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace MWinFormsCore.Code
+namespace MWinFormsBrowser.Code
 {
     public class UserControlHelper
     {

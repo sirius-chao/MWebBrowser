@@ -68,5 +68,13 @@
 		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win&quot; &gt; nul" />
 		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win8-arm&quot; &gt; nul" />
 		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win-arm64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\freebsd&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\illumos&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\ios&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\osx&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\osx-arm64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\solaris&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\tvos&quot; &gt; nul" />
 	</Target>
 </Project>

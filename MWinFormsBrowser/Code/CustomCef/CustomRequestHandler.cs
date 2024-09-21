@@ -1,7 +1,7 @@
 ﻿using CefSharp;
 using System.Security.Cryptography.X509Certificates;
 
-namespace MWinFormsCore.CustomCef
+namespace MWinFormsBrowser.CustomCef
 {
     public class CustomRequestHandler: IRequestHandler
     {

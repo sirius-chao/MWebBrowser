@@ -53,7 +53,7 @@ namespace MWebBrowser.View
             InitData();
             InitSearchCommand();
             InitWebMenu();
-            TabItemAdd("http://www.baidu.com");
+            TabItemAdd("https://www.cnblogs.com/mchao/collections/12168");
         }
 
         #region InitData
@@ -221,7 +221,7 @@ namespace MWebBrowser.View
             switch (obj)
             {
                 case "0":
-                    TabItemAdd("http://www.baidu.com");
+                    TabItemAdd("https://www.cnblogs.com/mchao/collections/12168");
                     break;
                 case "4":
                     FavoritesMenu.FavoritesButton.IsChecked = true;

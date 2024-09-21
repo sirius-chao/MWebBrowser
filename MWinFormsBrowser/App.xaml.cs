@@ -1,4 +1,4 @@
-﻿using MWinFormsCore;
+﻿using MWinFormsBrowser;
 using System.Windows;
 
 namespace MWinFormsBrowser

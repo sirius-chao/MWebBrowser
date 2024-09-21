@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-namespace MWinFormsCore
+namespace MWinFormsBrowser
 {
     partial class BrowserUserControl
     {

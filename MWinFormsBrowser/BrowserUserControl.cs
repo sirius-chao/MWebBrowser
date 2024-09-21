@@ -1,8 +1,8 @@
 ﻿using CefSharp.WinForms;
-using MWinFormsCore.CustomCef;
+using MWinFormsBrowser.CustomCef;
 using System.Linq;
 using System.Windows.Forms;
-namespace MWinFormsCore
+namespace MWinFormsBrowser
 {
     public partial class BrowserUserControl : UserControl
     {

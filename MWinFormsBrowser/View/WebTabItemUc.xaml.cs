@@ -2,8 +2,8 @@
 using Cys_Controls.Code;
 using MWinFormsBrowser.Code.Helpers;
 using MWinFormsBrowser.ViewModel;
-using MWinFormsCore;
-using MWinFormsCore.CustomCef;
+using MWinFormsBrowser;
+using MWinFormsBrowser.CustomCef;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;

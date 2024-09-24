@@ -1,14 +1,12 @@
 ﻿using CefSharp;
-using CefSharp.WinForms;
 using Cys_Controls.Code;
+using MWebBrowser.Code.CustomCef;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
-using MWinFormsCore;
-using MWinFormsCore.CustomCef;
+using MWinFormsBrowser.Code.Helpers;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MWebBrowser.View
@@ -16,13 +14,14 @@ namespace MWebBrowser.View
     /// <summary>
     /// Interaction logic for WebTabItem.xaml
     /// </summary>
-    public partial class WebTabItemUc : System.Windows.Controls.UserControl
+    public partial class WebTabItemUc : UserControl
     {
         public CustomWebBrowser CefWebBrowser;
-        BrowserUserControl browserUserControl;
         public WebTabItemViewModel ViewModel;
+        public Action<object, MouseWheelEventArgs> WebMouseWheelEvent;
 
         public Action SetCurrentEvent;
+        private readonly double _zoomLevelIncrement = 0.2;//默认为0.1
 
 
         public WebTabItemUc()
@@ -32,79 +31,66 @@ namespace MWebBrowser.View
             InitializeComponent();
             InitWebBrowser();
         }
-        public void CefWebBrowser_PreviewKeyDown(int keyCode)
+
+
+        private void CefWebBrowser_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            Keys key = (Keys)Enum.Parse(typeof(Keys), keyCode.ToString());
-            if (key == Keys.F5)
+            WebMouseWheelEvent?.Invoke(sender,e);
+        }
+      
+
+        private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
             {
                 this.CefWebBrowser.Reload();
             }
 
-            if (key == Keys.F11)
+            if (e.Key == Key.F11)
             {
-                F11Helper.F11(browserUserControl, formsHost);
-            }
-
-            if (key == Keys.F12)
-            {
-                this.browserUserControl.ShowDevToolsDocked();
+                F11Helper.F11(WebParentGrid, CefWebBrowser);
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
-                && (key == Keys.D0 || key == Keys.NumPad0))
+                && (e.Key == Key.D0 || e.Key == Key.NumPad0))
             {
-                DispatcherHelper.UIDispatcher.Invoke(() =>
-                {
-                    var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
-                    uc?.SearchText.ZoomResetCommand.Execute(null);
-                });
+                var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
+                uc?.SearchText.ZoomResetCommand.Execute(null);
             }
         }
 
-        private void CefWebBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
+        private void CefWebBrowser_TitleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            string address = CefWebBrowser.Address;
-            ViewModel.Title = e.Title;
-            DispatcherHelper.UIDispatcher.Invoke(() =>
-            {
-                ViewModel.Favicon = ImageHelper.GetFavicon(address);
-            });
-            ViewModel.CurrentUrl = address;
+            ViewModel.Title = CefWebBrowser.Title;
+            ViewModel.Favicon = ImageHelper.GetFavicon(CefWebBrowser.Address);
+            ViewModel.CurrentUrl = CefWebBrowser.Address;
             SetCurrentEvent?.Invoke();
         }
         private void InitWebBrowser()
         {
-            browserUserControl = new BrowserUserControl();
-            CefWebBrowser = browserUserControl.CefWebBrowser;
-            formsHost.Child = browserUserControl;
+            CefWebBrowser = new CustomWebBrowser();
+            //NavigationStackPanel.DataContext = CefWebBrowser;
             CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
+            WebParentGrid.Children.Add(CefWebBrowser);
             this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
-            if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)
-            {
-                handler.KeyboardCallBack += CefWebBrowser_PreviewKeyDown;
-            }
+            this.CefWebBrowser.PreviewKeyDown += CefWebBrowser_PreviewKeyDown;
+            this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
+            this.CefWebBrowser.PreviewMouseWheel += CefWebBrowser_PreviewMouseWheel;
+            var s = this.CefWebBrowser.ZoomLevel;
 
-           // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
         }
 
-        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
+        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             try
             {
-                DispatcherHelper.UIDispatcher.Invoke(() =>
-                {
-                    if (!CefWebBrowser.IsBrowserInitialized) return;
-                    CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
 
-                    if (ViewModel.FirstNew)
-                    {
-                        Load(ViewModel.FirstNewUrl);
-                    }
-                    else if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
-                    {
-                        Load(ViewModel.CurrentUrl);
-                    }
-                });
+                if (!CefWebBrowser.IsBrowserInitialized) return;
+                CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
+                if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                {
+                    Load(ViewModel.CurrentUrl);
+                }
             }
             catch (Exception ex)
             {
@@ -117,25 +103,10 @@ namespace MWebBrowser.View
             CefWebBrowser.Load(url);
         }
 
-        public void Dispose()
-        {
-           
-            DisposeBrowserAsync();
-        }
-
-        /// <summary>
-        ///  Synchronously disposing resources across threads might lead to crashes, so here we adopt asynchronous disposal.
-        /// </summary>
-        private async void DisposeBrowserAsync()
-        {
-            if (CefWebBrowser != null && !CefWebBrowser.IsDisposed)
-            {
-                await Task.Run(() =>
-                {
-                    CefWebBrowser.Dispose();
-                    CefWebBrowser = null;
-                });
-            }
+        public void Dispose() 
+        { 
+            CefWebBrowser?.Dispose();
+            CefWebBrowser = null;
         }
     }
 }

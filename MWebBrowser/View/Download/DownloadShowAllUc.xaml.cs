@@ -1,5 +1,5 @@
-﻿using Cys_Common.Code.Configure;
-using Cys_Common.Settings;
+﻿using Cys_Common.Settings;
+using MWebBrowser.Code.Configure;
 using MWebBrowser.ViewModel;
 using System;
 using System.Diagnostics;

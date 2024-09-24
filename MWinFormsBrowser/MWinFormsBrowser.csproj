@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+	<ApplicationIcon>Icon.ico</ApplicationIcon>
+	<BaseOutputPath>$(SolutionDir)Output\Winforms\$(Platform)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Model\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <None Remove="Model\**" />
+    <Page Remove="Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="CefSharp.WinForms.NETCore" Version="120.1.110" />
+	<PackageReference Include="log4net" Version="2.0.15" />
+	<PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cys_Common\Cys_Common.csproj" />
+    <ProjectReference Include="..\Cys_CustomControls\Cys_CustomControls.csproj" />
+    <ProjectReference Include="..\Cys_Resource\Cys_Resource.csproj" />
+    <ProjectReference Include="..\Cys_Services\Cys_Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="BrowserUserControl.cs" />
+    <Compile Update="Code\CustomCef\CustomWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="RefDLL\x64\pepflashplayer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RefDLL\x86\pepflashplayer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\Download\DownloadShowAllUc.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Message Importance="high" Text="Removing other runtimes..." />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\alpine-x64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-arm&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-arm64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-armel&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-musl-x64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-x64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux-x86&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\osx-x64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\unix&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win8-arm&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\win-arm64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\freebsd&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\illumos&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\ios&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\linux&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\osx&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\osx-arm64&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\solaris&quot; &gt; nul" />
+		<Exec Command="rmdir /s /q &quot;$(OutputPath)runtimes\tvos&quot; &gt; nul" />
+	</Target>
+</Project>

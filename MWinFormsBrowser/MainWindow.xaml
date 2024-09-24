@@ -1,0 +1,16 @@
+﻿<controls:MMainWindow x:Class="MWinFormsBrowser.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="clr-namespace:Cys_CustomControls.Controls;assembly=Cys_CustomControls"
+                      xmlns:webBrowser="clr-namespace:MWinFormsBrowser.View"
+                      mc:Ignorable="d"
+             Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinWidth="500" WindowState="Maximized">
+    <Grid>
+        <webBrowser:WebTabControlUc x:Name="WebTabControl"/>
+        <Grid x:Name="InputMethodMask" Visibility="Collapsed">
+
+        </Grid>
+    </Grid>
+</controls:MMainWindow>

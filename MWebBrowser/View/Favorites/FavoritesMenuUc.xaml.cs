@@ -1,4 +1,5 @@
-﻿using Cys_Common.Settings;
+﻿using Cys_Common;
+using Cys_Common.Settings;
 using Cys_Controls.Code;
 using Cys_CustomControls.Controls;
 using Cys_Model;
@@ -20,7 +21,7 @@ namespace MWebBrowser.View
     public partial class FavoritesMenuUc : UserControl
     {
         public Func<WebTabControlViewModel> GetWebUrlEvent;
-        public Action<string> OpenUrlCurrentEvent;
+        public Action<string> OpenNewTabEvent;
 
         public Action RefreshFavoritesBarEvent;
         /// <summary>
@@ -284,7 +285,7 @@ namespace MWebBrowser.View
             if (item.IsEdit) return;
             if (!GlobalInfo.FavoritesSetting.FavoritesInfos.Exists(x => x.NodeId == item.NodeId)) return;
             var treeNode = GlobalInfo.FavoritesSetting.FavoritesInfos.First(x => x.NodeId == item.NodeId);
-            OpenUrlCurrentEvent?.Invoke(treeNode.Url);
+            OpenNewTabEvent?.Invoke(treeNode.Url);
         }
 
         private void ReName_OnClick(object sender, RoutedEventArgs e)

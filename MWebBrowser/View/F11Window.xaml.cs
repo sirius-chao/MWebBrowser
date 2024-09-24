@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Forms.Integration;
 
 namespace MWebBrowser.View
 {
@@ -8,17 +7,9 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class F11Window : Window
     {
-        public WindowsFormsHost WebFormsHost { get; }
         public F11Window()
         {
             InitializeComponent();
-            WebFormsHost = new WindowsFormsHost();
-            InitData();
-        }
-
-        private void InitData()
-        {
-            Parent.Children.Add(WebFormsHost);
         }
     }
 }

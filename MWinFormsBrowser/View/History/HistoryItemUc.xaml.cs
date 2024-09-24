@@ -1,0 +1,64 @@
+﻿using Cys_Controls.Code;
+using MWinFormsBrowser.ViewModel;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+
+namespace MWinFormsBrowser.View.History
+{
+    /// <summary>
+    /// Interaction logic for HistoryItemUc.xaml
+    /// </summary>
+    public partial class HistoryItemUc : UserControl
+    {
+        public HistoryItemUc()
+        {
+            InitializeComponent();
+        }
+
+        private void History_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
+
+            viewModel.BackColorBrush = Application.Current.MainWindow?.FindResource("WebBrowserBrushes.HistoryBackgroundOver") as SolidColorBrush;
+            viewModel.DateVisible = Visibility.Collapsed;
+            viewModel.CloseVisible = Visibility.Visible;
+        }
+
+        private void History_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
+
+            viewModel.BackColorBrush = Application.Current.MainWindow?.FindResource("WebBrowserBrushes.HistoryBackground") as SolidColorBrush;
+            viewModel.DateVisible = Visibility.Visible;
+            viewModel.CloseVisible = Visibility.Collapsed;
+        }
+
+        private void History_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
+            try
+            {
+                ControlHelper.FindVisualChild<HistoryUc>(Application.Current.MainWindow).FavoritesPop.IsOpen = false;
+                ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow).OpenUrl(viewModel.Url);
+            }
+            catch (Exception ex)
+            {
+                MLogger.Info($"history mouse left button down exception:{ex}");
+            }
+        }
+
+        private void Delete_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is HistoryItemViewModel viewModel)) return;
+            var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
+            var historyUc = ControlHelper.FindVisualChild<HistoryUc>(uc);
+            if (historyUc?.DataContext is HistoryViewModel hvm)
+            {
+                hvm.DeleteHistoryItem(viewModel);
+            }
+        }
+    }
+}

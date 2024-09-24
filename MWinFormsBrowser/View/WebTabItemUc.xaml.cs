@@ -1,0 +1,139 @@
+﻿using CefSharp;
+using Cys_Controls.Code;
+using MWinFormsBrowser.Code.Helpers;
+using MWinFormsBrowser.ViewModel;
+using MWinFormsBrowser;
+using MWinFormsBrowser.CustomCef;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
+
+namespace MWinFormsBrowser.View
+{
+    /// <summary>
+    /// Interaction logic for WebTabItem.xaml
+    /// </summary>
+    public partial class WebTabItemUc : System.Windows.Controls.UserControl
+    {
+        public CustomWebBrowser CefWebBrowser;
+        BrowserUserControl browserUserControl;
+        public WebTabItemViewModel ViewModel;
+
+        public Action SetCurrentEvent;
+
+
+        public WebTabItemUc()
+        {
+            ViewModel = new WebTabItemViewModel();
+            this.DataContext = ViewModel;
+            InitializeComponent();
+            InitWebBrowser();
+        }
+        public void CefWebBrowser_PreviewKeyDown(int keyCode)
+        {
+            Keys key = (Keys)Enum.Parse(typeof(Keys), keyCode.ToString());
+            if (key == Keys.F5)
+            {
+                this.CefWebBrowser.Reload();
+            }
+
+            if (key == Keys.F11)
+            {
+                F11Helper.F11(browserUserControl, formsHost);
+            }
+
+            if (key == Keys.F12)
+            {
+                this.browserUserControl.ShowDevToolsDocked();
+            }
+
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
+                && (key == Keys.D0 || key == Keys.NumPad0))
+            {
+                DispatcherHelper.UIDispatcher.Invoke(() =>
+                {
+                    var uc = ControlHelper.FindVisualParent<WebTabControlUc>(this);
+                    uc?.SearchText.ZoomResetCommand.Execute(null);
+                });
+            }
+        }
+
+        private void CefWebBrowser_TitleChanged(object sender, TitleChangedEventArgs e)
+        {
+            string address = CefWebBrowser.Address;
+            ViewModel.Title = e.Title;
+            DispatcherHelper.UIDispatcher.Invoke(() =>
+            {
+                ViewModel.Favicon = ImageHelper.GetFavicon(address);
+            });
+            ViewModel.CurrentUrl = address;
+            SetCurrentEvent?.Invoke();
+        }
+        private void InitWebBrowser()
+        {
+            browserUserControl = new BrowserUserControl();
+            CefWebBrowser = browserUserControl.CefWebBrowser;
+            formsHost.Child = browserUserControl;
+            CefWebBrowser.IsBrowserInitializedChanged += CefWebBrowser_IsBrowserInitializedChanged;
+            this.CefWebBrowser.TitleChanged += CefWebBrowser_TitleChanged;
+            if(this.CefWebBrowser.KeyboardHandler is CustomKeyboardHandler handler)
+            {
+                handler.KeyboardCallBack += CefWebBrowser_PreviewKeyDown;
+            }
+
+           // this.CefWebBrowser.ZoomLevelIncrement = _zoomLevelIncrement;
+        }
+
+        private void CefWebBrowser_IsBrowserInitializedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DispatcherHelper.UIDispatcher.Invoke(() =>
+                {
+                    if (!CefWebBrowser.IsBrowserInitialized) return;
+                    CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
+
+                    if (ViewModel.FirstNew)
+                    {
+                        Load(ViewModel.FirstNewUrl);
+                    }
+                    else if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+                    {
+                        Load(ViewModel.CurrentUrl);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public void Load(string url)
+        {
+            CefWebBrowser.Load(url);
+        }
+
+        public void Dispose()
+        {
+           
+            DisposeBrowserAsync();
+        }
+
+        /// <summary>
+        ///  Synchronously disposing resources across threads might lead to crashes, so here we adopt asynchronous disposal.
+        /// </summary>
+        private async void DisposeBrowserAsync()
+        {
+            if (CefWebBrowser != null && !CefWebBrowser.IsDisposed)
+            {
+                await Task.Run(() =>
+                {
+                    CefWebBrowser.Dispose();
+                    CefWebBrowser = null;
+                });
+            }
+        }
+    }
+}

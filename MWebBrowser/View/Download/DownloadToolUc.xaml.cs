@@ -1,14 +1,11 @@
 ﻿using CefSharp;
+using Cys_Common.Settings;
 using MWebBrowser.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using Cys_Common.Settings;
-using MWebBrowser.Code.Helpers;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Cys_Controls.Code;
 
 namespace MWebBrowser.View
 {
@@ -55,6 +52,7 @@ namespace MWebBrowser.View
                 
                 this.Dispatcher.Invoke(new Action(() =>
                 {
+                    //this.Visibility = Visibility.Visible;
                     DisplayTool();
                     var item = new DownloadToolItemUc { DataContext = viewModel };
                     ItemsParent.Children.Insert(0, item);
@@ -93,15 +91,11 @@ namespace MWebBrowser.View
 
         private void DisplayTool()
         {
-            var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
-            uc.SetCurrentWebTabItemSize(true);
             _displayToolStoryboard.Begin();
         }
 
         private void HideTool()
         {
-            var uc = ControlHelper.FindVisualChild<WebTabControlUc>(Application.Current.MainWindow);
-            uc.SetCurrentWebTabItemSize(false);
             _hideToolStoryboard.Begin();
         }
 

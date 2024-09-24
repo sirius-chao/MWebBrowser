@@ -4,7 +4,7 @@ using MWebBrowser.View;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MWinFormsBrowser.Code.Helpers
+namespace MWebBrowser.Code.Helpers
 {
     public static class F11Helper
     {

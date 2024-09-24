@@ -3,7 +3,6 @@ using Cys_Controls.Code;
 using MWebBrowser.Code.CustomCef;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
-using MWinFormsBrowser.Code.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,7 +38,7 @@ namespace MWebBrowser.View
         }
       
 
-        private void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
+        public void CefWebBrowser_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F5)
             {
@@ -87,7 +86,12 @@ namespace MWebBrowser.View
 
                 if (!CefWebBrowser.IsBrowserInitialized) return;
                 CefWebBrowser.Focus();//浏览器初始化完毕后获得焦点
-                if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
+
+                if (ViewModel.FirstNew)
+                {
+                    Load(ViewModel.FirstNewUrl);
+                }
+                else if (!string.IsNullOrEmpty(ViewModel.CurrentUrl))
                 {
                     Load(ViewModel.CurrentUrl);
                 }

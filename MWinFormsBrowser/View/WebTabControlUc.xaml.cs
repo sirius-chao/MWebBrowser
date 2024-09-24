@@ -53,7 +53,7 @@ namespace MWinFormsBrowser.View
                 return;
             InitCommand();
             InitData();
-            OpenUrl("https://www.cnblogs.com/mchao/collections/12168");
+            OpenUrl("chrome://extensions");
         }
 
         #region InitData

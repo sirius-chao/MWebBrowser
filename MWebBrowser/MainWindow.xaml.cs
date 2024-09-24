@@ -31,12 +31,14 @@ namespace MWebBrowser
             DbSeed.InitData();
             GlobalInfo.DownloadSetting = DataRepositoryServer.Instance.DownloadData.GetDownloadSetting();
             GlobalInfo.FavoritesSetting = DataRepositoryServer.Instance.FavoritesData.GetFavoritesSetting();
+            GlobalInfo.SearchEngineSetting = DataRepositoryServer.Instance.SearchEngineData.GetSearchEngineSetting();
         }
 
         private void SaveGlobalInfo()
         {
             DataRepositoryServer.Instance.DownloadData.SaveDownloadSetting();
             DataRepositoryServer.Instance.FavoritesData.SaveFavoritesSetting();
+            DataRepositoryServer.Instance.SearchEngineData.SaveSearchEngineSetting();
         }
     }
 }

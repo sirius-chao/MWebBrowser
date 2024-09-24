@@ -10,8 +10,10 @@ namespace MWebBrowser.Code.CustomCef
     public class CustomWebBrowser: ChromiumWebBrowser
     {
         public Action<bool, DownloadItem> DownloadCallBackEvent;
-
-        public Action AfterLoadEvent;
+        public bool firstLoad = true;
+        public Action<bool> AfterLoadEvent;
+        public Action<string> OpenUrlEvent;
+        public Action<int> MouseWheelEvent;
         public CustomWebBrowser()
         {
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
@@ -34,7 +36,8 @@ namespace MWebBrowser.Code.CustomCef
         {
             if (e.IsLoading)
                 return;
-            AfterLoadEvent?.Invoke();
+            AfterLoadEvent?.Invoke(firstLoad);
+            firstLoad = false;
         }
 
         public override void OnApplyTemplate()
@@ -48,6 +51,10 @@ namespace MWebBrowser.Code.CustomCef
             this.RequestContext = new RequestContext();
         }
 
+        public void SetDownloadHandler(Action<bool, DownloadItem> downloadCallBackEvent)
+        {
+            this.DownloadHandler = new CustomDownloadHandler(downloadCallBackEvent);
+        }
         public void OpenNewTab(string url)
         {
             Dispatcher.Invoke(() =>

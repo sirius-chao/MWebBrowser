@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using MWebBrowser.ViewModel;
+using MWebBrowser.ViewModel.Setting;
+using System.Windows.Controls;
 
 namespace MWebBrowser.View
 {
@@ -7,9 +9,12 @@ namespace MWebBrowser.View
     /// </summary>
     public partial class SettingUc : UserControl
     {
+        private readonly SettingViewModel settingViewModel;
         public SettingUc()
         {
             InitializeComponent();
+            settingViewModel = new SettingViewModel();
+            this.DataContext = settingViewModel; 
         }
     }
 }

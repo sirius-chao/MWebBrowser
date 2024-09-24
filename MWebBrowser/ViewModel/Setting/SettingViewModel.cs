@@ -1,6 +1,7 @@
 ﻿using Cys_Common.Common;
 using Cys_Common.Enum;
 using MWebBrowser.View.Setting.SearchEngine;
+using MWebBrowser.ViewModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 

@@ -6,6 +6,7 @@ using Cys_Resource.Code;
 using Cys_Services;
 using MWebBrowser.Code;
 using MWebBrowser.Code.CefWebOperate;
+using MWebBrowser.Code.Extensions;
 using MWebBrowser.Code.Helpers;
 using MWebBrowser.ViewModel;
 using System;
@@ -253,6 +254,9 @@ namespace MWebBrowser.View
                     break;
                 case "15":
                     ShowSettingTab();
+                    break;
+                case "8":
+                    currentWebTabItem.CefWebBrowser.AddCustomExtensions();
                     break;
             }
         }

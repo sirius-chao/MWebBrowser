@@ -11,15 +11,11 @@ namespace MWebBrowser.Code.CefWebOperate
     {
         private readonly System.Timers.Timer zoomToolTimer = new System.Timers.Timer(1000);
         private int zoomWaitingCount = -1;
-        private readonly double zoomLevelIncrement = 0.1;
 
         private readonly WebMenuUc webMenuUc;
         private readonly WebTabControlViewModel viewModel;
         private WebTabItemUc currentWebTabItem;
         private readonly MSearchText mSearchText;
-
-        private readonly double minusZoom = -7.6;
-        private readonly double positiveZoom = 8;
         public CefWebZoom(WebMenuUc webMenuUc, WebTabControlViewModel viewModel, MSearchText mSearchText)
         {
             this.webMenuUc = webMenuUc;
@@ -37,7 +33,7 @@ namespace MWebBrowser.Code.CefWebOperate
 
         #region Zoom
 
-        public void WebMouseWheelZoom(int delta)
+        public void WebMouseWheelZoom(object sender, MouseWheelEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)
             {
@@ -46,11 +42,11 @@ namespace MWebBrowser.Code.CefWebOperate
             }
             try
             {
-                if (delta > 0)
+                if (e.Delta > 0)
                 {
                     ZoomIn();
                 }
-                else if (delta < 0)
+                else if (e.Delta < 0)
                 {
                     ZoomOut();
                 }
@@ -59,6 +55,7 @@ namespace MWebBrowser.Code.CefWebOperate
                 zoomToolTimer.Elapsed += ZoomToolTimer_Elapsed;
                 zoomToolTimer.AutoReset = true;
                 zoomToolTimer.Enabled = true;
+                e.Handled = true;
             }
             catch (Exception ex)
             {
@@ -121,7 +118,6 @@ namespace MWebBrowser.Code.CefWebOperate
         private void ZoomReset()
         {
             currentWebTabItem.CefWebBrowser.ZoomResetCommand.Execute(null);
-            // CefWebBrowser.SetZoomLevel(0);
             SetSearchZoomStatus();
         }
 

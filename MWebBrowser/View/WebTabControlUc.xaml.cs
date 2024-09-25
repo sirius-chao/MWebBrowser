@@ -224,8 +224,8 @@ namespace MWebBrowser.View
                 currentWebTabItem.CefWebBrowser.SetDownloadHandler(DownloadTool.DownloadFile);
                 currentWebTabItem.CefWebBrowser.OpenUrlEvent -= OpenUrl;
                 currentWebTabItem.CefWebBrowser.OpenUrlEvent += OpenUrl;
-                currentWebTabItem.CefWebBrowser.MouseWheelEvent -= WebMouseWheel;
-                currentWebTabItem.CefWebBrowser.MouseWheelEvent += WebMouseWheel;
+                currentWebTabItem.WebMouseWheelEvent -= WebMouseWheel;
+                currentWebTabItem.WebMouseWheelEvent += WebMouseWheel;
                 var model = new HistoryModel { Url = viewModel.CurrentUrl, VisitTime = DateTime.Now, FormVisit = 0, Title = viewModel.Title };
                 await historyServices.AddHistory(model);
             }
@@ -286,8 +286,7 @@ namespace MWebBrowser.View
         }
 
         #endregion
-
-        private void WebMouseWheel(int delta) => cefWebZoom.WebMouseWheelZoom(delta);
+        private void WebMouseWheel(object sender, MouseWheelEventArgs e) => cefWebZoom.WebMouseWheelZoom(sender, e);
 
         #region search box
         private void NavigationBack_OnClick(object sender, RoutedEventArgs e) => cefWebSearch.NavigationBack();

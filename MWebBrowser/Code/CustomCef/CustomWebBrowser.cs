@@ -13,7 +13,6 @@ namespace MWebBrowser.Code.CustomCef
         public bool firstLoad = true;
         public Action<bool> AfterLoadEvent;
         public Action<string> OpenUrlEvent;
-        public Action<int> MouseWheelEvent;
         public CustomWebBrowser()
         {
             this.LoadingStateChanged += CustomWebBrowser_LoadingStateChanged;
